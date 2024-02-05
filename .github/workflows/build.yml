@@ -23,6 +23,7 @@ jobs:
         id: getRelease
         run: |
           curl https://github.com/candlepin/candlepin/blob/main/api/candlepin-api-spec.yaml -o candlepin-api-spec.yaml
+          yq -r '.info.version' < candlepin-api-spec.yaml`
           version= "`yq -r '.info.version' < candlepin-api-spec.yaml`" 
           major="v`echo $version | awk -F '.' '{print $1}'`"
           tag="release/$version"
