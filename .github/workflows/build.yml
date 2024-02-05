@@ -55,6 +55,7 @@ jobs:
           --git-user-id=content-services \
           --git-repo-id=caliri/release/${{ steps.getRelease.outputs.major }} \
           --package-name=caliri \
+          -o /local/release \
           -p packageVersion=${{ steps.getRelease.outputs.version }}
 
       - uses: actions/setup-go@v2
