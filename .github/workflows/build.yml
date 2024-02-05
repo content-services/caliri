@@ -26,7 +26,7 @@ jobs:
           yq -r '.info.version' < candlepin-api-spec.yaml
           version="`yq -r '.info.version' < candlepin-api-spec.yaml`"        
           major="v`echo $version | awk -F '.' '{print $1}'`"
-          tag="release/$version"
+          tag="release/v$version"
           echo $version
           echo $major
           echo $tag
