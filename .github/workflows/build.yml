@@ -17,11 +17,11 @@ jobs:
         with:
           prefix: release/
           fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
-
+      - name: Set up yq
+        uses: frenck/action-setup-yq@v1
       - name: Get current version from file
         id: getRelease
         run: |
-          pip install yq
           curl https://github.com/candlepin/candlepin/blob/main/api/candlepin-api-spec.yaml -o candlepin-api-spec.yaml
           version= "`yq -r '.info.version' < candlepin-api-spec.yaml`" 
           major="v`echo $version | awk -F '.' '{print $1}'`"
