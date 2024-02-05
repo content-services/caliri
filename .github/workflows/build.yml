@@ -78,6 +78,7 @@ jobs:
           git config --global user.name ${{secrets.GIT_USER_NAME}}
           git config --global user.email ${{secrets.GIT_USER_EMAIL}}
           git add release/
+          git add candlepin-api-spec.yaml
           git commit -am "Update bindings to ${{ steps.getRelease.outputs.tag }}"
           git push
           echo "NEW_SHA=`git rev-parse HEAD`" >> $GITHUB_OUTPUT
