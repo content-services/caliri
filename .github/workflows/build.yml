@@ -48,10 +48,10 @@ jobs:
           docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli:latest-release generate \
           -i /local/candlepin-api-spec.yaml \
           -g go \
-          --git-user-id=content-services 
+          --git-user-id=content-services \
           --git-repo-id=caliri/release/${{ steps.getRelease.outputs.major }} \
-          --package-name=caliri
-          -p packageVersion=${{ steps.getRelease.outputs.version }} \
+          --package-name=caliri \
+          -p packageVersion=${{ steps.getRelease.outputs.version }}
 
       - uses: actions/setup-go@v2
         if: steps.getRelease.outputs.tag != steps.repoRelease.outputs.tag
