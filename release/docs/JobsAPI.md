@@ -101,7 +101,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
@@ -113,8 +112,8 @@ func main() {
 	principal := []string{"Inner_example"} // []string | Cleans up jobs based on principals (optional)
 	origin := []string{"Inner_example"} // []string | Cleans up jobs based on origins (optional)
 	executor := []string{"Inner_example"} // []string | Cleans up jobs based on executors (optional)
-	after := time.Now() // time.Time | Cleans up jobs to those on or after this date (optional)
-	before := time.Now() // time.Time | Cleans up jobs to those on or before this date (optional)
+	after := "after_example" // string | Cleans up jobs to those on or after this date (optional)
+	before := "before_example" // string | Cleans up jobs to those on or before this date (optional)
 	force := true // bool | Cleans up job forcefully (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
@@ -147,8 +146,8 @@ Name | Type | Description  | Notes
  **principal** | **[]string** | Cleans up jobs based on principals | 
  **origin** | **[]string** | Cleans up jobs based on origins | 
  **executor** | **[]string** | Cleans up jobs based on executors | 
- **after** | **time.Time** | Cleans up jobs to those on or after this date | 
- **before** | **time.Time** | Cleans up jobs to those on or before this date | 
+ **after** | **string** | Cleans up jobs to those on or after this date | 
+ **before** | **string** | Cleans up jobs to those on or before this date | 
  **force** | **bool** | Cleans up job forcefully | [default to false]
 
 ### Return type
@@ -317,7 +316,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
@@ -329,8 +327,8 @@ func main() {
 	principal := []string{"Inner_example"} // []string | Filter jobs based on principals (optional)
 	origin := []string{"Inner_example"} // []string | Filter jobs based on origins (optional)
 	executor := []string{"Inner_example"} // []string | Filter jobs based on executors (optional)
-	after := time.Now() // time.Time | Filter jobs to those on or after this date (optional)
-	before := time.Now() // time.Time | Filter jobs to those on or before this date (optional)
+	after := "after_example" // string | Filter jobs to those on or after this date (optional)
+	before := "before_example" // string | Filter jobs to those on or before this date (optional)
 	page := int32(2) // int32 | Page index to return (optional)
 	perPage := int32(10) // int32 | Number of items to return per page (optional)
 	order := "asc" // string | Direction of ordering (optional)
@@ -366,8 +364,8 @@ Name | Type | Description  | Notes
  **principal** | **[]string** | Filter jobs based on principals | 
  **origin** | **[]string** | Filter jobs based on origins | 
  **executor** | **[]string** | Filter jobs based on executors | 
- **after** | **time.Time** | Filter jobs to those on or after this date | 
- **before** | **time.Time** | Filter jobs to those on or before this date | 
+ **after** | **string** | Filter jobs to those on or after this date | 
+ **before** | **string** | Filter jobs to those on or before this date | 
  **page** | **int32** | Page index to return | 
  **perPage** | **int32** | Number of items to return per page | 
  **order** | **string** | Direction of ordering | 

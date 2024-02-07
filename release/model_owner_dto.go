@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the OwnerDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &OwnerDTO{}
 
 // OwnerDTO DTO representing an owner/organization
 type OwnerDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	DisplayName *string `json:"displayName,omitempty"`
 	Key *string `json:"key,omitempty"`
@@ -32,7 +31,7 @@ type OwnerDTO struct {
 	ContentAccessModeList *string `json:"contentAccessModeList,omitempty"`
 	AutobindHypervisorDisabled *bool `json:"autobindHypervisorDisabled,omitempty"`
 	AutobindDisabled *bool `json:"autobindDisabled,omitempty"`
-	LastRefreshed *time.Time `json:"lastRefreshed,omitempty"`
+	LastRefreshed *string `json:"lastRefreshed,omitempty"`
 	ParentOwner *NestedOwnerDTO `json:"parentOwner,omitempty"`
 	UpstreamConsumer *UpstreamConsumerDTO `json:"upstreamConsumer,omitempty"`
 	Anonymous *bool `json:"anonymous,omitempty"`
@@ -58,9 +57,9 @@ func NewOwnerDTOWithDefaults() *OwnerDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *OwnerDTO) GetCreated() time.Time {
+func (o *OwnerDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -68,7 +67,7 @@ func (o *OwnerDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OwnerDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *OwnerDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -84,15 +83,15 @@ func (o *OwnerDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *OwnerDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *OwnerDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *OwnerDTO) GetUpdated() time.Time {
+func (o *OwnerDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -100,7 +99,7 @@ func (o *OwnerDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OwnerDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *OwnerDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -116,8 +115,8 @@ func (o *OwnerDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *OwnerDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *OwnerDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -442,9 +441,9 @@ func (o *OwnerDTO) SetAutobindDisabled(v bool) {
 }
 
 // GetLastRefreshed returns the LastRefreshed field value if set, zero value otherwise.
-func (o *OwnerDTO) GetLastRefreshed() time.Time {
+func (o *OwnerDTO) GetLastRefreshed() string {
 	if o == nil || IsNil(o.LastRefreshed) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastRefreshed
@@ -452,7 +451,7 @@ func (o *OwnerDTO) GetLastRefreshed() time.Time {
 
 // GetLastRefreshedOk returns a tuple with the LastRefreshed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OwnerDTO) GetLastRefreshedOk() (*time.Time, bool) {
+func (o *OwnerDTO) GetLastRefreshedOk() (*string, bool) {
 	if o == nil || IsNil(o.LastRefreshed) {
 		return nil, false
 	}
@@ -468,8 +467,8 @@ func (o *OwnerDTO) HasLastRefreshed() bool {
 	return false
 }
 
-// SetLastRefreshed gets a reference to the given time.Time and assigns it to the LastRefreshed field.
-func (o *OwnerDTO) SetLastRefreshed(v time.Time) {
+// SetLastRefreshed gets a reference to the given string and assigns it to the LastRefreshed field.
+func (o *OwnerDTO) SetLastRefreshed(v string) {
 	o.LastRefreshed = &v
 }
 

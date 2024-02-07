@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **ProductId** | **string** |  | 
 **ProductName** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
 **Arch** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **time.Time** |  | [optional] 
-**EndDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **string** |  | [optional] 
+**EndDate** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *ConsumerInstalledProductDTO) GetCreated() time.Time`
+`func (o *ConsumerInstalledProductDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *ConsumerInstalledProductDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *ConsumerInstalledProductDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *ConsumerInstalledProductDTO) SetCreated(v time.Time)`
+`func (o *ConsumerInstalledProductDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -61,20 +61,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *ConsumerInstalledProductDTO) GetUpdated() time.Time`
+`func (o *ConsumerInstalledProductDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *ConsumerInstalledProductDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *ConsumerInstalledProductDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *ConsumerInstalledProductDTO) SetUpdated(v time.Time)`
+`func (o *ConsumerInstalledProductDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -231,20 +231,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *ConsumerInstalledProductDTO) GetStartDate() time.Time`
+`func (o *ConsumerInstalledProductDTO) GetStartDate() string`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *ConsumerInstalledProductDTO) GetStartDateOk() (*time.Time, bool)`
+`func (o *ConsumerInstalledProductDTO) GetStartDateOk() (*string, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *ConsumerInstalledProductDTO) SetStartDate(v time.Time)`
+`func (o *ConsumerInstalledProductDTO) SetStartDate(v string)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -256,20 +256,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *ConsumerInstalledProductDTO) GetEndDate() time.Time`
+`func (o *ConsumerInstalledProductDTO) GetEndDate() string`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *ConsumerInstalledProductDTO) GetEndDateOk() (*time.Time, bool)`
+`func (o *ConsumerInstalledProductDTO) GetEndDateOk() (*string, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *ConsumerInstalledProductDTO) SetEndDate(v time.Time)`
+`func (o *ConsumerInstalledProductDTO) SetEndDate(v string)`
 
 SetEndDate sets EndDate field to given value.
 

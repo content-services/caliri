@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Uuid** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **Environment** | Pointer to [**EnvironmentDTO**](EnvironmentDTO.md) |  | [optional] 
 **EntitlementCount** | Pointer to **int64** |  | [optional] 
 **Facts** | Pointer to **map[string]string** |  | [optional] 
-**LastCheckin** | Pointer to **time.Time** |  | [optional] 
+**LastCheckin** | Pointer to **string** |  | [optional] 
 **InstalledProducts** | Pointer to [**[]ConsumerInstalledProductDTO**](ConsumerInstalledProductDTO.md) |  | [optional] 
 **CanActivate** | Pointer to **bool** |  | [optional] 
 **Capabilities** | Pointer to [**[]CapabilityDTO**](CapabilityDTO.md) |  | [optional] 
@@ -60,20 +60,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *ConsumerDTO) GetCreated() time.Time`
+`func (o *ConsumerDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *ConsumerDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *ConsumerDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *ConsumerDTO) SetCreated(v time.Time)`
+`func (o *ConsumerDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -85,20 +85,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *ConsumerDTO) GetUpdated() time.Time`
+`func (o *ConsumerDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *ConsumerDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *ConsumerDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *ConsumerDTO) SetUpdated(v time.Time)`
+`func (o *ConsumerDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -510,20 +510,20 @@ HasFacts returns a boolean if a field has been set.
 
 ### GetLastCheckin
 
-`func (o *ConsumerDTO) GetLastCheckin() time.Time`
+`func (o *ConsumerDTO) GetLastCheckin() string`
 
 GetLastCheckin returns the LastCheckin field if non-nil, zero value otherwise.
 
 ### GetLastCheckinOk
 
-`func (o *ConsumerDTO) GetLastCheckinOk() (*time.Time, bool)`
+`func (o *ConsumerDTO) GetLastCheckinOk() (*string, bool)`
 
 GetLastCheckinOk returns a tuple with the LastCheckin field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastCheckin
 
-`func (o *ConsumerDTO) SetLastCheckin(v time.Time)`
+`func (o *ConsumerDTO) SetLastCheckin(v string)`
 
 SetLastCheckin sets LastCheckin field to given value.
 

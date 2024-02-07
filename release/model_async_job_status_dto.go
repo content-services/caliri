@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the AsyncJobStatusDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &AsyncJobStatusDTO{}
 
 // AsyncJobStatusDTO DTO representing an async job status
 type AsyncJobStatusDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Key *string `json:"key,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -31,8 +30,8 @@ type AsyncJobStatusDTO struct {
 	Principal *string `json:"principal,omitempty"`
 	State *string `json:"state,omitempty"`
 	PreviousState *string `json:"previousState,omitempty"`
-	StartTime *time.Time `json:"startTime,omitempty"`
-	EndTime *time.Time `json:"endTime,omitempty"`
+	StartTime *string `json:"startTime,omitempty"`
+	EndTime *string `json:"endTime,omitempty"`
 	Attempts *int32 `json:"attempts,omitempty"`
 	MaxAttempts *int32 `json:"maxAttempts,omitempty"`
 	StatusPath *string `json:"statusPath,omitempty"`
@@ -58,9 +57,9 @@ func NewAsyncJobStatusDTOWithDefaults() *AsyncJobStatusDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *AsyncJobStatusDTO) GetCreated() time.Time {
+func (o *AsyncJobStatusDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -68,7 +67,7 @@ func (o *AsyncJobStatusDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AsyncJobStatusDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *AsyncJobStatusDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -84,15 +83,15 @@ func (o *AsyncJobStatusDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *AsyncJobStatusDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *AsyncJobStatusDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *AsyncJobStatusDTO) GetUpdated() time.Time {
+func (o *AsyncJobStatusDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -100,7 +99,7 @@ func (o *AsyncJobStatusDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AsyncJobStatusDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *AsyncJobStatusDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -116,8 +115,8 @@ func (o *AsyncJobStatusDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *AsyncJobStatusDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *AsyncJobStatusDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -410,9 +409,9 @@ func (o *AsyncJobStatusDTO) SetPreviousState(v string) {
 }
 
 // GetStartTime returns the StartTime field value if set, zero value otherwise.
-func (o *AsyncJobStatusDTO) GetStartTime() time.Time {
+func (o *AsyncJobStatusDTO) GetStartTime() string {
 	if o == nil || IsNil(o.StartTime) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StartTime
@@ -420,7 +419,7 @@ func (o *AsyncJobStatusDTO) GetStartTime() time.Time {
 
 // GetStartTimeOk returns a tuple with the StartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AsyncJobStatusDTO) GetStartTimeOk() (*time.Time, bool) {
+func (o *AsyncJobStatusDTO) GetStartTimeOk() (*string, bool) {
 	if o == nil || IsNil(o.StartTime) {
 		return nil, false
 	}
@@ -436,15 +435,15 @@ func (o *AsyncJobStatusDTO) HasStartTime() bool {
 	return false
 }
 
-// SetStartTime gets a reference to the given time.Time and assigns it to the StartTime field.
-func (o *AsyncJobStatusDTO) SetStartTime(v time.Time) {
+// SetStartTime gets a reference to the given string and assigns it to the StartTime field.
+func (o *AsyncJobStatusDTO) SetStartTime(v string) {
 	o.StartTime = &v
 }
 
 // GetEndTime returns the EndTime field value if set, zero value otherwise.
-func (o *AsyncJobStatusDTO) GetEndTime() time.Time {
+func (o *AsyncJobStatusDTO) GetEndTime() string {
 	if o == nil || IsNil(o.EndTime) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.EndTime
@@ -452,7 +451,7 @@ func (o *AsyncJobStatusDTO) GetEndTime() time.Time {
 
 // GetEndTimeOk returns a tuple with the EndTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AsyncJobStatusDTO) GetEndTimeOk() (*time.Time, bool) {
+func (o *AsyncJobStatusDTO) GetEndTimeOk() (*string, bool) {
 	if o == nil || IsNil(o.EndTime) {
 		return nil, false
 	}
@@ -468,8 +467,8 @@ func (o *AsyncJobStatusDTO) HasEndTime() bool {
 	return false
 }
 
-// SetEndTime gets a reference to the given time.Time and assigns it to the EndTime field.
-func (o *AsyncJobStatusDTO) SetEndTime(v time.Time) {
+// SetEndTime gets a reference to the given string and assigns it to the EndTime field.
+func (o *AsyncJobStatusDTO) SetEndTime(v string) {
 	o.EndTime = &v
 }
 

@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the ImportRecordDTO type satisfies the MappedNullable interface at compile time
@@ -20,14 +19,14 @@ var _ MappedNullable = &ImportRecordDTO{}
 
 // ImportRecordDTO Represents a import record details
 type ImportRecordDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Status *string `json:"status,omitempty"`
 	StatusMessage *string `json:"statusMessage,omitempty"`
 	FileName *string `json:"fileName,omitempty"`
 	GeneratedBy *string `json:"generatedBy,omitempty"`
-	GeneratedDate *time.Time `json:"generatedDate,omitempty"`
+	GeneratedDate *string `json:"generatedDate,omitempty"`
 	UpstreamConsumer *ImportUpstreamConsumerDTO `json:"upstreamConsumer,omitempty"`
 }
 
@@ -49,9 +48,9 @@ func NewImportRecordDTOWithDefaults() *ImportRecordDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *ImportRecordDTO) GetCreated() time.Time {
+func (o *ImportRecordDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -59,7 +58,7 @@ func (o *ImportRecordDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportRecordDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *ImportRecordDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -75,15 +74,15 @@ func (o *ImportRecordDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *ImportRecordDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *ImportRecordDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *ImportRecordDTO) GetUpdated() time.Time {
+func (o *ImportRecordDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -91,7 +90,7 @@ func (o *ImportRecordDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportRecordDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *ImportRecordDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -107,8 +106,8 @@ func (o *ImportRecordDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *ImportRecordDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *ImportRecordDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -273,9 +272,9 @@ func (o *ImportRecordDTO) SetGeneratedBy(v string) {
 }
 
 // GetGeneratedDate returns the GeneratedDate field value if set, zero value otherwise.
-func (o *ImportRecordDTO) GetGeneratedDate() time.Time {
+func (o *ImportRecordDTO) GetGeneratedDate() string {
 	if o == nil || IsNil(o.GeneratedDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.GeneratedDate
@@ -283,7 +282,7 @@ func (o *ImportRecordDTO) GetGeneratedDate() time.Time {
 
 // GetGeneratedDateOk returns a tuple with the GeneratedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportRecordDTO) GetGeneratedDateOk() (*time.Time, bool) {
+func (o *ImportRecordDTO) GetGeneratedDateOk() (*string, bool) {
 	if o == nil || IsNil(o.GeneratedDate) {
 		return nil, false
 	}
@@ -299,8 +298,8 @@ func (o *ImportRecordDTO) HasGeneratedDate() bool {
 	return false
 }
 
-// SetGeneratedDate gets a reference to the given time.Time and assigns it to the GeneratedDate field.
-func (o *ImportRecordDTO) SetGeneratedDate(v time.Time) {
+// SetGeneratedDate gets a reference to the given string and assigns it to the GeneratedDate field.
+func (o *ImportRecordDTO) SetGeneratedDate(v string) {
 	o.GeneratedDate = &v
 }
 

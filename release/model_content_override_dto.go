@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the ContentOverrideDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &ContentOverrideDTO{}
 
 // ContentOverrideDTO Represents a content override for an activation key or consumer
 type ContentOverrideDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Name *string `json:"name,omitempty"`
 	ContentLabel *string `json:"contentLabel,omitempty"`
 	Value *string `json:"value,omitempty"`
@@ -45,9 +44,9 @@ func NewContentOverrideDTOWithDefaults() *ContentOverrideDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *ContentOverrideDTO) GetCreated() time.Time {
+func (o *ContentOverrideDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -55,7 +54,7 @@ func (o *ContentOverrideDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentOverrideDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *ContentOverrideDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -71,15 +70,15 @@ func (o *ContentOverrideDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *ContentOverrideDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *ContentOverrideDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *ContentOverrideDTO) GetUpdated() time.Time {
+func (o *ContentOverrideDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -87,7 +86,7 @@ func (o *ContentOverrideDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentOverrideDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *ContentOverrideDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -103,8 +102,8 @@ func (o *ContentOverrideDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *ContentOverrideDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *ContentOverrideDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 

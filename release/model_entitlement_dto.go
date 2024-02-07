@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the EntitlementDTO type satisfies the MappedNullable interface at compile time
@@ -20,15 +19,15 @@ var _ MappedNullable = &EntitlementDTO{}
 
 // EntitlementDTO A DTO representation of the Entitlement entity
 type EntitlementDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Consumer *NestedConsumerDTO `json:"consumer,omitempty"`
 	Pool *PoolDTO `json:"pool,omitempty"`
 	Quantity *int32 `json:"quantity,omitempty"`
 	Certificates []CertificateDTO `json:"certificates,omitempty"`
-	StartDate *time.Time `json:"startDate,omitempty"`
-	EndDate *time.Time `json:"endDate,omitempty"`
+	StartDate *string `json:"startDate,omitempty"`
+	EndDate *string `json:"endDate,omitempty"`
 	Href *string `json:"href,omitempty"`
 }
 
@@ -50,9 +49,9 @@ func NewEntitlementDTOWithDefaults() *EntitlementDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *EntitlementDTO) GetCreated() time.Time {
+func (o *EntitlementDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -60,7 +59,7 @@ func (o *EntitlementDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntitlementDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *EntitlementDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -76,15 +75,15 @@ func (o *EntitlementDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *EntitlementDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *EntitlementDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *EntitlementDTO) GetUpdated() time.Time {
+func (o *EntitlementDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -92,7 +91,7 @@ func (o *EntitlementDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntitlementDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *EntitlementDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -108,8 +107,8 @@ func (o *EntitlementDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *EntitlementDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *EntitlementDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -274,9 +273,9 @@ func (o *EntitlementDTO) SetCertificates(v []CertificateDTO) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *EntitlementDTO) GetStartDate() time.Time {
+func (o *EntitlementDTO) GetStartDate() string {
 	if o == nil || IsNil(o.StartDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StartDate
@@ -284,7 +283,7 @@ func (o *EntitlementDTO) GetStartDate() time.Time {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntitlementDTO) GetStartDateOk() (*time.Time, bool) {
+func (o *EntitlementDTO) GetStartDateOk() (*string, bool) {
 	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
@@ -300,15 +299,15 @@ func (o *EntitlementDTO) HasStartDate() bool {
 	return false
 }
 
-// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
-func (o *EntitlementDTO) SetStartDate(v time.Time) {
+// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
+func (o *EntitlementDTO) SetStartDate(v string) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *EntitlementDTO) GetEndDate() time.Time {
+func (o *EntitlementDTO) GetEndDate() string {
 	if o == nil || IsNil(o.EndDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.EndDate
@@ -316,7 +315,7 @@ func (o *EntitlementDTO) GetEndDate() time.Time {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntitlementDTO) GetEndDateOk() (*time.Time, bool) {
+func (o *EntitlementDTO) GetEndDateOk() (*string, bool) {
 	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
@@ -332,8 +331,8 @@ func (o *EntitlementDTO) HasEndDate() bool {
 	return false
 }
 
-// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
-func (o *EntitlementDTO) SetEndDate(v time.Time) {
+// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
+func (o *EntitlementDTO) SetEndDate(v string) {
 	o.EndDate = &v
 }
 

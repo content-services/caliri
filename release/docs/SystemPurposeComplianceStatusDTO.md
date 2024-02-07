@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | Pointer to **string** |  | [optional] 
 **Compliant** | Pointer to **bool** |  | [optional] 
-**Date** | Pointer to **time.Time** |  | [optional] 
+**Date** | Pointer to **string** |  | [optional] 
 **NonCompliantRole** | Pointer to **string** |  | [optional] 
 **NonCompliantSLA** | Pointer to **string** |  | [optional] 
 **NonCompliantUsage** | Pointer to **string** |  | [optional] 
@@ -90,20 +90,20 @@ HasCompliant returns a boolean if a field has been set.
 
 ### GetDate
 
-`func (o *SystemPurposeComplianceStatusDTO) GetDate() time.Time`
+`func (o *SystemPurposeComplianceStatusDTO) GetDate() string`
 
 GetDate returns the Date field if non-nil, zero value otherwise.
 
 ### GetDateOk
 
-`func (o *SystemPurposeComplianceStatusDTO) GetDateOk() (*time.Time, bool)`
+`func (o *SystemPurposeComplianceStatusDTO) GetDateOk() (*string, bool)`
 
 GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDate
 
-`func (o *SystemPurposeComplianceStatusDTO) SetDate(v time.Time)`
+`func (o *SystemPurposeComplianceStatusDTO) SetDate(v string)`
 
 SetDate sets Date field to given value.
 

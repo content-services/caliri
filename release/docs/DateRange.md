@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StartDate** | Pointer to **time.Time** |  | [optional] 
-**EndDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **string** |  | [optional] 
+**EndDate** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetStartDate
 
-`func (o *DateRange) GetStartDate() time.Time`
+`func (o *DateRange) GetStartDate() string`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *DateRange) GetStartDateOk() (*time.Time, bool)`
+`func (o *DateRange) GetStartDateOk() (*string, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *DateRange) SetStartDate(v time.Time)`
+`func (o *DateRange) SetStartDate(v string)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -53,20 +53,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *DateRange) GetEndDate() time.Time`
+`func (o *DateRange) GetEndDate() string`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *DateRange) GetEndDateOk() (*time.Time, bool)`
+`func (o *DateRange) GetEndDateOk() (*string, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *DateRange) SetEndDate(v time.Time)`
+`func (o *DateRange) SetEndDate(v string)`
 
 SetEndDate sets EndDate field to given value.
 

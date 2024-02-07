@@ -25,12 +25,11 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
 func main() {
-	date := time.Now() // time.Time | Filter deleted consumers to those on or after this date (optional)
+	date := "date_example" // string | Filter deleted consumers to those on or after this date (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -55,7 +54,7 @@ Other parameters are passed through a pointer to a apiListByDateRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **date** | **time.Time** | Filter deleted consumers to those on or after this date | 
+ **date** | **string** | Filter deleted consumers to those on or after this date | 
 
 ### Return type
 

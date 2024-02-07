@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the CertificateSerialDTO type satisfies the MappedNullable interface at compile time
@@ -20,11 +19,11 @@ var _ MappedNullable = &CertificateSerialDTO{}
 
 // CertificateSerialDTO Represents a database sequence used to ensure certificates receive unique serial numbers
 type CertificateSerialDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *int64 `json:"id,omitempty"`
 	Serial *int64 `json:"serial,omitempty"`
-	Expiration *time.Time `json:"expiration,omitempty"`
+	Expiration *string `json:"expiration,omitempty"`
 	Revoked *bool `json:"revoked,omitempty"`
 }
 
@@ -46,9 +45,9 @@ func NewCertificateSerialDTOWithDefaults() *CertificateSerialDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *CertificateSerialDTO) GetCreated() time.Time {
+func (o *CertificateSerialDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -56,7 +55,7 @@ func (o *CertificateSerialDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CertificateSerialDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *CertificateSerialDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -72,15 +71,15 @@ func (o *CertificateSerialDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *CertificateSerialDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *CertificateSerialDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *CertificateSerialDTO) GetUpdated() time.Time {
+func (o *CertificateSerialDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -88,7 +87,7 @@ func (o *CertificateSerialDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CertificateSerialDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *CertificateSerialDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -104,8 +103,8 @@ func (o *CertificateSerialDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *CertificateSerialDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *CertificateSerialDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -174,9 +173,9 @@ func (o *CertificateSerialDTO) SetSerial(v int64) {
 }
 
 // GetExpiration returns the Expiration field value if set, zero value otherwise.
-func (o *CertificateSerialDTO) GetExpiration() time.Time {
+func (o *CertificateSerialDTO) GetExpiration() string {
 	if o == nil || IsNil(o.Expiration) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Expiration
@@ -184,7 +183,7 @@ func (o *CertificateSerialDTO) GetExpiration() time.Time {
 
 // GetExpirationOk returns a tuple with the Expiration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CertificateSerialDTO) GetExpirationOk() (*time.Time, bool) {
+func (o *CertificateSerialDTO) GetExpirationOk() (*string, bool) {
 	if o == nil || IsNil(o.Expiration) {
 		return nil, false
 	}
@@ -200,8 +199,8 @@ func (o *CertificateSerialDTO) HasExpiration() bool {
 	return false
 }
 
-// SetExpiration gets a reference to the given time.Time and assigns it to the Expiration field.
-func (o *CertificateSerialDTO) SetExpiration(v time.Time) {
+// SetExpiration gets a reference to the given string and assigns it to the Expiration field.
+func (o *CertificateSerialDTO) SetExpiration(v string) {
 	o.Expiration = &v
 }
 

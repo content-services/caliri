@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Username** | Pointer to **string** |  | [optional] 
 **Password** | Pointer to **string** |  | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *UserDTO) GetCreated() time.Time`
+`func (o *UserDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *UserDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *UserDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *UserDTO) SetCreated(v time.Time)`
+`func (o *UserDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -57,20 +57,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *UserDTO) GetUpdated() time.Time`
+`func (o *UserDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *UserDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *UserDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *UserDTO) SetUpdated(v time.Time)`
+`func (o *UserDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 

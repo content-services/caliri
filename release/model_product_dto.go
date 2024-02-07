@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the ProductDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &ProductDTO{}
 
 // ProductDTO DTO representing the product data exposed to the API
 type ProductDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Uuid *string `json:"uuid,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -53,9 +52,9 @@ func NewProductDTOWithDefaults() *ProductDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *ProductDTO) GetCreated() time.Time {
+func (o *ProductDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -63,7 +62,7 @@ func (o *ProductDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *ProductDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -79,15 +78,15 @@ func (o *ProductDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *ProductDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *ProductDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *ProductDTO) GetUpdated() time.Time {
+func (o *ProductDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -95,7 +94,7 @@ func (o *ProductDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *ProductDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -111,8 +110,8 @@ func (o *ProductDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *ProductDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *ProductDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 

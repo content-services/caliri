@@ -1709,7 +1709,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
@@ -1720,12 +1719,12 @@ func main() {
 	product := "product_example" // string | The product id (optional)
 	subscription := "subscription_example" // string | The subscription id (optional)
 	listall := true // bool | Includes pools which are not applicable based on some of the consumer's current system facts (i.e. system architecture, sockets, cores, ram, storage_band, instance_multiplier), but will still filter pools based on other factors, such as pools restricted to a consumer of specific types, usernames, or uuids; pools restricted to guests of specific hosts; non-multi-entitlement pools that the consumer has already attached; unmapped guest pools for which the consumer is ineligible; and expired pools.  (optional) (default to false)
-	activeon := time.Now() // time.Time | Active on date (optional)
+	activeon := "activeon_example" // string | Active on date (optional)
 	matches := []string{"Inner_example"} // []string | Find pools matching the given pattern in a variety of fields * and ? wildcards are supported; may be specified multiple times  (optional)
 	attribute := []string{"Inner_example"} // []string | The attributes to return based on the specified types (optional)
 	addFuture := true // bool | When set to true, it will add future dated pools to the result, based on the activeon date  (optional) (default to false)
 	onlyFuture := true // bool | When set to true, it will return only future dated pools to the result, based on the activeon date  (optional) (default to false)
-	after := time.Now() // time.Time | Will only return pools with a start date after the supplied date. Overrides the activeOn date  (optional)
+	after := "after_example" // string | Will only return pools with a start date after the supplied date. Overrides the activeOn date  (optional)
 	poolid := []string{"Inner_example"} // []string | One or more pool IDs to use to filter the output; only pools with IDs matching those provided will be returned; may be specified multiple times  (optional)
 	page := int32(2) // int32 | Page index to return (optional)
 	perPage := int32(10) // int32 | Number of items to return per page (optional)
@@ -1765,12 +1764,12 @@ Name | Type | Description  | Notes
  **product** | **string** | The product id | 
  **subscription** | **string** | The subscription id | 
  **listall** | **bool** | Includes pools which are not applicable based on some of the consumer&#39;s current system facts (i.e. system architecture, sockets, cores, ram, storage_band, instance_multiplier), but will still filter pools based on other factors, such as pools restricted to a consumer of specific types, usernames, or uuids; pools restricted to guests of specific hosts; non-multi-entitlement pools that the consumer has already attached; unmapped guest pools for which the consumer is ineligible; and expired pools.  | [default to false]
- **activeon** | **time.Time** | Active on date | 
+ **activeon** | **string** | Active on date | 
  **matches** | **[]string** | Find pools matching the given pattern in a variety of fields * and ? wildcards are supported; may be specified multiple times  | 
  **attribute** | **[]string** | The attributes to return based on the specified types | 
  **addFuture** | **bool** | When set to true, it will add future dated pools to the result, based on the activeon date  | [default to false]
  **onlyFuture** | **bool** | When set to true, it will return only future dated pools to the result, based on the activeon date  | [default to false]
- **after** | **time.Time** | Will only return pools with a start date after the supplied date. Overrides the activeOn date  | 
+ **after** | **string** | Will only return pools with a start date after the supplied date. Overrides the activeOn date  | 
  **poolid** | **[]string** | One or more pool IDs to use to filter the output; only pools with IDs matching those provided will be returned; may be specified multiple times  | 
  **page** | **int32** | Page index to return | 
  **perPage** | **int32** | Number of items to return per page | 

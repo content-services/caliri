@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 	"bytes"
 	"fmt"
 )
@@ -22,8 +21,8 @@ var _ MappedNullable = &GuestIdDTOArrayElement{}
 
 // GuestIdDTOArrayElement Represents a guest ID running on a virt host consumer. Does not include the attributes field
 type GuestIdDTOArrayElement struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	GuestId string `json:"guestId"`
 }
@@ -49,9 +48,9 @@ func NewGuestIdDTOArrayElementWithDefaults() *GuestIdDTOArrayElement {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *GuestIdDTOArrayElement) GetCreated() time.Time {
+func (o *GuestIdDTOArrayElement) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -59,7 +58,7 @@ func (o *GuestIdDTOArrayElement) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GuestIdDTOArrayElement) GetCreatedOk() (*time.Time, bool) {
+func (o *GuestIdDTOArrayElement) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -75,15 +74,15 @@ func (o *GuestIdDTOArrayElement) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *GuestIdDTOArrayElement) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *GuestIdDTOArrayElement) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *GuestIdDTOArrayElement) GetUpdated() time.Time {
+func (o *GuestIdDTOArrayElement) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -91,7 +90,7 @@ func (o *GuestIdDTOArrayElement) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GuestIdDTOArrayElement) GetUpdatedOk() (*time.Time, bool) {
+func (o *GuestIdDTOArrayElement) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -107,8 +106,8 @@ func (o *GuestIdDTOArrayElement) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *GuestIdDTOArrayElement) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *GuestIdDTOArrayElement) SetUpdated(v string) {
 	o.Updated = &v
 }
 

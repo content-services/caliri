@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"time"
 )
 
 
@@ -26,11 +25,11 @@ type DeletedConsumerAPIService service
 type ApiListByDateRequest struct {
 	ctx context.Context
 	ApiService *DeletedConsumerAPIService
-	date *time.Time
+	date *string
 }
 
 // Filter deleted consumers to those on or after this date
-func (r ApiListByDateRequest) Date(date time.Time) ApiListByDateRequest {
+func (r ApiListByDateRequest) Date(date string) ApiListByDateRequest {
 	r.date = &date
 	return r
 }

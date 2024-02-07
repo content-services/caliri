@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Mode** | Pointer to **string** |  | [optional] 
 **ModeReason** | Pointer to **string** |  | [optional] 
-**ModeChangeTime** | Pointer to **time.Time** |  | [optional] 
+**ModeChangeTime** | Pointer to **string** |  | [optional] 
 **Result** | Pointer to **bool** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
 **Release** | Pointer to **string** |  | [optional] 
 **Standalone** | Pointer to **bool** |  | [optional] 
-**TimeUTC** | Pointer to **time.Time** |  | [optional] 
+**TimeUTC** | Pointer to **string** |  | [optional] 
 **RulesSource** | Pointer to **string** |  | [optional] 
 **RulesVersion** | Pointer to **string** |  | [optional] 
 **ManagerCapabilities** | Pointer to **[]string** |  | [optional] 
@@ -94,20 +94,20 @@ HasModeReason returns a boolean if a field has been set.
 
 ### GetModeChangeTime
 
-`func (o *StatusDTO) GetModeChangeTime() time.Time`
+`func (o *StatusDTO) GetModeChangeTime() string`
 
 GetModeChangeTime returns the ModeChangeTime field if non-nil, zero value otherwise.
 
 ### GetModeChangeTimeOk
 
-`func (o *StatusDTO) GetModeChangeTimeOk() (*time.Time, bool)`
+`func (o *StatusDTO) GetModeChangeTimeOk() (*string, bool)`
 
 GetModeChangeTimeOk returns a tuple with the ModeChangeTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModeChangeTime
 
-`func (o *StatusDTO) SetModeChangeTime(v time.Time)`
+`func (o *StatusDTO) SetModeChangeTime(v string)`
 
 SetModeChangeTime sets ModeChangeTime field to given value.
 
@@ -219,20 +219,20 @@ HasStandalone returns a boolean if a field has been set.
 
 ### GetTimeUTC
 
-`func (o *StatusDTO) GetTimeUTC() time.Time`
+`func (o *StatusDTO) GetTimeUTC() string`
 
 GetTimeUTC returns the TimeUTC field if non-nil, zero value otherwise.
 
 ### GetTimeUTCOk
 
-`func (o *StatusDTO) GetTimeUTCOk() (*time.Time, bool)`
+`func (o *StatusDTO) GetTimeUTCOk() (*string, bool)`
 
 GetTimeUTCOk returns a tuple with the TimeUTC field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeUTC
 
-`func (o *StatusDTO) SetTimeUTC(v time.Time)`
+`func (o *StatusDTO) SetTimeUTC(v string)`
 
 SetTimeUTC sets TimeUTC field to given value.
 

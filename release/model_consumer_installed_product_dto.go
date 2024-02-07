@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 	"bytes"
 	"fmt"
 )
@@ -22,16 +21,16 @@ var _ MappedNullable = &ConsumerInstalledProductDTO{}
 
 // ConsumerInstalledProductDTO Represents consumer installed product details
 type ConsumerInstalledProductDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	ProductId string `json:"productId"`
 	ProductName *string `json:"productName,omitempty"`
 	Version *string `json:"version,omitempty"`
 	Arch *string `json:"arch,omitempty"`
 	Status *string `json:"status,omitempty"`
-	StartDate *time.Time `json:"startDate,omitempty"`
-	EndDate *time.Time `json:"endDate,omitempty"`
+	StartDate *string `json:"startDate,omitempty"`
+	EndDate *string `json:"endDate,omitempty"`
 }
 
 type _ConsumerInstalledProductDTO ConsumerInstalledProductDTO
@@ -55,9 +54,9 @@ func NewConsumerInstalledProductDTOWithDefaults() *ConsumerInstalledProductDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *ConsumerInstalledProductDTO) GetCreated() time.Time {
+func (o *ConsumerInstalledProductDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -65,7 +64,7 @@ func (o *ConsumerInstalledProductDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumerInstalledProductDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *ConsumerInstalledProductDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -81,15 +80,15 @@ func (o *ConsumerInstalledProductDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *ConsumerInstalledProductDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *ConsumerInstalledProductDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *ConsumerInstalledProductDTO) GetUpdated() time.Time {
+func (o *ConsumerInstalledProductDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -97,7 +96,7 @@ func (o *ConsumerInstalledProductDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumerInstalledProductDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *ConsumerInstalledProductDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -113,8 +112,8 @@ func (o *ConsumerInstalledProductDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *ConsumerInstalledProductDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *ConsumerInstalledProductDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -303,9 +302,9 @@ func (o *ConsumerInstalledProductDTO) SetStatus(v string) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *ConsumerInstalledProductDTO) GetStartDate() time.Time {
+func (o *ConsumerInstalledProductDTO) GetStartDate() string {
 	if o == nil || IsNil(o.StartDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StartDate
@@ -313,7 +312,7 @@ func (o *ConsumerInstalledProductDTO) GetStartDate() time.Time {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumerInstalledProductDTO) GetStartDateOk() (*time.Time, bool) {
+func (o *ConsumerInstalledProductDTO) GetStartDateOk() (*string, bool) {
 	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
@@ -329,15 +328,15 @@ func (o *ConsumerInstalledProductDTO) HasStartDate() bool {
 	return false
 }
 
-// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
-func (o *ConsumerInstalledProductDTO) SetStartDate(v time.Time) {
+// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
+func (o *ConsumerInstalledProductDTO) SetStartDate(v string) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *ConsumerInstalledProductDTO) GetEndDate() time.Time {
+func (o *ConsumerInstalledProductDTO) GetEndDate() string {
 	if o == nil || IsNil(o.EndDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.EndDate
@@ -345,7 +344,7 @@ func (o *ConsumerInstalledProductDTO) GetEndDate() time.Time {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumerInstalledProductDTO) GetEndDateOk() (*time.Time, bool) {
+func (o *ConsumerInstalledProductDTO) GetEndDateOk() (*string, bool) {
 	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
@@ -361,8 +360,8 @@ func (o *ConsumerInstalledProductDTO) HasEndDate() bool {
 	return false
 }
 
-// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
-func (o *ConsumerInstalledProductDTO) SetEndDate(v time.Time) {
+// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
+func (o *ConsumerInstalledProductDTO) SetEndDate(v string) {
 	o.EndDate = &v
 }
 

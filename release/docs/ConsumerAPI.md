@@ -130,7 +130,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
@@ -142,7 +141,7 @@ func main() {
 	email := "email_example" // string | Email address (optional)
 	emailLocale := "emailLocale_example" // string | Email locale (optional)
 	async := true // bool | Operation Type async or sync (optional) (default to false)
-	entitleDate := time.Now() // time.Time | Entitlement date (optional)
+	entitleDate := "entitleDate_example" // string | Entitlement date (optional)
 	fromPool := []string{"Inner_example"} // []string | From pool (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -179,7 +178,7 @@ Name | Type | Description  | Notes
  **email** | **string** | Email address | 
  **emailLocale** | **string** | Email locale | 
  **async** | **bool** | Operation Type async or sync | [default to false]
- **entitleDate** | **time.Time** | Entitlement date | 
+ **entitleDate** | **string** | Entitlement date | 
  **fromPool** | **[]string** | From pool | 
 
 ### Return type
@@ -932,13 +931,12 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
 func main() {
 	consumerUuid := "consumerUuid_example" // string | Consumer UUID
-	onDate := time.Now() // time.Time | Date to get compliance information for, default is now. (optional)
+	onDate := "onDate_example" // string | Date to get compliance information for, default is now. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -968,7 +966,7 @@ Other parameters are passed through a pointer to a apiGetComplianceStatusRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **onDate** | **time.Time** | Date to get compliance information for, default is now. | 
+ **onDate** | **string** | Date to get compliance information for, default is now. | 
 
 ### Return type
 
@@ -1633,13 +1631,12 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
 func main() {
 	consumerUuid := "consumerUuid_example" // string | Consumer UUID
-	onDate := time.Now() // time.Time | Date to get compliance information for, default is now. (optional)
+	onDate := "onDate_example" // string | Date to get compliance information for, default is now. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1669,7 +1666,7 @@ Other parameters are passed through a pointer to a apiGetSystemPurposeCompliance
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **onDate** | **time.Time** | Date to get compliance information for, default is now. | 
+ **onDate** | **string** | Date to get compliance information for, default is now. | 
 
 ### Return type
 

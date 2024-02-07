@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the SystemPurposeComplianceStatusDTO type satisfies the MappedNullable interface at compile time
@@ -22,7 +21,7 @@ var _ MappedNullable = &SystemPurposeComplianceStatusDTO{}
 type SystemPurposeComplianceStatusDTO struct {
 	Status *string `json:"status,omitempty"`
 	Compliant *bool `json:"compliant,omitempty"`
-	Date *time.Time `json:"date,omitempty"`
+	Date *string `json:"date,omitempty"`
 	NonCompliantRole *string `json:"nonCompliantRole,omitempty"`
 	NonCompliantSLA *string `json:"nonCompliantSLA,omitempty"`
 	NonCompliantUsage *string `json:"nonCompliantUsage,omitempty"`
@@ -118,9 +117,9 @@ func (o *SystemPurposeComplianceStatusDTO) SetCompliant(v bool) {
 }
 
 // GetDate returns the Date field value if set, zero value otherwise.
-func (o *SystemPurposeComplianceStatusDTO) GetDate() time.Time {
+func (o *SystemPurposeComplianceStatusDTO) GetDate() string {
 	if o == nil || IsNil(o.Date) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Date
@@ -128,7 +127,7 @@ func (o *SystemPurposeComplianceStatusDTO) GetDate() time.Time {
 
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemPurposeComplianceStatusDTO) GetDateOk() (*time.Time, bool) {
+func (o *SystemPurposeComplianceStatusDTO) GetDateOk() (*string, bool) {
 	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
@@ -144,8 +143,8 @@ func (o *SystemPurposeComplianceStatusDTO) HasDate() bool {
 	return false
 }
 
-// SetDate gets a reference to the given time.Time and assigns it to the Date field.
-func (o *SystemPurposeComplianceStatusDTO) SetDate(v time.Time) {
+// SetDate gets a reference to the given string and assigns it to the Date field.
+func (o *SystemPurposeComplianceStatusDTO) SetDate(v string) {
 	o.Date = &v
 }
 

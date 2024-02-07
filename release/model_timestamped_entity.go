@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the TimestampedEntity type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &TimestampedEntity{}
 
 // TimestampedEntity struct for TimestampedEntity
 type TimestampedEntity struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 }
 
 // NewTimestampedEntity instantiates a new TimestampedEntity object
@@ -42,9 +41,9 @@ func NewTimestampedEntityWithDefaults() *TimestampedEntity {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *TimestampedEntity) GetCreated() time.Time {
+func (o *TimestampedEntity) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -52,7 +51,7 @@ func (o *TimestampedEntity) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TimestampedEntity) GetCreatedOk() (*time.Time, bool) {
+func (o *TimestampedEntity) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -68,15 +67,15 @@ func (o *TimestampedEntity) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *TimestampedEntity) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *TimestampedEntity) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *TimestampedEntity) GetUpdated() time.Time {
+func (o *TimestampedEntity) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -84,7 +83,7 @@ func (o *TimestampedEntity) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TimestampedEntity) GetUpdatedOk() (*time.Time, bool) {
+func (o *TimestampedEntity) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -100,8 +99,8 @@ func (o *TimestampedEntity) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *TimestampedEntity) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *TimestampedEntity) SetUpdated(v string) {
 	o.Updated = &v
 }
 

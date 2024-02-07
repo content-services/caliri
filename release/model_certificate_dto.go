@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the CertificateDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &CertificateDTO{}
 
 // CertificateDTO Represents certificate details
 type CertificateDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Key *string `json:"key,omitempty"`
 	Cert *string `json:"cert,omitempty"`
@@ -46,9 +45,9 @@ func NewCertificateDTOWithDefaults() *CertificateDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *CertificateDTO) GetCreated() time.Time {
+func (o *CertificateDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -56,7 +55,7 @@ func (o *CertificateDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CertificateDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *CertificateDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -72,15 +71,15 @@ func (o *CertificateDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *CertificateDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *CertificateDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *CertificateDTO) GetUpdated() time.Time {
+func (o *CertificateDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -88,7 +87,7 @@ func (o *CertificateDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CertificateDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *CertificateDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -104,8 +103,8 @@ func (o *CertificateDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *CertificateDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *CertificateDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 

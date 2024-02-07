@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the HypervisorIdDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &HypervisorIdDTO{}
 
 // HypervisorIdDTO Represents a HypervisorId details
 type HypervisorIdDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	HypervisorId *string `json:"hypervisorId,omitempty"`
 	ReporterId *string `json:"reporterId,omitempty"`
@@ -45,9 +44,9 @@ func NewHypervisorIdDTOWithDefaults() *HypervisorIdDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *HypervisorIdDTO) GetCreated() time.Time {
+func (o *HypervisorIdDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -55,7 +54,7 @@ func (o *HypervisorIdDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HypervisorIdDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *HypervisorIdDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -71,15 +70,15 @@ func (o *HypervisorIdDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *HypervisorIdDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *HypervisorIdDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *HypervisorIdDTO) GetUpdated() time.Time {
+func (o *HypervisorIdDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -87,7 +86,7 @@ func (o *HypervisorIdDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HypervisorIdDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *HypervisorIdDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -103,8 +102,8 @@ func (o *HypervisorIdDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *HypervisorIdDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *HypervisorIdDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 

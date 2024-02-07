@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to [**NestedOwnerDTO**](NestedOwnerDTO.md) |  | [optional] 
 **ActiveSubscription** | Pointer to **bool** |  | [optional] 
 **SourceEntitlement** | Pointer to [**NestedEntitlementDTO**](NestedEntitlementDTO.md) |  | [optional] 
 **Quantity** | Pointer to **int64** |  | [optional] 
-**StartDate** | Pointer to **time.Time** |  | [optional] 
-**EndDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **string** |  | [optional] 
+**EndDate** | Pointer to **string** |  | [optional] 
 **Attributes** | Pointer to [**[]AttributeDTO**](AttributeDTO.md) |  | [optional] 
 **RestrictedToUsername** | Pointer to **string** |  | [optional] 
 **ContractNumber** | Pointer to **string** |  | [optional] 
@@ -64,20 +64,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *PoolDTO) GetCreated() time.Time`
+`func (o *PoolDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *PoolDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *PoolDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *PoolDTO) SetCreated(v time.Time)`
+`func (o *PoolDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -89,20 +89,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *PoolDTO) GetUpdated() time.Time`
+`func (o *PoolDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *PoolDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *PoolDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *PoolDTO) SetUpdated(v time.Time)`
+`func (o *PoolDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -264,20 +264,20 @@ HasQuantity returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *PoolDTO) GetStartDate() time.Time`
+`func (o *PoolDTO) GetStartDate() string`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *PoolDTO) GetStartDateOk() (*time.Time, bool)`
+`func (o *PoolDTO) GetStartDateOk() (*string, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *PoolDTO) SetStartDate(v time.Time)`
+`func (o *PoolDTO) SetStartDate(v string)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -289,20 +289,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *PoolDTO) GetEndDate() time.Time`
+`func (o *PoolDTO) GetEndDate() string`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *PoolDTO) GetEndDateOk() (*time.Time, bool)`
+`func (o *PoolDTO) GetEndDateOk() (*string, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *PoolDTO) SetEndDate(v time.Time)`
+`func (o *PoolDTO) SetEndDate(v string)`
 
 SetEndDate sets EndDate field to given value.
 

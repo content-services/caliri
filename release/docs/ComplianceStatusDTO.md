@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | Pointer to **string** |  | [optional] 
 **Compliant** | Pointer to **bool** |  | [optional] 
-**Date** | Pointer to **time.Time** |  | [optional] 
-**CompliantUntil** | Pointer to **time.Time** |  | [optional] 
+**Date** | Pointer to **string** |  | [optional] 
+**CompliantUntil** | Pointer to **string** |  | [optional] 
 **CompliantProducts** | Pointer to [**map[string][]EntitlementDTO**](set.md) |  | [optional] 
 **PartiallyCompliantProducts** | Pointer to [**map[string][]EntitlementDTO**](set.md) |  | [optional] 
 **PartialStacks** | Pointer to [**map[string][]EntitlementDTO**](set.md) |  | [optional] 
@@ -86,20 +86,20 @@ HasCompliant returns a boolean if a field has been set.
 
 ### GetDate
 
-`func (o *ComplianceStatusDTO) GetDate() time.Time`
+`func (o *ComplianceStatusDTO) GetDate() string`
 
 GetDate returns the Date field if non-nil, zero value otherwise.
 
 ### GetDateOk
 
-`func (o *ComplianceStatusDTO) GetDateOk() (*time.Time, bool)`
+`func (o *ComplianceStatusDTO) GetDateOk() (*string, bool)`
 
 GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDate
 
-`func (o *ComplianceStatusDTO) SetDate(v time.Time)`
+`func (o *ComplianceStatusDTO) SetDate(v string)`
 
 SetDate sets Date field to given value.
 
@@ -111,20 +111,20 @@ HasDate returns a boolean if a field has been set.
 
 ### GetCompliantUntil
 
-`func (o *ComplianceStatusDTO) GetCompliantUntil() time.Time`
+`func (o *ComplianceStatusDTO) GetCompliantUntil() string`
 
 GetCompliantUntil returns the CompliantUntil field if non-nil, zero value otherwise.
 
 ### GetCompliantUntilOk
 
-`func (o *ComplianceStatusDTO) GetCompliantUntilOk() (*time.Time, bool)`
+`func (o *ComplianceStatusDTO) GetCompliantUntilOk() (*string, bool)`
 
 GetCompliantUntilOk returns a tuple with the CompliantUntil field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompliantUntil
 
-`func (o *ComplianceStatusDTO) SetCompliantUntil(v time.Time)`
+`func (o *ComplianceStatusDTO) SetCompliantUntil(v string)`
 
 SetCompliantUntil sets CompliantUntil field to given value.
 

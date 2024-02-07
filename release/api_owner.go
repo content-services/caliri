@@ -19,7 +19,6 @@ import (
 	"strings"
 	"reflect"
 	"os"
-	"time"
 )
 
 
@@ -3350,12 +3349,12 @@ type ApiListOwnerPoolsRequest struct {
 	product *string
 	subscription *string
 	listall *bool
-	activeon *time.Time
+	activeon *string
 	matches *[]string
 	attribute *[]string
 	addFuture *bool
 	onlyFuture *bool
-	after *time.Time
+	after *string
 	poolid *[]string
 	page *int32
 	perPage *int32
@@ -3394,7 +3393,7 @@ func (r ApiListOwnerPoolsRequest) Listall(listall bool) ApiListOwnerPoolsRequest
 }
 
 // Active on date
-func (r ApiListOwnerPoolsRequest) Activeon(activeon time.Time) ApiListOwnerPoolsRequest {
+func (r ApiListOwnerPoolsRequest) Activeon(activeon string) ApiListOwnerPoolsRequest {
 	r.activeon = &activeon
 	return r
 }
@@ -3424,7 +3423,7 @@ func (r ApiListOwnerPoolsRequest) OnlyFuture(onlyFuture bool) ApiListOwnerPoolsR
 }
 
 // Will only return pools with a start date after the supplied date. Overrides the activeOn date 
-func (r ApiListOwnerPoolsRequest) After(after time.Time) ApiListOwnerPoolsRequest {
+func (r ApiListOwnerPoolsRequest) After(after string) ApiListOwnerPoolsRequest {
 	r.after = &after
 	return r
 }

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to [**NestedOwnerDTO**](NestedOwnerDTO.md) |  | [optional] 
 **Product** | Pointer to [**ProductDTO**](ProductDTO.md) |  | [optional] 
@@ -13,12 +13,12 @@ Name | Type | Description | Notes
 **ProvidedProducts** | Pointer to [**[]ProductDTO**](ProductDTO.md) |  | [optional] 
 **DerivedProvidedProducts** | Pointer to [**[]ProductDTO**](ProductDTO.md) |  | [optional] 
 **Quantity** | Pointer to **int64** |  | [optional] 
-**StartDate** | Pointer to **time.Time** |  | [optional] 
-**EndDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **string** |  | [optional] 
+**EndDate** | Pointer to **string** |  | [optional] 
 **ContractNumber** | Pointer to **string** |  | [optional] 
 **AccountNumber** | Pointer to **string** |  | [optional] 
-**Modified** | Pointer to **time.Time** |  | [optional] 
-**LastModified** | Pointer to **time.Time** |  | [optional] 
+**Modified** | Pointer to **string** |  | [optional] 
+**LastModified** | Pointer to **string** |  | [optional] 
 **OrderNumber** | Pointer to **string** |  | [optional] 
 **UpstreamPoolId** | Pointer to **string** |  | [optional] 
 **UpstreamEntitlementId** | Pointer to **string** |  | [optional] 
@@ -49,20 +49,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *SubscriptionDTO) GetCreated() time.Time`
+`func (o *SubscriptionDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *SubscriptionDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *SubscriptionDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *SubscriptionDTO) SetCreated(v time.Time)`
+`func (o *SubscriptionDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -74,20 +74,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *SubscriptionDTO) GetUpdated() time.Time`
+`func (o *SubscriptionDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *SubscriptionDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *SubscriptionDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *SubscriptionDTO) SetUpdated(v time.Time)`
+`func (o *SubscriptionDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -274,20 +274,20 @@ HasQuantity returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *SubscriptionDTO) GetStartDate() time.Time`
+`func (o *SubscriptionDTO) GetStartDate() string`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *SubscriptionDTO) GetStartDateOk() (*time.Time, bool)`
+`func (o *SubscriptionDTO) GetStartDateOk() (*string, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *SubscriptionDTO) SetStartDate(v time.Time)`
+`func (o *SubscriptionDTO) SetStartDate(v string)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -299,20 +299,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *SubscriptionDTO) GetEndDate() time.Time`
+`func (o *SubscriptionDTO) GetEndDate() string`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *SubscriptionDTO) GetEndDateOk() (*time.Time, bool)`
+`func (o *SubscriptionDTO) GetEndDateOk() (*string, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *SubscriptionDTO) SetEndDate(v time.Time)`
+`func (o *SubscriptionDTO) SetEndDate(v string)`
 
 SetEndDate sets EndDate field to given value.
 
@@ -374,20 +374,20 @@ HasAccountNumber returns a boolean if a field has been set.
 
 ### GetModified
 
-`func (o *SubscriptionDTO) GetModified() time.Time`
+`func (o *SubscriptionDTO) GetModified() string`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *SubscriptionDTO) GetModifiedOk() (*time.Time, bool)`
+`func (o *SubscriptionDTO) GetModifiedOk() (*string, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *SubscriptionDTO) SetModified(v time.Time)`
+`func (o *SubscriptionDTO) SetModified(v string)`
 
 SetModified sets Modified field to given value.
 
@@ -399,20 +399,20 @@ HasModified returns a boolean if a field has been set.
 
 ### GetLastModified
 
-`func (o *SubscriptionDTO) GetLastModified() time.Time`
+`func (o *SubscriptionDTO) GetLastModified() string`
 
 GetLastModified returns the LastModified field if non-nil, zero value otherwise.
 
 ### GetLastModifiedOk
 
-`func (o *SubscriptionDTO) GetLastModifiedOk() (*time.Time, bool)`
+`func (o *SubscriptionDTO) GetLastModifiedOk() (*string, bool)`
 
 GetLastModifiedOk returns a tuple with the LastModified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModified
 
-`func (o *SubscriptionDTO) SetLastModified(v time.Time)`
+`func (o *SubscriptionDTO) SetLastModified(v string)`
 
 SetLastModified sets LastModified field to given value.
 

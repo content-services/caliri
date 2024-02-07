@@ -99,14 +99,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
 func main() {
 	poolId := "poolId_example" // string | Pool ID
 	consumer := "consumer_example" // string | Consumer UUID (optional)
-	activeon := time.Now() // time.Time | Uses ISO 8601 format (optional)
+	activeon := "activeon_example" // string | Uses ISO 8601 format (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -137,7 +136,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **consumer** | **string** | Consumer UUID | 
- **activeon** | **time.Time** | Uses ISO 8601 format | 
+ **activeon** | **string** | Uses ISO 8601 format | 
 
 ### Return type
 
@@ -454,7 +453,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/content-services/caliri/release/v4"
 )
 
@@ -463,7 +461,7 @@ func main() {
 	consumer := "consumer_example" // string | Consumer UUID (optional)
 	product := "product_example" // string | Product ID (optional)
 	listall := true // bool | Use with consumerUuid to list all pools available to the consumer. This will include pools which would otherwise be omitted due to a rules warning. (i.e. not recommended) Pools that trigger an error however will still be omitted. (no entitlements available, consumer type mismatch, etc)  (optional) (default to false)
-	activeon := time.Now() // time.Time | Uses ISO 8601 format (optional)
+	activeon := "activeon_example" // string | Uses ISO 8601 format (optional)
 	page := int32(2) // int32 | Page index to return (optional)
 	perPage := int32(10) // int32 | Number of items to return per page (optional)
 	order := "asc" // string | Direction of ordering (optional)
@@ -496,7 +494,7 @@ Name | Type | Description  | Notes
  **consumer** | **string** | Consumer UUID | 
  **product** | **string** | Product ID | 
  **listall** | **bool** | Use with consumerUuid to list all pools available to the consumer. This will include pools which would otherwise be omitted due to a rules warning. (i.e. not recommended) Pools that trigger an error however will still be omitted. (no entitlements available, consumer type mismatch, etc)  | [default to false]
- **activeon** | **time.Time** | Uses ISO 8601 format | 
+ **activeon** | **string** | Uses ISO 8601 format | 
  **page** | **int32** | Page index to return | 
  **perPage** | **int32** | Number of items to return per page | 
  **order** | **string** | Direction of ordering | 

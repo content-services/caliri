@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **Principal** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **string** |  | [optional] 
 **PreviousState** | Pointer to **string** |  | [optional] 
-**StartTime** | Pointer to **time.Time** |  | [optional] 
-**EndTime** | Pointer to **time.Time** |  | [optional] 
+**StartTime** | Pointer to **string** |  | [optional] 
+**EndTime** | Pointer to **string** |  | [optional] 
 **Attempts** | Pointer to **int32** |  | [optional] 
 **MaxAttempts** | Pointer to **int32** |  | [optional] 
 **StatusPath** | Pointer to **string** |  | [optional] 
@@ -43,20 +43,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *AsyncJobStatusDTO) GetCreated() time.Time`
+`func (o *AsyncJobStatusDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *AsyncJobStatusDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *AsyncJobStatusDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *AsyncJobStatusDTO) SetCreated(v time.Time)`
+`func (o *AsyncJobStatusDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -68,20 +68,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *AsyncJobStatusDTO) GetUpdated() time.Time`
+`func (o *AsyncJobStatusDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *AsyncJobStatusDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *AsyncJobStatusDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *AsyncJobStatusDTO) SetUpdated(v time.Time)`
+`func (o *AsyncJobStatusDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -318,20 +318,20 @@ HasPreviousState returns a boolean if a field has been set.
 
 ### GetStartTime
 
-`func (o *AsyncJobStatusDTO) GetStartTime() time.Time`
+`func (o *AsyncJobStatusDTO) GetStartTime() string`
 
 GetStartTime returns the StartTime field if non-nil, zero value otherwise.
 
 ### GetStartTimeOk
 
-`func (o *AsyncJobStatusDTO) GetStartTimeOk() (*time.Time, bool)`
+`func (o *AsyncJobStatusDTO) GetStartTimeOk() (*string, bool)`
 
 GetStartTimeOk returns a tuple with the StartTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartTime
 
-`func (o *AsyncJobStatusDTO) SetStartTime(v time.Time)`
+`func (o *AsyncJobStatusDTO) SetStartTime(v string)`
 
 SetStartTime sets StartTime field to given value.
 
@@ -343,20 +343,20 @@ HasStartTime returns a boolean if a field has been set.
 
 ### GetEndTime
 
-`func (o *AsyncJobStatusDTO) GetEndTime() time.Time`
+`func (o *AsyncJobStatusDTO) GetEndTime() string`
 
 GetEndTime returns the EndTime field if non-nil, zero value otherwise.
 
 ### GetEndTimeOk
 
-`func (o *AsyncJobStatusDTO) GetEndTimeOk() (*time.Time, bool)`
+`func (o *AsyncJobStatusDTO) GetEndTimeOk() (*string, bool)`
 
 GetEndTimeOk returns a tuple with the EndTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndTime
 
-`func (o *AsyncJobStatusDTO) SetEndTime(v time.Time)`
+`func (o *AsyncJobStatusDTO) SetEndTime(v string)`
 
 SetEndTime sets EndTime field to given value.
 

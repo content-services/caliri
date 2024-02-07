@@ -18,7 +18,6 @@ import (
 	"net/url"
 	"strings"
 	"reflect"
-	"time"
 )
 
 
@@ -168,8 +167,8 @@ type ApiCleanupTerminalJobsRequest struct {
 	principal *[]string
 	origin *[]string
 	executor *[]string
-	after *time.Time
-	before *time.Time
+	after *string
+	before *string
 	force *bool
 }
 
@@ -216,13 +215,13 @@ func (r ApiCleanupTerminalJobsRequest) Executor(executor []string) ApiCleanupTer
 }
 
 // Cleans up jobs to those on or after this date
-func (r ApiCleanupTerminalJobsRequest) After(after time.Time) ApiCleanupTerminalJobsRequest {
+func (r ApiCleanupTerminalJobsRequest) After(after string) ApiCleanupTerminalJobsRequest {
 	r.after = &after
 	return r
 }
 
 // Cleans up jobs to those on or before this date
-func (r ApiCleanupTerminalJobsRequest) Before(before time.Time) ApiCleanupTerminalJobsRequest {
+func (r ApiCleanupTerminalJobsRequest) Before(before string) ApiCleanupTerminalJobsRequest {
 	r.before = &before
 	return r
 }
@@ -696,8 +695,8 @@ type ApiListJobStatusesRequest struct {
 	principal *[]string
 	origin *[]string
 	executor *[]string
-	after *time.Time
-	before *time.Time
+	after *string
+	before *string
 	page *int32
 	perPage *int32
 	order *string
@@ -747,13 +746,13 @@ func (r ApiListJobStatusesRequest) Executor(executor []string) ApiListJobStatuse
 }
 
 // Filter jobs to those on or after this date
-func (r ApiListJobStatusesRequest) After(after time.Time) ApiListJobStatusesRequest {
+func (r ApiListJobStatusesRequest) After(after string) ApiListJobStatusesRequest {
 	r.after = &after
 	return r
 }
 
 // Filter jobs to those on or before this date
-func (r ApiListJobStatusesRequest) Before(before time.Time) ApiListJobStatusesRequest {
+func (r ApiListJobStatusesRequest) Before(before string) ApiListJobStatusesRequest {
 	r.before = &before
 	return r
 }

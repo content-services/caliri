@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Consumer** | Pointer to [**NestedConsumerDTO**](NestedConsumerDTO.md) |  | [optional] 
 **Pool** | Pointer to [**PoolDTO**](PoolDTO.md) |  | [optional] 
 **Quantity** | Pointer to **int32** |  | [optional] 
 **Certificates** | Pointer to [**[]CertificateDTO**](CertificateDTO.md) |  | [optional] 
-**StartDate** | Pointer to **time.Time** |  | [optional] 
-**EndDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **string** |  | [optional] 
+**EndDate** | Pointer to **string** |  | [optional] 
 **Href** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *EntitlementDTO) GetCreated() time.Time`
+`func (o *EntitlementDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *EntitlementDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *EntitlementDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *EntitlementDTO) SetCreated(v time.Time)`
+`func (o *EntitlementDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -61,20 +61,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *EntitlementDTO) GetUpdated() time.Time`
+`func (o *EntitlementDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *EntitlementDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *EntitlementDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *EntitlementDTO) SetUpdated(v time.Time)`
+`func (o *EntitlementDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -211,20 +211,20 @@ HasCertificates returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *EntitlementDTO) GetStartDate() time.Time`
+`func (o *EntitlementDTO) GetStartDate() string`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *EntitlementDTO) GetStartDateOk() (*time.Time, bool)`
+`func (o *EntitlementDTO) GetStartDateOk() (*string, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *EntitlementDTO) SetStartDate(v time.Time)`
+`func (o *EntitlementDTO) SetStartDate(v string)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -236,20 +236,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *EntitlementDTO) GetEndDate() time.Time`
+`func (o *EntitlementDTO) GetEndDate() string`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *EntitlementDTO) GetEndDateOk() (*time.Time, bool)`
+`func (o *EntitlementDTO) GetEndDateOk() (*string, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *EntitlementDTO) SetEndDate(v time.Time)`
+`func (o *EntitlementDTO) SetEndDate(v string)`
 
 SetEndDate sets EndDate field to given value.
 

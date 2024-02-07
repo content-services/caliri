@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the ConsumerDTOArrayElement type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &ConsumerDTOArrayElement{}
 
 // ConsumerDTOArrayElement Represents a reduced view of a consumer (excluding data like facts and identify certificate)
 type ConsumerDTOArrayElement struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Uuid *string `json:"uuid,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -35,7 +34,7 @@ type ConsumerDTOArrayElement struct {
 	ReleaseVer *ReleaseVerDTO `json:"releaseVer,omitempty"`
 	Owner *NestedOwnerDTO `json:"owner,omitempty"`
 	EntitlementCount *int64 `json:"entitlementCount,omitempty"`
-	LastCheckin *time.Time `json:"lastCheckin,omitempty"`
+	LastCheckin *string `json:"lastCheckin,omitempty"`
 	InstalledProducts []ConsumerInstalledProductDTO `json:"installedProducts,omitempty"`
 	CanActivate *bool `json:"canActivate,omitempty"`
 	Capabilities []CapabilityDTO `json:"capabilities,omitempty"`
@@ -68,9 +67,9 @@ func NewConsumerDTOArrayElementWithDefaults() *ConsumerDTOArrayElement {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *ConsumerDTOArrayElement) GetCreated() time.Time {
+func (o *ConsumerDTOArrayElement) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -78,7 +77,7 @@ func (o *ConsumerDTOArrayElement) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumerDTOArrayElement) GetCreatedOk() (*time.Time, bool) {
+func (o *ConsumerDTOArrayElement) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -94,15 +93,15 @@ func (o *ConsumerDTOArrayElement) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *ConsumerDTOArrayElement) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *ConsumerDTOArrayElement) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *ConsumerDTOArrayElement) GetUpdated() time.Time {
+func (o *ConsumerDTOArrayElement) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -110,7 +109,7 @@ func (o *ConsumerDTOArrayElement) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumerDTOArrayElement) GetUpdatedOk() (*time.Time, bool) {
+func (o *ConsumerDTOArrayElement) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -126,8 +125,8 @@ func (o *ConsumerDTOArrayElement) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *ConsumerDTOArrayElement) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *ConsumerDTOArrayElement) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -548,9 +547,9 @@ func (o *ConsumerDTOArrayElement) SetEntitlementCount(v int64) {
 }
 
 // GetLastCheckin returns the LastCheckin field value if set, zero value otherwise.
-func (o *ConsumerDTOArrayElement) GetLastCheckin() time.Time {
+func (o *ConsumerDTOArrayElement) GetLastCheckin() string {
 	if o == nil || IsNil(o.LastCheckin) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastCheckin
@@ -558,7 +557,7 @@ func (o *ConsumerDTOArrayElement) GetLastCheckin() time.Time {
 
 // GetLastCheckinOk returns a tuple with the LastCheckin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsumerDTOArrayElement) GetLastCheckinOk() (*time.Time, bool) {
+func (o *ConsumerDTOArrayElement) GetLastCheckinOk() (*string, bool) {
 	if o == nil || IsNil(o.LastCheckin) {
 		return nil, false
 	}
@@ -574,8 +573,8 @@ func (o *ConsumerDTOArrayElement) HasLastCheckin() bool {
 	return false
 }
 
-// SetLastCheckin gets a reference to the given time.Time and assigns it to the LastCheckin field.
-func (o *ConsumerDTOArrayElement) SetLastCheckin(v time.Time) {
+// SetLastCheckin gets a reference to the given string and assigns it to the LastCheckin field.
+func (o *ConsumerDTOArrayElement) SetLastCheckin(v string) {
 	o.LastCheckin = &v
 }
 

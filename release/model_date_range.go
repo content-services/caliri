@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the DateRange type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &DateRange{}
 
 // DateRange Represents a range in time, start date to end Date inclusive
 type DateRange struct {
-	StartDate *time.Time `json:"startDate,omitempty"`
-	EndDate *time.Time `json:"endDate,omitempty"`
+	StartDate *string `json:"startDate,omitempty"`
+	EndDate *string `json:"endDate,omitempty"`
 }
 
 // NewDateRange instantiates a new DateRange object
@@ -42,9 +41,9 @@ func NewDateRangeWithDefaults() *DateRange {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *DateRange) GetStartDate() time.Time {
+func (o *DateRange) GetStartDate() string {
 	if o == nil || IsNil(o.StartDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StartDate
@@ -52,7 +51,7 @@ func (o *DateRange) GetStartDate() time.Time {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DateRange) GetStartDateOk() (*time.Time, bool) {
+func (o *DateRange) GetStartDateOk() (*string, bool) {
 	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
@@ -68,15 +67,15 @@ func (o *DateRange) HasStartDate() bool {
 	return false
 }
 
-// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
-func (o *DateRange) SetStartDate(v time.Time) {
+// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
+func (o *DateRange) SetStartDate(v string) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *DateRange) GetEndDate() time.Time {
+func (o *DateRange) GetEndDate() string {
 	if o == nil || IsNil(o.EndDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.EndDate
@@ -84,7 +83,7 @@ func (o *DateRange) GetEndDate() time.Time {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DateRange) GetEndDateOk() (*time.Time, bool) {
+func (o *DateRange) GetEndDateOk() (*string, bool) {
 	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
@@ -100,8 +99,8 @@ func (o *DateRange) HasEndDate() bool {
 	return false
 }
 
-// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
-func (o *DateRange) SetEndDate(v time.Time) {
+// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
+func (o *DateRange) SetEndDate(v string) {
 	o.EndDate = &v
 }
 

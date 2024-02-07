@@ -17,7 +17,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 
@@ -151,7 +150,7 @@ type ApiGetPoolRequest struct {
 	ApiService *PoolsAPIService
 	poolId string
 	consumer *string
-	activeon *time.Time
+	activeon *string
 }
 
 // Consumer UUID
@@ -161,7 +160,7 @@ func (r ApiGetPoolRequest) Consumer(consumer string) ApiGetPoolRequest {
 }
 
 // Uses ISO 8601 format
-func (r ApiGetPoolRequest) Activeon(activeon time.Time) ApiGetPoolRequest {
+func (r ApiGetPoolRequest) Activeon(activeon string) ApiGetPoolRequest {
 	r.activeon = &activeon
 	return r
 }
@@ -796,7 +795,7 @@ type ApiListPoolsRequest struct {
 	consumer *string
 	product *string
 	listall *bool
-	activeon *time.Time
+	activeon *string
 	page *int32
 	perPage *int32
 	order *string
@@ -828,7 +827,7 @@ func (r ApiListPoolsRequest) Listall(listall bool) ApiListPoolsRequest {
 }
 
 // Uses ISO 8601 format
-func (r ApiListPoolsRequest) Activeon(activeon time.Time) ApiListPoolsRequest {
+func (r ApiListPoolsRequest) Activeon(activeon string) ApiListPoolsRequest {
 	r.activeon = &activeon
 	return r
 }

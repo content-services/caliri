@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the UpstreamConsumerDTOArrayElement type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &UpstreamConsumerDTOArrayElement{}
 
 // UpstreamConsumerDTOArrayElement Represents a reduced view of a upstream consumer (excluding identify certificate) 
 type UpstreamConsumerDTOArrayElement struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Uuid *string `json:"uuid,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -50,9 +49,9 @@ func NewUpstreamConsumerDTOArrayElementWithDefaults() *UpstreamConsumerDTOArrayE
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *UpstreamConsumerDTOArrayElement) GetCreated() time.Time {
+func (o *UpstreamConsumerDTOArrayElement) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -60,7 +59,7 @@ func (o *UpstreamConsumerDTOArrayElement) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpstreamConsumerDTOArrayElement) GetCreatedOk() (*time.Time, bool) {
+func (o *UpstreamConsumerDTOArrayElement) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -76,15 +75,15 @@ func (o *UpstreamConsumerDTOArrayElement) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *UpstreamConsumerDTOArrayElement) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *UpstreamConsumerDTOArrayElement) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *UpstreamConsumerDTOArrayElement) GetUpdated() time.Time {
+func (o *UpstreamConsumerDTOArrayElement) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -92,7 +91,7 @@ func (o *UpstreamConsumerDTOArrayElement) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpstreamConsumerDTOArrayElement) GetUpdatedOk() (*time.Time, bool) {
+func (o *UpstreamConsumerDTOArrayElement) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -108,8 +107,8 @@ func (o *UpstreamConsumerDTOArrayElement) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *UpstreamConsumerDTOArrayElement) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *UpstreamConsumerDTOArrayElement) SetUpdated(v string) {
 	o.Updated = &v
 }
 

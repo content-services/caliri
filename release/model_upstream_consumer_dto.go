@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the UpstreamConsumerDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &UpstreamConsumerDTO{}
 
 // UpstreamConsumerDTO DTO representing an upstream consumer
 type UpstreamConsumerDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Uuid *string `json:"uuid,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -51,9 +50,9 @@ func NewUpstreamConsumerDTOWithDefaults() *UpstreamConsumerDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *UpstreamConsumerDTO) GetCreated() time.Time {
+func (o *UpstreamConsumerDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -61,7 +60,7 @@ func (o *UpstreamConsumerDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpstreamConsumerDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *UpstreamConsumerDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -77,15 +76,15 @@ func (o *UpstreamConsumerDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *UpstreamConsumerDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *UpstreamConsumerDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *UpstreamConsumerDTO) GetUpdated() time.Time {
+func (o *UpstreamConsumerDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -93,7 +92,7 @@ func (o *UpstreamConsumerDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpstreamConsumerDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *UpstreamConsumerDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -109,8 +108,8 @@ func (o *UpstreamConsumerDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *UpstreamConsumerDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *UpstreamConsumerDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 

@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the PoolDTO type satisfies the MappedNullable interface at compile time
@@ -20,16 +19,16 @@ var _ MappedNullable = &PoolDTO{}
 
 // PoolDTO Represents a pool of products eligible to be consumed (entitled)
 type PoolDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Owner *NestedOwnerDTO `json:"owner,omitempty"`
 	ActiveSubscription *bool `json:"activeSubscription,omitempty"`
 	SourceEntitlement *NestedEntitlementDTO `json:"sourceEntitlement,omitempty"`
 	Quantity *int64 `json:"quantity,omitempty"`
-	StartDate *time.Time `json:"startDate,omitempty"`
-	EndDate *time.Time `json:"endDate,omitempty"`
+	StartDate *string `json:"startDate,omitempty"`
+	EndDate *string `json:"endDate,omitempty"`
 	Attributes []AttributeDTO `json:"attributes,omitempty"`
 	RestrictedToUsername *string `json:"restrictedToUsername,omitempty"`
 	ContractNumber *string `json:"contractNumber,omitempty"`
@@ -78,9 +77,9 @@ func NewPoolDTOWithDefaults() *PoolDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *PoolDTO) GetCreated() time.Time {
+func (o *PoolDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -88,7 +87,7 @@ func (o *PoolDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *PoolDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -104,15 +103,15 @@ func (o *PoolDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *PoolDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *PoolDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *PoolDTO) GetUpdated() time.Time {
+func (o *PoolDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -120,7 +119,7 @@ func (o *PoolDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *PoolDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -136,8 +135,8 @@ func (o *PoolDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *PoolDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *PoolDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -334,9 +333,9 @@ func (o *PoolDTO) SetQuantity(v int64) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *PoolDTO) GetStartDate() time.Time {
+func (o *PoolDTO) GetStartDate() string {
 	if o == nil || IsNil(o.StartDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StartDate
@@ -344,7 +343,7 @@ func (o *PoolDTO) GetStartDate() time.Time {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolDTO) GetStartDateOk() (*time.Time, bool) {
+func (o *PoolDTO) GetStartDateOk() (*string, bool) {
 	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
@@ -360,15 +359,15 @@ func (o *PoolDTO) HasStartDate() bool {
 	return false
 }
 
-// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
-func (o *PoolDTO) SetStartDate(v time.Time) {
+// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
+func (o *PoolDTO) SetStartDate(v string) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *PoolDTO) GetEndDate() time.Time {
+func (o *PoolDTO) GetEndDate() string {
 	if o == nil || IsNil(o.EndDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.EndDate
@@ -376,7 +375,7 @@ func (o *PoolDTO) GetEndDate() time.Time {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolDTO) GetEndDateOk() (*time.Time, bool) {
+func (o *PoolDTO) GetEndDateOk() (*string, bool) {
 	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
@@ -392,8 +391,8 @@ func (o *PoolDTO) HasEndDate() bool {
 	return false
 }
 
-// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
-func (o *PoolDTO) SetEndDate(v time.Time) {
+// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
+func (o *PoolDTO) SetEndDate(v string) {
 	o.EndDate = &v
 }
 

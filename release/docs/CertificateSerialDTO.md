@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **int64** |  | [optional] 
 **Serial** | Pointer to **int64** |  | [optional] 
-**Expiration** | Pointer to **time.Time** |  | [optional] 
+**Expiration** | Pointer to **string** |  | [optional] 
 **Revoked** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *CertificateSerialDTO) GetCreated() time.Time`
+`func (o *CertificateSerialDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *CertificateSerialDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *CertificateSerialDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *CertificateSerialDTO) SetCreated(v time.Time)`
+`func (o *CertificateSerialDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -57,20 +57,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *CertificateSerialDTO) GetUpdated() time.Time`
+`func (o *CertificateSerialDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *CertificateSerialDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *CertificateSerialDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *CertificateSerialDTO) SetUpdated(v time.Time)`
+`func (o *CertificateSerialDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -132,20 +132,20 @@ HasSerial returns a boolean if a field has been set.
 
 ### GetExpiration
 
-`func (o *CertificateSerialDTO) GetExpiration() time.Time`
+`func (o *CertificateSerialDTO) GetExpiration() string`
 
 GetExpiration returns the Expiration field if non-nil, zero value otherwise.
 
 ### GetExpirationOk
 
-`func (o *CertificateSerialDTO) GetExpirationOk() (*time.Time, bool)`
+`func (o *CertificateSerialDTO) GetExpirationOk() (*string, bool)`
 
 GetExpirationOk returns a tuple with the Expiration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiration
 
-`func (o *CertificateSerialDTO) SetExpiration(v time.Time)`
+`func (o *CertificateSerialDTO) SetExpiration(v string)`
 
 SetExpiration sets Expiration field to given value.
 

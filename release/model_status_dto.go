@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the StatusDTO type satisfies the MappedNullable interface at compile time
@@ -22,12 +21,12 @@ var _ MappedNullable = &StatusDTO{}
 type StatusDTO struct {
 	Mode *string `json:"mode,omitempty"`
 	ModeReason *string `json:"modeReason,omitempty"`
-	ModeChangeTime *time.Time `json:"modeChangeTime,omitempty"`
+	ModeChangeTime *string `json:"modeChangeTime,omitempty"`
 	Result *bool `json:"result,omitempty"`
 	Version *string `json:"version,omitempty"`
 	Release *string `json:"release,omitempty"`
 	Standalone *bool `json:"standalone,omitempty"`
-	TimeUTC *time.Time `json:"timeUTC,omitempty"`
+	TimeUTC *string `json:"timeUTC,omitempty"`
 	RulesSource *string `json:"rulesSource,omitempty"`
 	RulesVersion *string `json:"rulesVersion,omitempty"`
 	ManagerCapabilities []string `json:"managerCapabilities,omitempty"`
@@ -122,9 +121,9 @@ func (o *StatusDTO) SetModeReason(v string) {
 }
 
 // GetModeChangeTime returns the ModeChangeTime field value if set, zero value otherwise.
-func (o *StatusDTO) GetModeChangeTime() time.Time {
+func (o *StatusDTO) GetModeChangeTime() string {
 	if o == nil || IsNil(o.ModeChangeTime) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.ModeChangeTime
@@ -132,7 +131,7 @@ func (o *StatusDTO) GetModeChangeTime() time.Time {
 
 // GetModeChangeTimeOk returns a tuple with the ModeChangeTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusDTO) GetModeChangeTimeOk() (*time.Time, bool) {
+func (o *StatusDTO) GetModeChangeTimeOk() (*string, bool) {
 	if o == nil || IsNil(o.ModeChangeTime) {
 		return nil, false
 	}
@@ -148,8 +147,8 @@ func (o *StatusDTO) HasModeChangeTime() bool {
 	return false
 }
 
-// SetModeChangeTime gets a reference to the given time.Time and assigns it to the ModeChangeTime field.
-func (o *StatusDTO) SetModeChangeTime(v time.Time) {
+// SetModeChangeTime gets a reference to the given string and assigns it to the ModeChangeTime field.
+func (o *StatusDTO) SetModeChangeTime(v string) {
 	o.ModeChangeTime = &v
 }
 
@@ -282,9 +281,9 @@ func (o *StatusDTO) SetStandalone(v bool) {
 }
 
 // GetTimeUTC returns the TimeUTC field value if set, zero value otherwise.
-func (o *StatusDTO) GetTimeUTC() time.Time {
+func (o *StatusDTO) GetTimeUTC() string {
 	if o == nil || IsNil(o.TimeUTC) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.TimeUTC
@@ -292,7 +291,7 @@ func (o *StatusDTO) GetTimeUTC() time.Time {
 
 // GetTimeUTCOk returns a tuple with the TimeUTC field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusDTO) GetTimeUTCOk() (*time.Time, bool) {
+func (o *StatusDTO) GetTimeUTCOk() (*string, bool) {
 	if o == nil || IsNil(o.TimeUTC) {
 		return nil, false
 	}
@@ -308,8 +307,8 @@ func (o *StatusDTO) HasTimeUTC() bool {
 	return false
 }
 
-// SetTimeUTC gets a reference to the given time.Time and assigns it to the TimeUTC field.
-func (o *StatusDTO) SetTimeUTC(v time.Time) {
+// SetTimeUTC gets a reference to the given string and assigns it to the TimeUTC field.
+func (o *StatusDTO) SetTimeUTC(v string) {
 	o.TimeUTC = &v
 }
 

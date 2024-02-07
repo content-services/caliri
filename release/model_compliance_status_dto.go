@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the ComplianceStatusDTO type satisfies the MappedNullable interface at compile time
@@ -22,8 +21,8 @@ var _ MappedNullable = &ComplianceStatusDTO{}
 type ComplianceStatusDTO struct {
 	Status *string `json:"status,omitempty"`
 	Compliant *bool `json:"compliant,omitempty"`
-	Date *time.Time `json:"date,omitempty"`
-	CompliantUntil *time.Time `json:"compliantUntil,omitempty"`
+	Date *string `json:"date,omitempty"`
+	CompliantUntil *string `json:"compliantUntil,omitempty"`
 	CompliantProducts *map[string][]EntitlementDTO `json:"compliantProducts,omitempty"`
 	PartiallyCompliantProducts *map[string][]EntitlementDTO `json:"partiallyCompliantProducts,omitempty"`
 	PartialStacks *map[string][]EntitlementDTO `json:"partialStacks,omitempty"`
@@ -114,9 +113,9 @@ func (o *ComplianceStatusDTO) SetCompliant(v bool) {
 }
 
 // GetDate returns the Date field value if set, zero value otherwise.
-func (o *ComplianceStatusDTO) GetDate() time.Time {
+func (o *ComplianceStatusDTO) GetDate() string {
 	if o == nil || IsNil(o.Date) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Date
@@ -124,7 +123,7 @@ func (o *ComplianceStatusDTO) GetDate() time.Time {
 
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ComplianceStatusDTO) GetDateOk() (*time.Time, bool) {
+func (o *ComplianceStatusDTO) GetDateOk() (*string, bool) {
 	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
@@ -140,15 +139,15 @@ func (o *ComplianceStatusDTO) HasDate() bool {
 	return false
 }
 
-// SetDate gets a reference to the given time.Time and assigns it to the Date field.
-func (o *ComplianceStatusDTO) SetDate(v time.Time) {
+// SetDate gets a reference to the given string and assigns it to the Date field.
+func (o *ComplianceStatusDTO) SetDate(v string) {
 	o.Date = &v
 }
 
 // GetCompliantUntil returns the CompliantUntil field value if set, zero value otherwise.
-func (o *ComplianceStatusDTO) GetCompliantUntil() time.Time {
+func (o *ComplianceStatusDTO) GetCompliantUntil() string {
 	if o == nil || IsNil(o.CompliantUntil) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CompliantUntil
@@ -156,7 +155,7 @@ func (o *ComplianceStatusDTO) GetCompliantUntil() time.Time {
 
 // GetCompliantUntilOk returns a tuple with the CompliantUntil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ComplianceStatusDTO) GetCompliantUntilOk() (*time.Time, bool) {
+func (o *ComplianceStatusDTO) GetCompliantUntilOk() (*string, bool) {
 	if o == nil || IsNil(o.CompliantUntil) {
 		return nil, false
 	}
@@ -172,8 +171,8 @@ func (o *ComplianceStatusDTO) HasCompliantUntil() bool {
 	return false
 }
 
-// SetCompliantUntil gets a reference to the given time.Time and assigns it to the CompliantUntil field.
-func (o *ComplianceStatusDTO) SetCompliantUntil(v time.Time) {
+// SetCompliantUntil gets a reference to the given string and assigns it to the CompliantUntil field.
+func (o *ComplianceStatusDTO) SetCompliantUntil(v string) {
 	o.CompliantUntil = &v
 }
 

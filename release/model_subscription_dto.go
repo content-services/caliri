@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the SubscriptionDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &SubscriptionDTO{}
 
 // SubscriptionDTO Represents the Subscription data exposed to the API
 type SubscriptionDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Owner *NestedOwnerDTO `json:"owner,omitempty"`
 	Product *ProductDTO `json:"product,omitempty"`
@@ -29,12 +28,12 @@ type SubscriptionDTO struct {
 	ProvidedProducts []ProductDTO `json:"providedProducts,omitempty"`
 	DerivedProvidedProducts []ProductDTO `json:"derivedProvidedProducts,omitempty"`
 	Quantity *int64 `json:"quantity,omitempty"`
-	StartDate *time.Time `json:"startDate,omitempty"`
-	EndDate *time.Time `json:"endDate,omitempty"`
+	StartDate *string `json:"startDate,omitempty"`
+	EndDate *string `json:"endDate,omitempty"`
 	ContractNumber *string `json:"contractNumber,omitempty"`
 	AccountNumber *string `json:"accountNumber,omitempty"`
-	Modified *time.Time `json:"modified,omitempty"`
-	LastModified *time.Time `json:"lastModified,omitempty"`
+	Modified *string `json:"modified,omitempty"`
+	LastModified *string `json:"lastModified,omitempty"`
 	OrderNumber *string `json:"orderNumber,omitempty"`
 	UpstreamPoolId *string `json:"upstreamPoolId,omitempty"`
 	UpstreamEntitlementId *string `json:"upstreamEntitlementId,omitempty"`
@@ -63,9 +62,9 @@ func NewSubscriptionDTOWithDefaults() *SubscriptionDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *SubscriptionDTO) GetCreated() time.Time {
+func (o *SubscriptionDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -73,7 +72,7 @@ func (o *SubscriptionDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *SubscriptionDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -89,15 +88,15 @@ func (o *SubscriptionDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *SubscriptionDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *SubscriptionDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *SubscriptionDTO) GetUpdated() time.Time {
+func (o *SubscriptionDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -105,7 +104,7 @@ func (o *SubscriptionDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *SubscriptionDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -121,8 +120,8 @@ func (o *SubscriptionDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *SubscriptionDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *SubscriptionDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 
@@ -351,9 +350,9 @@ func (o *SubscriptionDTO) SetQuantity(v int64) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *SubscriptionDTO) GetStartDate() time.Time {
+func (o *SubscriptionDTO) GetStartDate() string {
 	if o == nil || IsNil(o.StartDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StartDate
@@ -361,7 +360,7 @@ func (o *SubscriptionDTO) GetStartDate() time.Time {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionDTO) GetStartDateOk() (*time.Time, bool) {
+func (o *SubscriptionDTO) GetStartDateOk() (*string, bool) {
 	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
@@ -377,15 +376,15 @@ func (o *SubscriptionDTO) HasStartDate() bool {
 	return false
 }
 
-// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
-func (o *SubscriptionDTO) SetStartDate(v time.Time) {
+// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
+func (o *SubscriptionDTO) SetStartDate(v string) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *SubscriptionDTO) GetEndDate() time.Time {
+func (o *SubscriptionDTO) GetEndDate() string {
 	if o == nil || IsNil(o.EndDate) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.EndDate
@@ -393,7 +392,7 @@ func (o *SubscriptionDTO) GetEndDate() time.Time {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionDTO) GetEndDateOk() (*time.Time, bool) {
+func (o *SubscriptionDTO) GetEndDateOk() (*string, bool) {
 	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
@@ -409,8 +408,8 @@ func (o *SubscriptionDTO) HasEndDate() bool {
 	return false
 }
 
-// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
-func (o *SubscriptionDTO) SetEndDate(v time.Time) {
+// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
+func (o *SubscriptionDTO) SetEndDate(v string) {
 	o.EndDate = &v
 }
 
@@ -479,9 +478,9 @@ func (o *SubscriptionDTO) SetAccountNumber(v string) {
 }
 
 // GetModified returns the Modified field value if set, zero value otherwise.
-func (o *SubscriptionDTO) GetModified() time.Time {
+func (o *SubscriptionDTO) GetModified() string {
 	if o == nil || IsNil(o.Modified) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Modified
@@ -489,7 +488,7 @@ func (o *SubscriptionDTO) GetModified() time.Time {
 
 // GetModifiedOk returns a tuple with the Modified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionDTO) GetModifiedOk() (*time.Time, bool) {
+func (o *SubscriptionDTO) GetModifiedOk() (*string, bool) {
 	if o == nil || IsNil(o.Modified) {
 		return nil, false
 	}
@@ -505,15 +504,15 @@ func (o *SubscriptionDTO) HasModified() bool {
 	return false
 }
 
-// SetModified gets a reference to the given time.Time and assigns it to the Modified field.
-func (o *SubscriptionDTO) SetModified(v time.Time) {
+// SetModified gets a reference to the given string and assigns it to the Modified field.
+func (o *SubscriptionDTO) SetModified(v string) {
 	o.Modified = &v
 }
 
 // GetLastModified returns the LastModified field value if set, zero value otherwise.
-func (o *SubscriptionDTO) GetLastModified() time.Time {
+func (o *SubscriptionDTO) GetLastModified() string {
 	if o == nil || IsNil(o.LastModified) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastModified
@@ -521,7 +520,7 @@ func (o *SubscriptionDTO) GetLastModified() time.Time {
 
 // GetLastModifiedOk returns a tuple with the LastModified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionDTO) GetLastModifiedOk() (*time.Time, bool) {
+func (o *SubscriptionDTO) GetLastModifiedOk() (*string, bool) {
 	if o == nil || IsNil(o.LastModified) {
 		return nil, false
 	}
@@ -537,8 +536,8 @@ func (o *SubscriptionDTO) HasLastModified() bool {
 	return false
 }
 
-// SetLastModified gets a reference to the given time.Time and assigns it to the LastModified field.
-func (o *SubscriptionDTO) SetLastModified(v time.Time) {
+// SetLastModified gets a reference to the given string and assigns it to the LastModified field.
+func (o *SubscriptionDTO) SetLastModified(v string) {
 	o.LastModified = &v
 }
 

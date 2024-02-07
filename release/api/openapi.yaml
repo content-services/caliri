@@ -1617,7 +1617,6 @@ paths:
         name: on_date
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       responses:
@@ -2160,7 +2159,6 @@ paths:
         name: entitle_date
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: From pool
@@ -2590,7 +2588,6 @@ paths:
         name: on_date
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       responses:
@@ -3714,7 +3711,6 @@ paths:
         name: date
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       responses:
@@ -4876,7 +4872,6 @@ paths:
         name: after
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: Cleans up jobs to those on or before this date
@@ -4885,7 +4880,6 @@ paths:
         name: before
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: Cleans up job forcefully
@@ -5021,7 +5015,6 @@ paths:
         name: after
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: Filter jobs to those on or before this date
@@ -5030,7 +5023,6 @@ paths:
         name: before
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: Page index to return
@@ -6787,7 +6779,7 @@ paths:
       tags:
       - owner
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /owners/{owner_key}/imports/async:
     post:
@@ -7094,7 +7086,6 @@ paths:
         name: activeon
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: |
@@ -7150,7 +7141,6 @@ paths:
         name: after
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: |
@@ -8642,7 +8632,6 @@ paths:
         name: activeon
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       - description: Page index to return
@@ -8805,7 +8794,6 @@ paths:
         name: activeon
         required: false
         schema:
-          format: date-time
           type: string
         style: form
       responses:
@@ -10154,10 +10142,10 @@ components:
     TimestampedEntity:
       properties:
         created:
-          format: date-time
+          example: 2020-04-23 03:23:50.927000
           type: string
         updated:
-          format: date-time
+          example: 2020-04-23 03:23:50.927000
           type: string
     ExceptionMessage:
       description: An exception has occurred
@@ -10179,14 +10167,12 @@ components:
     DateRange:
       description: "Represents a range in time, start date to end Date inclusive"
       example:
-        endDate: 2000-01-23T04:56:07.000+00:00
-        startDate: 2000-01-23T04:56:07.000+00:00
+        endDate: endDate
+        startDate: startDate
       properties:
         startDate:
-          format: date-time
           type: string
         endDate:
-          format: date-time
           type: string
     DeleteResult:
       description: Represents number of records removed via an unbind.
@@ -10227,10 +10213,10 @@ components:
             example: QUEUED
             type: string
           startTime:
-            format: date-time
+            example: 2019-05-08 09:42:37.000
             type: string
           endTime:
-            format: date-time
+            example: 2019-05-08 09:42:37.000
             type: string
           attempts:
             example: 1
@@ -10367,7 +10353,6 @@ components:
             format: int64
             type: integer
           expiration:
-            format: date-time
             type: string
           revoked:
             type: boolean
@@ -10487,7 +10472,6 @@ components:
               type: string
             type: object
           lastCheckin:
-            format: date-time
             type: string
           installedProducts:
             items:
@@ -10579,7 +10563,6 @@ components:
             format: int64
             type: integer
           lastCheckin:
-            format: date-time
             type: string
           installedProducts:
             items:
@@ -10637,10 +10620,8 @@ components:
           status:
             type: string
           startDate:
-            format: date-time
             type: string
           endDate:
-            format: date-time
             type: string
         required:
         - productId
@@ -10779,7 +10760,7 @@ components:
     ComplianceStatusDTO:
       description: DTO representing compliance status
       example:
-        date: 2000-01-23T04:56:07.000+00:00
+        date: date
         partiallyCompliantProducts:
           key:
           - null
@@ -10797,14 +10778,14 @@ components:
           key:
           - null
           - null
-        compliantUntil: 2000-01-23T04:56:07.000+00:00
+        compliantUntil: compliantUntil
         nonCompliantProducts:
         - nonCompliantProducts
         - nonCompliantProducts
         productComplianceDateRanges:
           key:
-            endDate: 2000-01-23T04:56:07.000+00:00
-            startDate: 2000-01-23T04:56:07.000+00:00
+            endDate: endDate
+            startDate: startDate
         compliant: true
         compliantProducts:
           key:
@@ -10817,10 +10798,8 @@ components:
         compliant:
           type: boolean
         date:
-          format: date-time
           type: string
         compliantUntil:
-          format: date-time
           type: string
         compliantProducts:
           additionalProperties:
@@ -10938,10 +10917,8 @@ components:
             type: array
             uniqueItems: true
           startDate:
-            format: date-time
             type: string
           endDate:
-            format: date-time
             type: string
           href:
             type: string
@@ -11079,7 +11056,6 @@ components:
           generatedBy:
             type: string
           generatedDate:
-            format: date-time
             type: string
           upstreamConsumer:
             $ref: '#/components/schemas/ImportUpstreamConsumerDTO'
@@ -11167,7 +11143,6 @@ components:
           autobindDisabled:
             type: boolean
           lastRefreshed:
-            format: date-time
             type: string
           parentOwner:
             $ref: '#/components/schemas/NestedOwnerDTO'
@@ -11273,10 +11248,8 @@ components:
             format: int64
             type: integer
           startDate:
-            format: date-time
             type: string
           endDate:
-            format: date-time
             type: string
           attributes:
             items:
@@ -11508,10 +11481,10 @@ components:
         managerCapabilities:
         - managerCapabilities
         - managerCapabilities
-        timeUTC: 2000-01-23T04:56:07.000+00:00
+        timeUTC: timeUTC
         deviceAuthUrl: deviceAuthUrl
         deviceAuthRealm: deviceAuthRealm
-        modeChangeTime: 2000-01-23T04:56:07.000+00:00
+        modeChangeTime: modeChangeTime
         keycloakRealm: keycloakRealm
       properties:
         mode:
@@ -11519,7 +11492,6 @@ components:
         modeReason:
           type: string
         modeChangeTime:
-          format: date-time
           type: string
         result:
           example: true
@@ -11532,7 +11504,6 @@ components:
         standalone:
           type: boolean
         timeUTC:
-          format: date-time
           type: string
         rulesSource:
           type: string
@@ -11584,20 +11555,20 @@ components:
             format: int64
             type: integer
           startDate:
-            format: date-time
+            example: 2019-05-08 09:42:37.000
             type: string
           endDate:
-            format: date-time
+            example: 2019-05-08 09:42:37.000
             type: string
           contractNumber:
             type: string
           accountNumber:
             type: string
           modified:
-            format: date-time
+            example: 2019-05-08 09:42:37.000
             type: string
           lastModified:
-            format: date-time
+            example: 2019-05-08 09:42:37.000
             type: string
           orderNumber:
             type: string
@@ -11643,7 +11614,7 @@ components:
     SystemPurposeComplianceStatusDTO:
       description: DTO representing system purpose compliance status
       example:
-        date: 2000-01-23T04:56:07.000+00:00
+        date: date
         nonCompliantUsage: nonCompliantUsage
         nonCompliantRole: nonCompliantRole
         reasons:
@@ -11682,7 +11653,6 @@ components:
         compliant:
           type: boolean
         date:
-          format: date-time
           type: string
         nonCompliantRole:
           type: string

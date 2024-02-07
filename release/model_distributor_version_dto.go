@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the DistributorVersionDTO type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &DistributorVersionDTO{}
 
 // DistributorVersionDTO A DTO representation of the DistributorVersion
 type DistributorVersionDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	DisplayName *string `json:"displayName,omitempty"`
@@ -46,9 +45,9 @@ func NewDistributorVersionDTOWithDefaults() *DistributorVersionDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *DistributorVersionDTO) GetCreated() time.Time {
+func (o *DistributorVersionDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -56,7 +55,7 @@ func (o *DistributorVersionDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DistributorVersionDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *DistributorVersionDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -72,15 +71,15 @@ func (o *DistributorVersionDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *DistributorVersionDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *DistributorVersionDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *DistributorVersionDTO) GetUpdated() time.Time {
+func (o *DistributorVersionDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -88,7 +87,7 @@ func (o *DistributorVersionDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DistributorVersionDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *DistributorVersionDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -104,8 +103,8 @@ func (o *DistributorVersionDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *DistributorVersionDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *DistributorVersionDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 

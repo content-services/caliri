@@ -12,7 +12,6 @@ package caliri
 
 import (
 	"encoding/json"
-	"time"
 	"bytes"
 	"fmt"
 )
@@ -22,8 +21,8 @@ var _ MappedNullable = &BrandingDTO{}
 
 // BrandingDTO Represents the branding. It indicates that a particular engineering product ID is being rebranded by the entitlement to the given name. The type is used by clients to determine what action to take with the brand name.
 type BrandingDTO struct {
-	Created *time.Time `json:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty"`
+	Created *string `json:"created,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 	ProductId string `json:"productId"`
 	Name string `json:"name"`
 	Type string `json:"type"`
@@ -52,9 +51,9 @@ func NewBrandingDTOWithDefaults() *BrandingDTO {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *BrandingDTO) GetCreated() time.Time {
+func (o *BrandingDTO) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -62,7 +61,7 @@ func (o *BrandingDTO) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BrandingDTO) GetCreatedOk() (*time.Time, bool) {
+func (o *BrandingDTO) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -78,15 +77,15 @@ func (o *BrandingDTO) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *BrandingDTO) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *BrandingDTO) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *BrandingDTO) GetUpdated() time.Time {
+func (o *BrandingDTO) GetUpdated() string {
 	if o == nil || IsNil(o.Updated) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -94,7 +93,7 @@ func (o *BrandingDTO) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BrandingDTO) GetUpdatedOk() (*time.Time, bool) {
+func (o *BrandingDTO) GetUpdatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -110,8 +109,8 @@ func (o *BrandingDTO) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *BrandingDTO) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *BrandingDTO) SetUpdated(v string) {
 	o.Updated = &v
 }
 

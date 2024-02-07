@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
+**Updated** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **StatusMessage** | Pointer to **string** |  | [optional] 
 **FileName** | Pointer to **string** |  | [optional] 
 **GeneratedBy** | Pointer to **string** |  | [optional] 
-**GeneratedDate** | Pointer to **time.Time** |  | [optional] 
+**GeneratedDate** | Pointer to **string** |  | [optional] 
 **UpstreamConsumer** | Pointer to [**ImportUpstreamConsumerDTO**](ImportUpstreamConsumerDTO.md) |  | [optional] 
 
 ## Methods
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *ImportRecordDTO) GetCreated() time.Time`
+`func (o *ImportRecordDTO) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *ImportRecordDTO) GetCreatedOk() (*time.Time, bool)`
+`func (o *ImportRecordDTO) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *ImportRecordDTO) SetCreated(v time.Time)`
+`func (o *ImportRecordDTO) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -60,20 +60,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *ImportRecordDTO) GetUpdated() time.Time`
+`func (o *ImportRecordDTO) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *ImportRecordDTO) GetUpdatedOk() (*time.Time, bool)`
+`func (o *ImportRecordDTO) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *ImportRecordDTO) SetUpdated(v time.Time)`
+`func (o *ImportRecordDTO) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 
@@ -210,20 +210,20 @@ HasGeneratedBy returns a boolean if a field has been set.
 
 ### GetGeneratedDate
 
-`func (o *ImportRecordDTO) GetGeneratedDate() time.Time`
+`func (o *ImportRecordDTO) GetGeneratedDate() string`
 
 GetGeneratedDate returns the GeneratedDate field if non-nil, zero value otherwise.
 
 ### GetGeneratedDateOk
 
-`func (o *ImportRecordDTO) GetGeneratedDateOk() (*time.Time, bool)`
+`func (o *ImportRecordDTO) GetGeneratedDateOk() (*string, bool)`
 
 GetGeneratedDateOk returns a tuple with the GeneratedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGeneratedDate
 
-`func (o *ImportRecordDTO) SetGeneratedDate(v time.Time)`
+`func (o *ImportRecordDTO) SetGeneratedDate(v string)`
 
 SetGeneratedDate sets GeneratedDate field to given value.
 

@@ -18,7 +18,6 @@ import (
 	"net/url"
 	"strings"
 	"reflect"
-	"time"
 	"os"
 )
 
@@ -192,7 +191,7 @@ type ApiBindRequest struct {
 	email *string
 	emailLocale *string
 	async *bool
-	entitleDate *time.Time
+	entitleDate *string
 	fromPool *[]string
 }
 
@@ -233,7 +232,7 @@ func (r ApiBindRequest) Async(async bool) ApiBindRequest {
 }
 
 // Entitlement date
-func (r ApiBindRequest) EntitleDate(entitleDate time.Time) ApiBindRequest {
+func (r ApiBindRequest) EntitleDate(entitleDate string) ApiBindRequest {
 	r.entitleDate = &entitleDate
 	return r
 }
@@ -1889,11 +1888,11 @@ type ApiGetComplianceStatusRequest struct {
 	ctx context.Context
 	ApiService *ConsumerAPIService
 	consumerUuid string
-	onDate *time.Time
+	onDate *string
 }
 
 // Date to get compliance information for, default is now.
-func (r ApiGetComplianceStatusRequest) OnDate(onDate time.Time) ApiGetComplianceStatusRequest {
+func (r ApiGetComplianceStatusRequest) OnDate(onDate string) ApiGetComplianceStatusRequest {
 	r.onDate = &onDate
 	return r
 }
@@ -3209,11 +3208,11 @@ type ApiGetSystemPurposeComplianceStatusRequest struct {
 	ctx context.Context
 	ApiService *ConsumerAPIService
 	consumerUuid string
-	onDate *time.Time
+	onDate *string
 }
 
 // Date to get compliance information for, default is now.
-func (r ApiGetSystemPurposeComplianceStatusRequest) OnDate(onDate time.Time) ApiGetSystemPurposeComplianceStatusRequest {
+func (r ApiGetSystemPurposeComplianceStatusRequest) OnDate(onDate string) ApiGetSystemPurposeComplianceStatusRequest {
 	r.onDate = &onDate
 	return r
 }
