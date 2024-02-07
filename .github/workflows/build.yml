@@ -22,7 +22,9 @@ jobs:
       - name: Get current version from file
         id: getRelease
         run: |
-          curl https://raw.githubusercontent.com/candlepin/candlepin/main/api/candlepin-api-spec.yaml -o candlepin-api-spec.yaml
+          curl https://raw.githubusercontent.com/candlepin/candlepin/main/api/candlepin-api-spec.yaml -o candlepin-api-times.yaml
+          # candlepin dates are not in the format that go requires (a subset of RFC-3339), treat them as strings
+          cat candlepin-api-times.yaml | grep -v "format: date-time" > candlepin-api-spec.yaml
           yq -r '.info.version' < candlepin-api-spec.yaml
           version="`yq -r '.info.version' < candlepin-api-spec.yaml`"        
           major="v`echo $version | awk -F '.' '{print $1}'`"
@@ -33,7 +35,6 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "tag=$tag" >> $GITHUB_OUTPUT
           echo "major=$major" >> $GITHUB_OUTPUT
-          
 
       # If check passes, latest build is up to date and the action stops
       - name: Update version
