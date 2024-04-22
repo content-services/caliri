@@ -87,7 +87,7 @@ No authorization required
 
 ## CreateContentBatch
 
-> ContentDTO CreateContentBatch(ctx, ownerKey).ContentDTO(contentDTO).Execute()
+> []ContentDTO CreateContentBatch(ctx, ownerKey).ContentDTO(contentDTO).Execute()
 
 
 
@@ -116,7 +116,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `OwnerContentAPI.CreateContentBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateContentBatch`: ContentDTO
+	// response from `CreateContentBatch`: []ContentDTO
 	fmt.Fprintf(os.Stdout, "Response from `OwnerContentAPI.CreateContentBatch`: %v\n", resp)
 }
 ```
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContentDTO**](ContentDTO.md)
+[**[]ContentDTO**](ContentDTO.md)
 
 ### Authorization
 

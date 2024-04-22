@@ -3,7 +3,7 @@ info:
   description: Candlepin is a subscription management server written in Java. It helps
     with management of software subscriptions.
   title: Candlepin
-  version: 4.4.4
+  version: 4.4.6
 servers:
 - url: /candlepin
 security:
@@ -118,7 +118,7 @@ paths:
       tags:
       - activation_key
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /activation_keys/{activation_key_id}:
     delete:
@@ -308,7 +308,7 @@ paths:
       tags:
       - activation_key
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     get:
       description: Retrieves list of Content Overrides
@@ -362,7 +362,7 @@ paths:
       tags:
       - activation_key
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     put:
       description: Adds or Updates a list of Content Overrides
@@ -426,7 +426,7 @@ paths:
       tags:
       - activation_key
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /activation_keys/{activation_key_id}/pools:
     get:
@@ -1750,7 +1750,7 @@ paths:
       tags:
       - consumer
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     get:
       description: Retrieves list of Content Overrides
@@ -1804,7 +1804,7 @@ paths:
       tags:
       - consumer
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     put:
       description: Adds or Updates a list of Content Overrides
@@ -1880,7 +1880,7 @@ paths:
       tags:
       - consumer
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /consumers/{consumer_uuid}/deletionrecord:
     delete:
@@ -2431,7 +2431,7 @@ paths:
       tags:
       - guest_ids
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     put:
       description: Updates the list of guests on a consumer.
@@ -3299,7 +3299,7 @@ paths:
       tags:
       - consumer_type
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     post:
       description: Creates a new consumer type
@@ -3482,7 +3482,7 @@ paths:
       tags:
       - cdn
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     post:
       description: Creates a new CDN
@@ -3608,6 +3608,43 @@ paths:
     get:
       description: Retrieves list of Content
       operationId: getContents
+      parameters:
+      - description: Page index to return
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: 2
+          type: integer
+        style: form
+      - description: Number of items to return per page
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: 10
+          type: integer
+        style: form
+      - description: Direction of ordering
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: asc
+          type: string
+        style: form
+      - description: Property to use for ordering
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          example: name
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -3630,7 +3667,7 @@ paths:
       tags:
       - content
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /content/{content_uuid}:
     get:
@@ -3713,6 +3750,42 @@ paths:
         schema:
           type: string
         style: form
+      - description: Page index to return
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: 2
+          type: integer
+        style: form
+      - description: Number of items to return per page
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: 10
+          type: integer
+        style: form
+      - description: Direction of ordering
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: asc
+          type: string
+        style: form
+      - description: Property to use for ordering
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          example: name
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -3753,7 +3826,7 @@ paths:
       tags:
       - deleted_consumer
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /distributor_versions:
     get:
@@ -4218,6 +4291,159 @@ paths:
       security: []
       tags:
       - environment
+  /environments/{environment_id}/content_overrides:
+    delete:
+      description: |
+        Removes one or more content overrides from the given environment. If the list of content overrides to
+        remove is empty, or the list contains one or more entries without a label, all content overrides for
+        the specified environment will be removed. If the list contains one or more entries with a label but
+        without an override name (key), all overrides for that label will be removed. If no matching overrides
+        could be found, no change will be made to the environment.
+
+        Regardless of which, if any, content overrides are removed, this endpoint returns a list containing
+        the remaining overrides on the specified environment.
+      operationId: deleteEnvironmentContentOverrides
+      parameters:
+      - description: |
+          The ID of the environment from which to remove content overrides
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ContentOverrideDTO'
+              type: array
+        description: |
+          A list containing the content overrides to remove from the environment. The overrides need not be
+          fully populated, as the value is ignored entirely during removal; and depending on the behavior
+          desired, the name or label fields may not be needed, either. See the description for the operation
+          itself for more details.
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ContentOverrideDTO'
+                type: array
+          description: |
+            An update list of all remaining content overrides for the specified environment
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+          description: |
+            An environment with the specified ID does not exist
+      security: []
+      tags:
+      - environment
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
+    get:
+      description: |
+        Fetches the overrides to be applied to all consumers in the given environment. If the environment has
+        no overrides, this endpoint returns an empty list.
+      operationId: getEnvironmentContentOverrides
+      parameters:
+      - description: |
+          The ID of the environment for which to fetch content overrides
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ContentOverrideDTO'
+                type: array
+          description: |
+            A list of content overrides for the specified environment
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+          description: |
+            An environment with the specified ID does not exist
+        default:
+          content:
+            application/json:
+              example:
+                displayMessage: An unexpected exception has occurred
+                requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+          description: An unexpected exception has occurred
+      security: []
+      tags:
+      - environment
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
+    put:
+      description: |
+        Adds one or more new content overrides or updates existing overrides for the given environment, then
+        returns a list containing all known, updated overrides for the environment. If the list contains
+        multiple values for a given content override, any previous value(s) will be overwritten.
+      operationId: putEnvironmentContentOverrides
+      parameters:
+      - description: |
+          The ID of the environment in which to add or update content overrides
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ContentOverrideDTO'
+              type: array
+        description: A list containing the content overrides to apply to the environment
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ContentOverrideDTO'
+                type: array
+          description: |
+            An updated list of all known content overrides for the specified environment
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+          description: |
+            An environment with the specified ID does not exist
+      security: []
+      tags:
+      - environment
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
   /entitlements:
     get:
       description: Retrieves list of Entitlements. This endpoint supports paging with
@@ -5342,6 +5568,42 @@ paths:
         schema:
           type: string
         style: form
+      - description: Page index to return
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: 2
+          type: integer
+        style: form
+      - description: Number of items to return per page
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: 10
+          type: integer
+        style: form
+      - description: Direction of ordering
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: asc
+          type: string
+        style: form
+      - description: Property to use for ordering
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          example: name
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -5364,7 +5626,7 @@ paths:
       tags:
       - owner
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     post:
       description: Creates an owner
@@ -5641,7 +5903,7 @@ paths:
       tags:
       - owner
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
     post:
       description: Creates an activation key for the owner
@@ -6007,7 +6269,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentDTO'
+                items:
+                  $ref: '#/components/schemas/ContentDTO'
+                type: array
           description: Contents created
         "400":
           content:
@@ -6642,6 +6906,42 @@ paths:
             type: string
           type: array
         style: form
+      - description: Page index to return
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: 2
+          type: integer
+        style: form
+      - description: Number of items to return per page
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: 10
+          type: integer
+        style: form
+      - description: Direction of ordering
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: asc
+          type: string
+        style: form
+      - description: Property to use for ordering
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          example: name
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -6673,7 +6973,7 @@ paths:
       tags:
       - owner
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /owners/{owner_key}/imports:
     delete:
@@ -8517,6 +8817,43 @@ paths:
     get:
       description: Retrieves list containing all known products
       operationId: getProducts
+      parameters:
+      - description: Page index to return
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: 2
+          type: integer
+        style: form
+      - description: Number of items to return per page
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: 10
+          type: integer
+        style: form
+      - description: Direction of ordering
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: asc
+          type: string
+        style: form
+      - description: Property to use for ordering
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          example: name
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -8539,7 +8876,7 @@ paths:
       tags:
       - products
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
   /products/{product_uuid}:
     get:
@@ -9656,6 +9993,9 @@ paths:
       security: []
       tags:
       - subscription
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
     post:
       description: Activates a Subscription
       operationId: activateSubscription
@@ -10149,6 +10489,9 @@ components:
           type: string
     ExceptionMessage:
       description: An exception has occurred
+      example:
+        displayMessage: displayMessage
+        requestUuid: requestUuid
       properties:
         displayMessage:
           type: string
@@ -10228,11 +10571,27 @@ components:
             example: /jobs/ff808081554a3e4101554a3e9033005d
             type: string
           resultData:
-            description: May contain a single message or job data as JSON
-            example: Refresh completed successfully!
-            type: object
+            $ref: '#/components/schemas/AsyncJobStatusDTO_allOf_resultData'
         type: object
       description: DTO representing an async job status
+      example:
+        resultData: Refresh completed successfully!
+        created: 2020-04-23 03:23:50.927000
+        origin: candlepin.myhost.com
+        previousState: QUEUED
+        principal: admin
+        maxAttempts: 3
+        statusPath: /jobs/ff808081554a3e4101554a3e9033005d
+        executor: candlepin.myhost.com
+        name: refresh pools job
+        startTime: 2019-05-08 09:42:37.000
+        id: ff808081554a3e4101554a3e9033005d
+        state: RUNNING
+        endTime: 2019-05-08 09:42:37.000
+        updated: 2020-04-23 03:23:50.927000
+        key: RefreshPoolsJob
+        group: refresh
+        attempts: 1
     AbstractCertificateDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10294,7 +10653,49 @@ components:
         type: object
       description: A token that allows registration without username/password and
         sets subscription and content related properties at registration.
+      example:
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        role: role
+        created: 2020-04-23 03:23:50.927000
+        addOns:
+        - addOns
+        - addOns
+        usage: usage
+        description: description
+        pools:
+        - quantity: 0
+          poolId: poolId
+        - quantity: 0
+          poolId: poolId
+        serviceLevel: serviceLevel
+        releaseVer:
+          releaseVer: releaseVer
+        autoAttach: true
+        products:
+        - productId: productId
+        - productId: productId
+        contentOverrides:
+        - created: 2020-04-23 03:23:50.927000
+          name: name
+          contentLabel: contentLabel
+          updated: 2020-04-23 03:23:50.927000
+          value: value
+        - created: 2020-04-23 03:23:50.927000
+          name: name
+          contentLabel: contentLabel
+          updated: 2020-04-23 03:23:50.927000
+          value: value
+        name: name
+        id: id
+        updated: 2020-04-23 03:23:50.927000
     ActivationKeyProductDTO:
+      example:
+        productId: productId
       properties:
         productId:
           minLength: 1
@@ -10302,6 +10703,9 @@ components:
       required:
       - productId
     ActivationKeyPoolDTO:
+      example:
+        quantity: 0
+        poolId: poolId
       properties:
         poolId:
           minLength: 1
@@ -10313,6 +10717,9 @@ components:
       - poolId
     AttributeDTO:
       description: Represents the attribute as a name-value pair
+      example:
+        name: name
+        value: value
       properties:
         name:
           type: string
@@ -10342,6 +10749,12 @@ components:
       description: Represents the branding. It indicates that a particular engineering
         product ID is being rebranded by the entitlement to the given name. The type
         is used by clients to determine what action to take with the brand name.
+      example:
+        productId: productId
+        created: 2020-04-23 03:23:50.927000
+        name: name
+        type: type
+        updated: 2020-04-23 03:23:50.927000
     CertificateSerialDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10359,6 +10772,13 @@ components:
         type: object
       description: Represents a database sequence used to ensure certificates receive
         unique serial numbers
+      example:
+        serial: 1
+        created: 2020-04-23 03:23:50.927000
+        expiration: expiration
+        id: 6
+        revoked: true
+        updated: 2020-04-23 03:23:50.927000
     CertificateDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10373,8 +10793,24 @@ components:
             $ref: '#/components/schemas/CertificateSerialDTO'
         type: object
       description: Represents certificate details
+      example:
+        serial:
+          serial: 1
+          created: 2020-04-23 03:23:50.927000
+          expiration: expiration
+          id: 6
+          revoked: true
+          updated: 2020-04-23 03:23:50.927000
+        created: 2020-04-23 03:23:50.927000
+        cert: cert
+        id: id
+        updated: 2020-04-23 03:23:50.927000
+        key: key
     CapabilityDTO:
       description: Represents a consumer capability
+      example:
+        name: name
+        id: id
       properties:
         id:
           type: string
@@ -10521,8 +10957,173 @@ components:
             type: array
         type: object
       description: Represents a consumer
+      example:
+        serviceType: serviceType
+        role: role
+        environments:
+        - contentPrefix: contentPrefix
+          owner:
+            displayName: displayName
+            id: id
+            href: href
+            contentAccessMode: contentAccessMode
+            key: key
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          description: description
+          id: id
+          type: type
+          updated: 2020-04-23 03:23:50.927000
+          environmentContent:
+          - contentId: contentId
+            enabled: true
+          - contentId: contentId
+            enabled: true
+        - contentPrefix: contentPrefix
+          owner:
+            displayName: displayName
+            id: id
+            href: href
+            contentAccessMode: contentAccessMode
+            key: key
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          description: description
+          id: id
+          type: type
+          updated: 2020-04-23 03:23:50.927000
+          environmentContent:
+          - contentId: contentId
+            enabled: true
+          - contentId: contentId
+            enabled: true
+        usage: usage
+        registrationAuthenticationMethod: registrationAuthenticationMethod
+        installedProducts:
+        - productId: productId
+          endDate: endDate
+          created: 2020-04-23 03:23:50.927000
+          id: id
+          arch: arch
+          updated: 2020-04-23 03:23:50.927000
+          version: version
+          productName: productName
+          startDate: startDate
+          status: status
+        - productId: productId
+          endDate: endDate
+          created: 2020-04-23 03:23:50.927000
+          id: id
+          arch: arch
+          updated: 2020-04-23 03:23:50.927000
+          version: version
+          productName: productName
+          startDate: startDate
+          status: status
+        annotations: annotations
+        type:
+          created: 2020-04-23 03:23:50.927000
+          manifest: true
+          id: id
+          label: label
+          updated: 2020-04-23 03:23:50.927000
+        uuid: uuid
+        facts:
+          key: facts
+        releaseVer:
+          releaseVer: releaseVer
+        idCert:
+          serial:
+            serial: 1
+            created: 2020-04-23 03:23:50.927000
+            expiration: expiration
+            id: 6
+            revoked: true
+            updated: 2020-04-23 03:23:50.927000
+          created: 2020-04-23 03:23:50.927000
+          cert: cert
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          key: key
+        entitlementStatus: entitlementStatus
+        systemPurposeStatus: systemPurposeStatus
+        id: id
+        contentAccessMode: contentAccessMode
+        href: href
+        autoheal: true
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        entitlementCount: 0
+        capabilities:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        created: 2020-04-23 03:23:50.927000
+        addOns:
+        - addOns
+        - addOns
+        serviceLevel: serviceLevel
+        hypervisorId:
+          created: 2020-04-23 03:23:50.927000
+          reporterId: reporterId
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          hypervisorId: hypervisorId
+        canActivate: true
+        activationKeys:
+        - activationKeyName: activationKeyName
+          activationKeyId: activationKeyId
+        - activationKeyName: activationKeyName
+          activationKeyId: activationKeyId
+        environment:
+          contentPrefix: contentPrefix
+          owner:
+            displayName: displayName
+            id: id
+            href: href
+            contentAccessMode: contentAccessMode
+            key: key
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          description: description
+          id: id
+          type: type
+          updated: 2020-04-23 03:23:50.927000
+          environmentContent:
+          - contentId: contentId
+            enabled: true
+          - contentId: contentId
+            enabled: true
+        guestIds:
+        - created: 2020-04-23 03:23:50.927000
+          attributes:
+            key: attributes
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          guestId: guestId
+        - created: 2020-04-23 03:23:50.927000
+          attributes:
+            key: attributes
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          guestId: guestId
+        name: name
+        lastCheckin: lastCheckin
+        updated: 2020-04-23 03:23:50.927000
+        username: username
+        contentTags:
+        - contentTags
+        - contentTags
     ConsumerActivationKeyDTO:
       description: Represent activation keys used by consumer in registration
+      example:
+        activationKeyName: activationKeyName
+        activationKeyId: activationKeyId
       properties:
         activationKeyName:
           type: string
@@ -10602,6 +11203,87 @@ components:
         type: object
       description: Represents a reduced view of a consumer (excluding data like facts
         and identify certificate)
+      example:
+        serviceType: serviceType
+        role: role
+        usage: usage
+        installedProducts:
+        - productId: productId
+          endDate: endDate
+          created: 2020-04-23 03:23:50.927000
+          id: id
+          arch: arch
+          updated: 2020-04-23 03:23:50.927000
+          version: version
+          productName: productName
+          startDate: startDate
+          status: status
+        - productId: productId
+          endDate: endDate
+          created: 2020-04-23 03:23:50.927000
+          id: id
+          arch: arch
+          updated: 2020-04-23 03:23:50.927000
+          version: version
+          productName: productName
+          startDate: startDate
+          status: status
+        annotations: annotations
+        type:
+          created: 2020-04-23 03:23:50.927000
+          manifest: true
+          id: id
+          label: label
+          updated: 2020-04-23 03:23:50.927000
+        uuid: uuid
+        releaseVer:
+          releaseVer: releaseVer
+        entitlementStatus: entitlementStatus
+        systemPurposeStatus: systemPurposeStatus
+        id: id
+        contentAccessMode: contentAccessMode
+        href: href
+        autoheal: true
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        entitlementCount: 0
+        capabilities:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        created: 2020-04-23 03:23:50.927000
+        addOns:
+        - addOns
+        - addOns
+        serviceLevel: serviceLevel
+        hypervisorId:
+          created: 2020-04-23 03:23:50.927000
+          reporterId: reporterId
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          hypervisorId: hypervisorId
+        canActivate: true
+        guestIds:
+        - created: 2020-04-23 03:23:50.927000
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          guestId: guestId
+        - created: 2020-04-23 03:23:50.927000
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          guestId: guestId
+        name: name
+        lastCheckin: lastCheckin
+        updated: 2020-04-23 03:23:50.927000
+        username: username
+        contentTags:
+        - contentTags
+        - contentTags
     ConsumerInstalledProductDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10627,6 +11309,17 @@ components:
         - productId
         type: object
       description: Represents consumer installed product details
+      example:
+        productId: productId
+        endDate: endDate
+        created: 2020-04-23 03:23:50.927000
+        id: id
+        arch: arch
+        updated: 2020-04-23 03:23:50.927000
+        version: version
+        productName: productName
+        startDate: startDate
+        status: status
     ConsumerTypeDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10640,6 +11333,12 @@ components:
         type: object
       description: Represents a consumer type used to differentiate various types
         of consumers
+      example:
+        created: 2020-04-23 03:23:50.927000
+        manifest: true
+        id: id
+        label: label
+        updated: 2020-04-23 03:23:50.927000
     ConsumptionTypeCountsDTO:
       description: Represents virtual / physical entitlement consumption counts
       example:
@@ -10660,39 +11359,50 @@ components:
             type: string
           id:
             example: "5001"
+            maxLength: 32
             type: string
           type:
             example: yum
+            maxLength: 255
             type: string
           label:
             example: content_label
+            maxLength: 255
             type: string
           name:
             example: content_name
+            maxLength: 255
             type: string
           vendor:
             example: example-vendor
+            maxLength: 255
             type: string
           contentUrl:
             example: /admin/foo/example/path
+            maxLength: 255
             type: string
           requiredTags:
             example: "TAG1,TAG2"
+            maxLength: 255
             type: string
           releaseVer:
             example: 1.2.3
+            maxLength: 255
             type: string
           gpgUrl:
             example: /admin/foo/example/gpg/path
+            maxLength: 255
             type: string
           modifiedProductIds:
             example: "[5051,5052,5053]"
             items:
+              maxLength: 32
               type: string
             type: array
             uniqueItems: true
           arches:
             example: x86_64
+            maxLength: 255
             type: string
           metadataExpire:
             example: 1467124079
@@ -10700,6 +11410,22 @@ components:
             type: integer
         type: object
       description: Represents the content data exposed to the API.
+      example:
+        created: 2020-04-23 03:23:50.927000
+        modifiedProductIds: "[5051,5052,5053]"
+        label: content_label
+        type: yum
+        gpgUrl: /admin/foo/example/gpg/path
+        uuid: ff808081554a3e4101554a3e9033005d
+        releaseVer: 1.2.3
+        contentUrl: /admin/foo/example/path
+        requiredTags: "TAG1,TAG2"
+        vendor: example-vendor
+        metadataExpire: 1467124079
+        name: content_name
+        id: "5001"
+        updated: 2020-04-23 03:23:50.927000
+        arches: x86_64
     ContentAccessDTO:
       description: Represents content access
       example:
@@ -10719,14 +11445,22 @@ components:
       - $ref: '#/components/schemas/TimestampedEntity'
       - properties:
           name:
+            maxLength: 255
             type: string
           contentLabel:
+            maxLength: 255
             type: string
           value:
             maxLength: 2048
             type: string
         type: object
       description: Represents a content override for an activation key or consumer
+      example:
+        created: 2020-04-23 03:23:50.927000
+        name: name
+        contentLabel: contentLabel
+        updated: 2020-04-23 03:23:50.927000
+        value: value
     ContentToPromoteDTO:
       description: "Represents the JSON input when promoting content, or updating\
         \ promoted content."
@@ -10763,8 +11497,234 @@ components:
         date: date
         partiallyCompliantProducts:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         reasons:
         - attributes:
             key: attributes
@@ -10776,8 +11736,234 @@ components:
           key: key
         partialStacks:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         compliantUntil: compliantUntil
         nonCompliantProducts:
         - nonCompliantProducts
@@ -10789,8 +11975,234 @@ components:
         compliant: true
         compliantProducts:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         status: status
       properties:
         status:
@@ -10852,6 +12264,26 @@ components:
             $ref: '#/components/schemas/CertificateDTO'
         type: object
       description: DTO representing a Cdn
+      example:
+        created: 2020-04-23 03:23:50.927000
+        name: name
+        certificate:
+          serial:
+            serial: 1
+            created: 2020-04-23 03:23:50.927000
+            expiration: expiration
+            id: 6
+            revoked: true
+            updated: 2020-04-23 03:23:50.927000
+          created: 2020-04-23 03:23:50.927000
+          cert: cert
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          key: key
+        id: id
+        label: label
+        updated: 2020-04-23 03:23:50.927000
+        url: url
     DeletedConsumerDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10871,6 +12303,16 @@ components:
           principalName:
             type: string
       description: Represents a deleted consumer
+      example:
+        consumerUuid: consumerUuid
+        created: 2020-04-23 03:23:50.927000
+        ownerDisplayName: ownerDisplayName
+        principalName: principalName
+        id: id
+        ownerId: ownerId
+        updated: 2020-04-23 03:23:50.927000
+        ownerKey: ownerKey
+        consumerName: consumerName
     DistributorVersionDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10888,8 +12330,22 @@ components:
             uniqueItems: true
         type: object
       description: A DTO representation of the DistributorVersion
+      example:
+        capabilities:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        created: 2020-04-23 03:23:50.927000
+        displayName: displayName
+        name: name
+        id: id
+        updated: 2020-04-23 03:23:50.927000
     DistributorVersionCapabilityDTO:
       description: A DTO representation of the DistributorVersionCapability
+      example:
+        name: name
+        id: id
       properties:
         id:
           type: string
@@ -10924,9 +12380,127 @@ components:
             type: string
         type: object
       description: A DTO representation of the Entitlement entity
+      example:
+        quantity: 0
+        certificates:
+        - serial:
+            serial: 1
+            created: 2020-04-23 03:23:50.927000
+            expiration: expiration
+            id: 6
+            revoked: true
+            updated: 2020-04-23 03:23:50.927000
+          created: 2020-04-23 03:23:50.927000
+          cert: cert
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          key: key
+        - serial:
+            serial: 1
+            created: 2020-04-23 03:23:50.927000
+            expiration: expiration
+            id: 6
+            revoked: true
+            updated: 2020-04-23 03:23:50.927000
+          created: 2020-04-23 03:23:50.927000
+          cert: cert
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          key: key
+        endDate: endDate
+        created: 2020-04-23 03:23:50.927000
+        pool:
+          consumed: 6
+          orderNumber: orderNumber
+          stacked: true
+          derivedProductAttributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          endDate: endDate
+          calculatedAttributes:
+            key: calculatedAttributes
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          type: type
+          productName: productName
+          upstreamEntitlementId: upstreamEntitlementId
+          upstreamConsumerId: upstreamConsumerId
+          managed: true
+          derivedProductId: derivedProductId
+          id: id
+          href: href
+          sourceEntitlement:
+            id: id
+            href: href
+          activeSubscription: true
+          developmentPool: true
+          owner:
+            displayName: displayName
+            id: id
+            href: href
+            contentAccessMode: contentAccessMode
+            key: key
+          exported: 1
+          quantity: 0
+          productId: productId
+          providedProducts:
+          - productId: productId
+            productName: productName
+          - productId: productId
+            productName: productName
+          created: 2020-04-23 03:23:50.927000
+          productAttributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          stackId: stackId
+          contractNumber: contractNumber
+          accountNumber: accountNumber
+          upstreamPoolId: upstreamPoolId
+          sourceStackId: sourceStackId
+          subscriptionSubKey: subscriptionSubKey
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          restrictedToUsername: restrictedToUsername
+          subscriptionId: subscriptionId
+          updated: 2020-04-23 03:23:50.927000
+          startDate: startDate
+          derivedProductName: derivedProductName
+          derivedProvidedProducts:
+          - productId: productId
+            productName: productName
+          - productId: productId
+            productName: productName
+        id: id
+        href: href
+        updated: 2020-04-23 03:23:50.927000
+        consumer:
+          name: name
+          id: id
+          href: href
+          uuid: uuid
+        startDate: startDate
     EnvironmentContentDTO:
       description: EnvironmentContent represents the promotion of content into a particular
         environment.
+      example:
+        contentId: contentId
+        enabled: true
       properties:
         contentId:
           type: string
@@ -10956,6 +12530,25 @@ components:
         type: object
       description: Represents an environment within an org used to enable/disable/promote
         content in specific places.
+      example:
+        contentPrefix: contentPrefix
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        created: 2020-04-23 03:23:50.927000
+        name: name
+        description: description
+        id: id
+        type: type
+        updated: 2020-04-23 03:23:50.927000
+        environmentContent:
+        - contentId: contentId
+          enabled: true
+        - contentId: contentId
+          enabled: true
     ExportResultDTO:
       description: Represents the result of an export job
       properties:
@@ -10981,6 +12574,13 @@ components:
         - guestId
         type: object
       description: Represents a guest ID running on a virt host consumer
+      example:
+        created: 2020-04-23 03:23:50.927000
+        attributes:
+          key: attributes
+        id: id
+        updated: 2020-04-23 03:23:50.927000
+        guestId: guestId
     GuestIdDTOArrayElement:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -10994,6 +12594,11 @@ components:
         type: object
       description: Represents a guest ID running on a virt host consumer. Does not
         include the attributes field
+      example:
+        created: 2020-04-23 03:23:50.927000
+        id: id
+        updated: 2020-04-23 03:23:50.927000
+        guestId: guestId
     HypervisorConsumerDTO:
       properties:
         uuid:
@@ -11014,6 +12619,12 @@ components:
             type: string
         type: object
       description: Represents a HypervisorId details
+      example:
+        created: 2020-04-23 03:23:50.927000
+        reporterId: reporterId
+        id: id
+        updated: 2020-04-23 03:23:50.927000
+        hypervisorId: hypervisorId
     HypervisorUpdateResultDTO:
       properties:
         created:
@@ -11061,6 +12672,31 @@ components:
             $ref: '#/components/schemas/ImportUpstreamConsumerDTO'
         type: object
       description: Represents a import record details
+      example:
+        fileName: fileName
+        created: 2020-04-23 03:23:50.927000
+        generatedDate: generatedDate
+        upstreamConsumer:
+          apiUrl: apiUrl
+          created: 2020-04-23 03:23:50.927000
+          webUrl: webUrl
+          name: name
+          id: id
+          contentAccessMode: contentAccessMode
+          ownerId: ownerId
+          type:
+            created: 2020-04-23 03:23:50.927000
+            manifest: true
+            id: id
+            label: label
+            updated: 2020-04-23 03:23:50.927000
+          updated: 2020-04-23 03:23:50.927000
+          uuid: uuid
+        id: id
+        generatedBy: generatedBy
+        updated: 2020-04-23 03:23:50.927000
+        statusMessage: statusMessage
+        status: status
     ImportUpstreamConsumerDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -11083,8 +12719,29 @@ components:
             $ref: '#/components/schemas/ConsumerTypeDTO'
         type: object
       description: Represents an import upstream consumer
+      example:
+        apiUrl: apiUrl
+        created: 2020-04-23 03:23:50.927000
+        webUrl: webUrl
+        name: name
+        id: id
+        contentAccessMode: contentAccessMode
+        ownerId: ownerId
+        type:
+          created: 2020-04-23 03:23:50.927000
+          manifest: true
+          id: id
+          label: label
+          updated: 2020-04-23 03:23:50.927000
+        updated: 2020-04-23 03:23:50.927000
+        uuid: uuid
     NestedConsumerDTO:
       description: A minimal view of a Consumer
+      example:
+        name: name
+        id: id
+        href: href
+        uuid: uuid
       properties:
         id:
           type: string
@@ -11095,6 +12752,9 @@ components:
         href:
           type: string
     NestedEntitlementDTO:
+      example:
+        id: id
+        href: href
       properties:
         id:
           type: string
@@ -11156,6 +12816,58 @@ components:
             type: string
         type: object
       description: DTO representing an owner/organization
+      example:
+        contentPrefix: contentPrefix
+        lastRefreshed: lastRefreshed
+        claimantOwner: claimantOwner
+        created: 2020-04-23 03:23:50.927000
+        displayName: displayName
+        defaultServiceLevel: defaultServiceLevel
+        claimed: true
+        upstreamConsumer:
+          idCert:
+            serial:
+              serial: 1
+              created: 2020-04-23 03:23:50.927000
+              expiration: expiration
+              id: 6
+              revoked: true
+              updated: 2020-04-23 03:23:50.927000
+            created: 2020-04-23 03:23:50.927000
+            cert: cert
+            id: id
+            updated: 2020-04-23 03:23:50.927000
+            key: key
+          apiUrl: apiUrl
+          created: 2020-04-23 03:23:50.927000
+          webUrl: webUrl
+          name: name
+          id: id
+          contentAccessMode: contentAccessMode
+          ownerId: ownerId
+          type:
+            created: 2020-04-23 03:23:50.927000
+            manifest: true
+            id: id
+            label: label
+            updated: 2020-04-23 03:23:50.927000
+          updated: 2020-04-23 03:23:50.927000
+          uuid: uuid
+        parentOwner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        autobindHypervisorDisabled: true
+        contentAccessModeList: contentAccessModeList
+        logLevel: logLevel
+        anonymous: true
+        id: id
+        contentAccessMode: contentAccessMode
+        updated: 2020-04-23 03:23:50.927000
+        autobindDisabled: true
+        key: key
     OwnerInfo:
       description: Represents owner information
       example:
@@ -11230,6 +12942,18 @@ components:
             type: string
         type: object
       description: Represents the permission blueprints exposed to the API layer
+      example:
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        access: NONE
+        created: 2020-04-23 03:23:50.927000
+        id: ff808081554a3e4101554a3e9033005d
+        type: OWNER
+        updated: 2020-04-23 03:23:50.927000
     PoolDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -11328,11 +13052,164 @@ components:
             type: boolean
         type: object
       description: Represents a pool of products eligible to be consumed (entitled)
+      example:
+        consumed: 6
+        orderNumber: orderNumber
+        stacked: true
+        derivedProductAttributes:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        endDate: endDate
+        calculatedAttributes:
+          key: calculatedAttributes
+        branding:
+        - productId: productId
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          type: type
+          updated: 2020-04-23 03:23:50.927000
+        - productId: productId
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          type: type
+          updated: 2020-04-23 03:23:50.927000
+        type: type
+        productName: productName
+        upstreamEntitlementId: upstreamEntitlementId
+        upstreamConsumerId: upstreamConsumerId
+        managed: true
+        derivedProductId: derivedProductId
+        id: id
+        href: href
+        sourceEntitlement:
+          id: id
+          href: href
+        activeSubscription: true
+        developmentPool: true
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        exported: 1
+        quantity: 0
+        productId: productId
+        providedProducts:
+        - productId: productId
+          productName: productName
+        - productId: productId
+          productName: productName
+        created: 2020-04-23 03:23:50.927000
+        productAttributes:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        stackId: stackId
+        contractNumber: contractNumber
+        accountNumber: accountNumber
+        upstreamPoolId: upstreamPoolId
+        sourceStackId: sourceStackId
+        subscriptionSubKey: subscriptionSubKey
+        attributes:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        restrictedToUsername: restrictedToUsername
+        subscriptionId: subscriptionId
+        updated: 2020-04-23 03:23:50.927000
+        startDate: startDate
+        derivedProductName: derivedProductName
+        derivedProvidedProducts:
+        - productId: productId
+          productName: productName
+        - productId: productId
+          productName: productName
     PoolQuantityDTO:
       description: DTO representing pool quantity & pool.
       example:
         quantity: 0
-        pool: null
+        pool:
+          consumed: 6
+          orderNumber: orderNumber
+          stacked: true
+          derivedProductAttributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          endDate: endDate
+          calculatedAttributes:
+            key: calculatedAttributes
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          type: type
+          productName: productName
+          upstreamEntitlementId: upstreamEntitlementId
+          upstreamConsumerId: upstreamConsumerId
+          managed: true
+          derivedProductId: derivedProductId
+          id: id
+          href: href
+          sourceEntitlement:
+            id: id
+            href: href
+          activeSubscription: true
+          developmentPool: true
+          owner:
+            displayName: displayName
+            id: id
+            href: href
+            contentAccessMode: contentAccessMode
+            key: key
+          exported: 1
+          quantity: 0
+          productId: productId
+          providedProducts:
+          - productId: productId
+            productName: productName
+          - productId: productId
+            productName: productName
+          created: 2020-04-23 03:23:50.927000
+          productAttributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          stackId: stackId
+          contractNumber: contractNumber
+          accountNumber: accountNumber
+          upstreamPoolId: upstreamPoolId
+          sourceStackId: sourceStackId
+          subscriptionSubKey: subscriptionSubKey
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          restrictedToUsername: restrictedToUsername
+          subscriptionId: subscriptionId
+          updated: 2020-04-23 03:23:50.927000
+          startDate: startDate
+          derivedProductName: derivedProductName
+          derivedProvidedProducts:
+          - productId: productId
+            productName: productName
+          - productId: productId
+            productName: productName
       properties:
         quantity:
           type: integer
@@ -11340,6 +13217,24 @@ components:
           $ref: '#/components/schemas/PoolDTO'
     ProductContentDTO:
       description: Product content mapping exposed to the API
+      example:
+        content:
+          created: 2020-04-23 03:23:50.927000
+          modifiedProductIds: "[5051,5052,5053]"
+          label: content_label
+          type: yum
+          gpgUrl: /admin/foo/example/gpg/path
+          uuid: ff808081554a3e4101554a3e9033005d
+          releaseVer: 1.2.3
+          contentUrl: /admin/foo/example/path
+          requiredTags: "TAG1,TAG2"
+          vendor: example-vendor
+          metadataExpire: 1467124079
+          name: content_name
+          id: "5001"
+          updated: 2020-04-23 03:23:50.927000
+          arches: x86_64
+        enabled: true
       properties:
         content:
           $ref: '#/components/schemas/ContentDTO'
@@ -11357,6 +13252,11 @@ components:
             type: string
         type: object
       description: DTO representing product certificates presented to the API
+      example:
+        created: 2020-04-23 03:23:50.927000
+        cert: cert
+        updated: 2020-04-23 03:23:50.927000
+        key: key
     ProductDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -11405,8 +13305,77 @@ components:
             type: string
         type: object
       description: DTO representing the product data exposed to the API
+      example:
+        derivedProduct: null
+        providedProducts:
+        - null
+        - null
+        created: 2020-04-23 03:23:50.927000
+        multiplier: 1
+        branding:
+        - productId: productId
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          type: type
+          updated: 2020-04-23 03:23:50.927000
+        - productId: productId
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          type: type
+          updated: 2020-04-23 03:23:50.927000
+        uuid: ff808081554a3e4101554a3e9033005d
+        dependentProductIds:
+        - dependentProductIds
+        - dependentProductIds
+        productContent:
+        - content:
+            created: 2020-04-23 03:23:50.927000
+            modifiedProductIds: "[5051,5052,5053]"
+            label: content_label
+            type: yum
+            gpgUrl: /admin/foo/example/gpg/path
+            uuid: ff808081554a3e4101554a3e9033005d
+            releaseVer: 1.2.3
+            contentUrl: /admin/foo/example/path
+            requiredTags: "TAG1,TAG2"
+            vendor: example-vendor
+            metadataExpire: 1467124079
+            name: content_name
+            id: "5001"
+            updated: 2020-04-23 03:23:50.927000
+            arches: x86_64
+          enabled: true
+        - content:
+            created: 2020-04-23 03:23:50.927000
+            modifiedProductIds: "[5051,5052,5053]"
+            label: content_label
+            type: yum
+            gpgUrl: /admin/foo/example/gpg/path
+            uuid: ff808081554a3e4101554a3e9033005d
+            releaseVer: 1.2.3
+            contentUrl: /admin/foo/example/path
+            requiredTags: "TAG1,TAG2"
+            vendor: example-vendor
+            metadataExpire: 1467124079
+            name: content_name
+            id: "5001"
+            updated: 2020-04-23 03:23:50.927000
+            arches: x86_64
+          enabled: true
+        name: Admin OS Developer Bits
+        attributes:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        id: "5051"
+        href: /products/ff808081554a3e4101554a3e9033005d
+        updated: 2020-04-23 03:23:50.927000
     ProvidedProductDTO:
       description: ProvidedProduct DTO representation
+      example:
+        productId: productId
+        productName: productName
       properties:
         productId:
           minLength: 1
@@ -11456,6 +13425,47 @@ components:
         type: object
       description: Represent the relationship between users and the permissions they
         have
+      example:
+        created: 2020-04-23 03:23:50.927000
+        permissions:
+        - owner:
+            displayName: displayName
+            id: id
+            href: href
+            contentAccessMode: contentAccessMode
+            key: key
+          access: NONE
+          created: 2020-04-23 03:23:50.927000
+          id: ff808081554a3e4101554a3e9033005d
+          type: OWNER
+          updated: 2020-04-23 03:23:50.927000
+        - owner:
+            displayName: displayName
+            id: id
+            href: href
+            contentAccessMode: contentAccessMode
+            key: key
+          access: NONE
+          created: 2020-04-23 03:23:50.927000
+          id: ff808081554a3e4101554a3e9033005d
+          type: OWNER
+          updated: 2020-04-23 03:23:50.927000
+        name: admin-all
+        id: ff808081554a3e4101554a3e9033005d
+        updated: 2020-04-23 03:23:50.927000
+        users:
+        - password: secret_banana
+          created: 2020-04-23 03:23:50.927000
+          id: ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+          superAdmin: true
+          username: admin
+        - password: secret_banana
+          created: 2020-04-23 03:23:50.927000
+          id: ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+          superAdmin: true
+          username: admin
     SchedulerStatusDTO:
       description: Represents scheduler status
       example:
@@ -11588,6 +13598,456 @@ components:
             type: string
         type: object
       description: Represents the Subscription data exposed to the API
+      example:
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
+        derivedProduct:
+          derivedProduct: null
+          providedProducts:
+          - null
+          - null
+          created: 2020-04-23 03:23:50.927000
+          multiplier: 1
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          uuid: ff808081554a3e4101554a3e9033005d
+          dependentProductIds:
+          - dependentProductIds
+          - dependentProductIds
+          productContent:
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          name: Admin OS Developer Bits
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          id: "5051"
+          href: /products/ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+        product:
+          derivedProduct: null
+          providedProducts:
+          - null
+          - null
+          created: 2020-04-23 03:23:50.927000
+          multiplier: 1
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          uuid: ff808081554a3e4101554a3e9033005d
+          dependentProductIds:
+          - dependentProductIds
+          - dependentProductIds
+          productContent:
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          name: Admin OS Developer Bits
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          id: "5051"
+          href: /products/ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+        quantity: 0
+        orderNumber: orderNumber
+        stacked: true
+        providedProducts:
+        - derivedProduct: null
+          providedProducts:
+          - null
+          - null
+          created: 2020-04-23 03:23:50.927000
+          multiplier: 1
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          uuid: ff808081554a3e4101554a3e9033005d
+          dependentProductIds:
+          - dependentProductIds
+          - dependentProductIds
+          productContent:
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          name: Admin OS Developer Bits
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          id: "5051"
+          href: /products/ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+        - derivedProduct: null
+          providedProducts:
+          - null
+          - null
+          created: 2020-04-23 03:23:50.927000
+          multiplier: 1
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          uuid: ff808081554a3e4101554a3e9033005d
+          dependentProductIds:
+          - dependentProductIds
+          - dependentProductIds
+          productContent:
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          name: Admin OS Developer Bits
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          id: "5051"
+          href: /products/ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+        endDate: 2019-05-08 09:42:37.000
+        created: 2020-04-23 03:23:50.927000
+        stackId: stackId
+        certificate:
+          serial:
+            serial: 1
+            created: 2020-04-23 03:23:50.927000
+            expiration: expiration
+            id: 6
+            revoked: true
+            updated: 2020-04-23 03:23:50.927000
+          created: 2020-04-23 03:23:50.927000
+          cert: cert
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          key: key
+        contractNumber: contractNumber
+        accountNumber: accountNumber
+        cdn:
+          created: 2020-04-23 03:23:50.927000
+          name: name
+          certificate:
+            serial:
+              serial: 1
+              created: 2020-04-23 03:23:50.927000
+              expiration: expiration
+              id: 6
+              revoked: true
+              updated: 2020-04-23 03:23:50.927000
+            created: 2020-04-23 03:23:50.927000
+            cert: cert
+            id: id
+            updated: 2020-04-23 03:23:50.927000
+            key: key
+          id: id
+          label: label
+          updated: 2020-04-23 03:23:50.927000
+          url: url
+        upstreamPoolId: upstreamPoolId
+        upstreamEntitlementId: upstreamEntitlementId
+        upstreamConsumerId: upstreamConsumerId
+        modified: 2019-05-08 09:42:37.000
+        id: id
+        lastModified: 2019-05-08 09:42:37.000
+        updated: 2020-04-23 03:23:50.927000
+        derivedProvidedProducts:
+        - derivedProduct: null
+          providedProducts:
+          - null
+          - null
+          created: 2020-04-23 03:23:50.927000
+          multiplier: 1
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          uuid: ff808081554a3e4101554a3e9033005d
+          dependentProductIds:
+          - dependentProductIds
+          - dependentProductIds
+          productContent:
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          name: Admin OS Developer Bits
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          id: "5051"
+          href: /products/ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+        - derivedProduct: null
+          providedProducts:
+          - null
+          - null
+          created: 2020-04-23 03:23:50.927000
+          multiplier: 1
+          branding:
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          - productId: productId
+            created: 2020-04-23 03:23:50.927000
+            name: name
+            type: type
+            updated: 2020-04-23 03:23:50.927000
+          uuid: ff808081554a3e4101554a3e9033005d
+          dependentProductIds:
+          - dependentProductIds
+          - dependentProductIds
+          productContent:
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          - content:
+              created: 2020-04-23 03:23:50.927000
+              modifiedProductIds: "[5051,5052,5053]"
+              label: content_label
+              type: yum
+              gpgUrl: /admin/foo/example/gpg/path
+              uuid: ff808081554a3e4101554a3e9033005d
+              releaseVer: 1.2.3
+              contentUrl: /admin/foo/example/path
+              requiredTags: "TAG1,TAG2"
+              vendor: example-vendor
+              metadataExpire: 1467124079
+              name: content_name
+              id: "5001"
+              updated: 2020-04-23 03:23:50.927000
+              arches: x86_64
+            enabled: true
+          name: Admin OS Developer Bits
+          attributes:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          id: "5051"
+          href: /products/ff808081554a3e4101554a3e9033005d
+          updated: 2020-04-23 03:23:50.927000
+        startDate: 2019-05-08 09:42:37.000
     SystemPurposeAttributesDTO:
       description: Represents system purpose attribute details
       example:
@@ -11623,28 +14083,1158 @@ components:
         nonCompliantServiceType: nonCompliantServiceType
         compliantSLA:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         nonCompliantSLA: nonCompliantSLA
         compliantUsage:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         compliantServiceType:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         compliantAddOns:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         nonCompliantAddOns:
         - nonCompliantAddOns
         - nonCompliantAddOns
         compliantRole:
           key:
-          - null
-          - null
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
+          - quantity: 0
+            certificates:
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            - serial:
+                serial: 1
+                created: 2020-04-23 03:23:50.927000
+                expiration: expiration
+                id: 6
+                revoked: true
+                updated: 2020-04-23 03:23:50.927000
+              created: 2020-04-23 03:23:50.927000
+              cert: cert
+              id: id
+              updated: 2020-04-23 03:23:50.927000
+              key: key
+            endDate: endDate
+            created: 2020-04-23 03:23:50.927000
+            pool:
+              consumed: 6
+              orderNumber: orderNumber
+              stacked: true
+              derivedProductAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              endDate: endDate
+              calculatedAttributes:
+                key: calculatedAttributes
+              branding:
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              - productId: productId
+                created: 2020-04-23 03:23:50.927000
+                name: name
+                type: type
+                updated: 2020-04-23 03:23:50.927000
+              type: type
+              productName: productName
+              upstreamEntitlementId: upstreamEntitlementId
+              upstreamConsumerId: upstreamConsumerId
+              managed: true
+              derivedProductId: derivedProductId
+              id: id
+              href: href
+              sourceEntitlement:
+                id: id
+                href: href
+              activeSubscription: true
+              developmentPool: true
+              owner:
+                displayName: displayName
+                id: id
+                href: href
+                contentAccessMode: contentAccessMode
+                key: key
+              exported: 1
+              quantity: 0
+              productId: productId
+              providedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+              created: 2020-04-23 03:23:50.927000
+              productAttributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              stackId: stackId
+              contractNumber: contractNumber
+              accountNumber: accountNumber
+              upstreamPoolId: upstreamPoolId
+              sourceStackId: sourceStackId
+              subscriptionSubKey: subscriptionSubKey
+              attributes:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              restrictedToUsername: restrictedToUsername
+              subscriptionId: subscriptionId
+              updated: 2020-04-23 03:23:50.927000
+              startDate: startDate
+              derivedProductName: derivedProductName
+              derivedProvidedProducts:
+              - productId: productId
+                productName: productName
+              - productId: productId
+                productName: productName
+            id: id
+            href: href
+            updated: 2020-04-23 03:23:50.927000
+            consumer:
+              name: name
+              id: id
+              href: href
+              uuid: uuid
+            startDate: startDate
         compliant: true
         status: status
       properties:
@@ -11715,6 +15305,13 @@ components:
             $ref: '#/components/schemas/NestedOwnerDTO'
         type: object
       description: Represents an ueber certificate
+      example:
+        owner:
+          displayName: displayName
+          id: id
+          href: href
+          contentAccessMode: contentAccessMode
+          key: key
     UserDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -11735,6 +15332,13 @@ components:
             type: boolean
         type: object
       description: Represents user information for a given user
+      example:
+        password: secret_banana
+        created: 2020-04-23 03:23:50.927000
+        id: ff808081554a3e4101554a3e9033005d
+        updated: 2020-04-23 03:23:50.927000
+        superAdmin: true
+        username: admin
     UpstreamConsumerDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -11759,6 +15363,35 @@ components:
             $ref: '#/components/schemas/CertificateDTO'
         type: object
       description: DTO representing an upstream consumer
+      example:
+        idCert:
+          serial:
+            serial: 1
+            created: 2020-04-23 03:23:50.927000
+            expiration: expiration
+            id: 6
+            revoked: true
+            updated: 2020-04-23 03:23:50.927000
+          created: 2020-04-23 03:23:50.927000
+          cert: cert
+          id: id
+          updated: 2020-04-23 03:23:50.927000
+          key: key
+        apiUrl: apiUrl
+        created: 2020-04-23 03:23:50.927000
+        webUrl: webUrl
+        name: name
+        id: id
+        contentAccessMode: contentAccessMode
+        ownerId: ownerId
+        type:
+          created: 2020-04-23 03:23:50.927000
+          manifest: true
+          id: id
+          label: label
+          updated: 2020-04-23 03:23:50.927000
+        updated: 2020-04-23 03:23:50.927000
+        uuid: uuid
     UpstreamConsumerDTOArrayElement:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
@@ -11782,11 +15415,31 @@ components:
         type: object
       description: |
         Represents a reduced view of a upstream consumer (excluding identify certificate)
+      example:
+        apiUrl: apiUrl
+        created: 2020-04-23 03:23:50.927000
+        webUrl: webUrl
+        name: name
+        id: id
+        contentAccessMode: contentAccessMode
+        ownerId: ownerId
+        type:
+          created: 2020-04-23 03:23:50.927000
+          manifest: true
+          id: id
+          label: label
+          updated: 2020-04-23 03:23:50.927000
+        updated: 2020-04-23 03:23:50.927000
+        uuid: uuid
     importManifestAsync_request:
       properties:
         input:
           format: binary
           type: string
+    AsyncJobStatusDTO_allOf_resultData:
+      description: May contain a single message or job data as JSON
+      example: Refresh completed successfully!
+      type: object
   securitySchemes:
     basicAuth:
       scheme: basic

@@ -754,7 +754,7 @@ No authorization required
 
 ## GetHypervisors
 
-> []ConsumerDTOArrayElement GetHypervisors(ctx, ownerKey).HypervisorId(hypervisorId).Execute()
+> []ConsumerDTOArrayElement GetHypervisors(ctx, ownerKey).HypervisorId(hypervisorId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 
 
 
@@ -775,10 +775,14 @@ import (
 func main() {
 	ownerKey := "ownerKey_example" // string | The key of the owner
 	hypervisorId := []string{"Inner_example"} // []string | The list of hypervisor Ids (optional)
+	page := int32(2) // int32 | Page index to return (optional)
+	perPage := int32(10) // int32 | Number of items to return per page (optional)
+	order := "asc" // string | Direction of ordering (optional)
+	sortBy := "name" // string | Property to use for ordering (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OwnerAPI.GetHypervisors(context.Background(), ownerKey).HypervisorId(hypervisorId).Execute()
+	resp, r, err := apiClient.OwnerAPI.GetHypervisors(context.Background(), ownerKey).HypervisorId(hypervisorId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OwnerAPI.GetHypervisors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -805,6 +809,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **hypervisorId** | **[]string** | The list of hypervisor Ids | 
+ **page** | **int32** | Page index to return | 
+ **perPage** | **int32** | Number of items to return per page | 
+ **order** | **string** | Direction of ordering | 
+ **sortBy** | **string** | Property to use for ordering | 
 
 ### Return type
 
@@ -1796,7 +1804,7 @@ No authorization required
 
 ## ListOwners
 
-> []OwnerDTO ListOwners(ctx).Key(key).Execute()
+> []OwnerDTO ListOwners(ctx).Key(key).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 
 
 
@@ -1816,10 +1824,14 @@ import (
 
 func main() {
 	key := "key_example" // string | The owner key (optional)
+	page := int32(2) // int32 | Page index to return (optional)
+	perPage := int32(10) // int32 | Number of items to return per page (optional)
+	order := "asc" // string | Direction of ordering (optional)
+	sortBy := "name" // string | Property to use for ordering (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OwnerAPI.ListOwners(context.Background()).Key(key).Execute()
+	resp, r, err := apiClient.OwnerAPI.ListOwners(context.Background()).Key(key).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OwnerAPI.ListOwners``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1841,6 +1853,10 @@ Other parameters are passed through a pointer to a apiListOwnersRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **key** | **string** | The owner key | 
+ **page** | **int32** | Page index to return | 
+ **perPage** | **int32** | Number of items to return per page | 
+ **order** | **string** | Direction of ordering | 
+ **sortBy** | **string** | Property to use for ordering | 
 
 ### Return type
 

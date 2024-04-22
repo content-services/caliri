@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   title: Candlepin
   description: Candlepin is a subscription management server written in Java. It helps with management of software subscriptions.
-  version: 4.4.4
+  version: 4.4.6
 
 servers:
   - url: /candlepin
@@ -82,7 +82,7 @@ paths:
         - activation_key
       operationId: findActivationKey
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       security: []
       responses:
@@ -212,7 +212,7 @@ paths:
           schema:
             type: string
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       responses:
         200:
@@ -267,7 +267,7 @@ paths:
               items:
                 $ref: '#/components/schemas/ContentOverrideDTO'
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       responses:
         200:
@@ -322,7 +322,7 @@ paths:
               items:
                 $ref: '#/components/schemas/ContentOverrideDTO'
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       responses:
         200:
@@ -1352,7 +1352,7 @@ paths:
           schema:
             type: string
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       responses:
         200:
@@ -1407,7 +1407,7 @@ paths:
               items:
                 $ref: '#/components/schemas/ContentOverrideDTO'
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       responses:
         200:
@@ -1476,7 +1476,7 @@ paths:
               items:
                 $ref: '#/components/schemas/ContentOverrideDTO'
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       responses:
         200:
@@ -1900,7 +1900,7 @@ paths:
         - guest_ids
       operationId: getGuestIds
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       security: []
       parameters:
@@ -2605,7 +2605,7 @@ paths:
           - consumer_type
       operationId: getConsumerTypes
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       security: []
       responses:
@@ -2748,7 +2748,7 @@ paths:
         - cdn
       operationId: getContentDeliveryNetworks
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       security: []
       responses:
@@ -2868,9 +2868,14 @@ paths:
       description: Retrieves list of Content
       operationId: getContents
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       security: []
+      parameters:
+        - $ref: "#/components/parameters/paging_page"
+        - $ref: "#/components/parameters/paging_per_page"
+        - $ref: "#/components/parameters/paging_order"
+        - $ref: "#/components/parameters/paging_sort_by"
       responses:
         200:
           description: Content successfully listed
@@ -2947,8 +2952,12 @@ paths:
           schema:
             type: string
           description: Filter deleted consumers to those on or after this date
+        - $ref: "#/components/parameters/paging_page"
+        - $ref: "#/components/parameters/paging_per_page"
+        - $ref: "#/components/parameters/paging_order"
+        - $ref: "#/components/parameters/paging_sort_by"
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       security: []
       responses:
@@ -3344,6 +3353,147 @@ paths:
                 requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
         default:
           $ref: '#/components/responses/default'
+
+  /environments/{environment_id}/content_overrides:
+    get:
+      description: |
+        Fetches the overrides to be applied to all consumers in the given environment. If the environment has
+        no overrides, this endpoint returns an empty list.
+      operationId: getEnvironmentContentOverrides
+      tags:
+        - environment
+      parameters:
+        - name: environment_id
+          in: path
+          description: |
+            The ID of the environment for which to fetch content overrides
+          required: true
+          schema:
+            type: string
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
+      security: []
+      responses:
+        200:
+          description: |
+            A list of content overrides for the specified environment
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContentOverrideDTO'
+        404:
+          description: |
+            An environment with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+        default:
+          $ref: '#/components/responses/default'
+    put:
+      description: |
+        Adds one or more new content overrides or updates existing overrides for the given environment, then
+        returns a list containing all known, updated overrides for the environment. If the list contains
+        multiple values for a given content override, any previous value(s) will be overwritten.
+      operationId: putEnvironmentContentOverrides
+      tags:
+        - environment
+      parameters:
+        - name: environment_id
+          in: path
+          description: |
+            The ID of the environment in which to add or update content overrides
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: A list containing the content overrides to apply to the environment
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContentOverrideDTO'
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
+      security: []
+      responses:
+        200:
+          description: |
+            An updated list of all known content overrides for the specified environment
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContentOverrideDTO'
+        404:
+          description: |
+            An environment with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+    delete:
+      description: |
+        Removes one or more content overrides from the given environment. If the list of content overrides to
+        remove is empty, or the list contains one or more entries without a label, all content overrides for
+        the specified environment will be removed. If the list contains one or more entries with a label but
+        without an override name (key), all overrides for that label will be removed. If no matching overrides
+        could be found, no change will be made to the environment.
+
+        Regardless of which, if any, content overrides are removed, this endpoint returns a list containing
+        the remaining overrides on the specified environment.
+      operationId: deleteEnvironmentContentOverrides
+      tags:
+        - environment
+      parameters:
+        - name: environment_id
+          in: path
+          description: |
+            The ID of the environment from which to remove content overrides
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |
+          A list containing the content overrides to remove from the environment. The overrides need not be
+          fully populated, as the value is ignored entirely during removal; and depending on the behavior
+          desired, the name or label fields may not be needed, either. See the description for the operation
+          itself for more details.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContentOverrideDTO'
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
+      security: []
+      responses:
+        200:
+          description: |
+            An update list of all remaining content overrides for the specified environment
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContentOverrideDTO'
+        404:
+          description: |
+            An environment with the specified ID does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
 
   /entitlements:
     get:
@@ -4175,7 +4325,7 @@ paths:
         - owner
       operationId: listOwners
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       parameters:
         - name: key
@@ -4184,6 +4334,10 @@ paths:
           required: false
           schema:
             type: string
+        - $ref: "#/components/parameters/paging_page"
+        - $ref: "#/components/parameters/paging_per_page"
+        - $ref: "#/components/parameters/paging_order"
+        - $ref: "#/components/parameters/paging_sort_by"
       security: []
       responses:
         200:
@@ -4382,7 +4536,7 @@ paths:
         - owner
       operationId: ownerActivationKeys
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       parameters:
         - name: owner_key
@@ -4736,7 +4890,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentDTO'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContentDTO'
         400:
           description: Invalid inputs, could not create content
           content:
@@ -5173,7 +5329,7 @@ paths:
       operationId: getHypervisors
       security: []
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
       parameters:
         - name: owner_key
@@ -5190,6 +5346,10 @@ paths:
             type: array
             items:
               type: string
+        - $ref: "#/components/parameters/paging_page"
+        - $ref: "#/components/parameters/paging_per_page"
+        - $ref: "#/components/parameters/paging_order"
+        - $ref: "#/components/parameters/paging_sort_by"
       responses:
         200:
           description: A list of hypervisors successfully retrieved
@@ -6725,8 +6885,13 @@ paths:
       description: Retrieves list containing all known products
       operationId: getProducts
       x-java-response:
-        type: Iterable
+        type: java.util.stream.Stream
         isContainer: true
+      parameters:
+        - $ref: "#/components/parameters/paging_page"
+        - $ref: "#/components/parameters/paging_per_page"
+        - $ref: "#/components/parameters/paging_order"
+        - $ref: "#/components/parameters/paging_sort_by"
       security: []
       responses:
         200:
@@ -7619,6 +7784,9 @@ paths:
         - subscription
       operationId: getSubscriptions
       security: []
+      x-java-response:
+        type: java.util.stream.Stream
+        isContainer: true
       responses:
         200:
           description: A list of subscriptions
@@ -8522,30 +8690,39 @@ components:
               example: "ff808081554a3e4101554a3e9033005d"
             id:
               type: string
+              maxLength: 32
               example: "5001"
             type:
               type: string
+              maxLength: 255
               example: "yum"
             label:
               type: string
+              maxLength: 255
               example: "content_label"
             name:
               type: string
+              maxLength: 255
               example: "content_name"
             vendor:
               type: string
+              maxLength: 255
               example: "example-vendor"
             contentUrl:
               type: string
+              maxLength: 255
               example: "/admin/foo/example/path"
             requiredTags:
               type: string
+              maxLength: 255
               example: "TAG1,TAG2"
             releaseVer:
               type: string
+              maxLength: 255
               example: "1.2.3"
             gpgUrl:
               type: string
+              maxLength: 255
               example: "/admin/foo/example/gpg/path"
             modifiedProductIds:
               type: array
@@ -8553,8 +8730,10 @@ components:
               example: "[5051,5052,5053]"
               items:
                 type: string
+                maxLength: 32
             arches:
               type: string
+              maxLength: 255
               example: "x86_64"
             metadataExpire:
               type: integer
@@ -8580,8 +8759,10 @@ components:
           properties:
             name:
               type: string
+              maxLength: 255
             contentLabel:
               type: string
+              maxLength: 255
             value:
               type: string
               maxLength: 2048

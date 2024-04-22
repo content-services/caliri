@@ -81,7 +81,7 @@ No authorization required
 
 ## GetContents
 
-> []ContentDTO GetContents(ctx).Execute()
+> []ContentDTO GetContents(ctx).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 
 
 
@@ -100,10 +100,14 @@ import (
 )
 
 func main() {
+	page := int32(2) // int32 | Page index to return (optional)
+	perPage := int32(10) // int32 | Number of items to return per page (optional)
+	order := "asc" // string | Direction of ordering (optional)
+	sortBy := "name" // string | Property to use for ordering (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ContentAPI.GetContents(context.Background()).Execute()
+	resp, r, err := apiClient.ContentAPI.GetContents(context.Background()).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContentAPI.GetContents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -115,12 +119,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetContentsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** | Page index to return | 
+ **perPage** | **int32** | Number of items to return per page | 
+ **order** | **string** | Direction of ordering | 
+ **sortBy** | **string** | Property to use for ordering | 
 
 ### Return type
 

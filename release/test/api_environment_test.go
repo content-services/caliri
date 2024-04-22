@@ -49,6 +49,20 @@ func Test_caliri_EnvironmentAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test EnvironmentAPIService DeleteEnvironmentContentOverrides", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var environmentId string
+
+		resp, httpRes, err := apiClient.EnvironmentAPI.DeleteEnvironmentContentOverrides(context.Background(), environmentId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test EnvironmentAPIService DemoteContent", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -77,6 +91,20 @@ func Test_caliri_EnvironmentAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test EnvironmentAPIService GetEnvironmentContentOverrides", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var environmentId string
+
+		resp, httpRes, err := apiClient.EnvironmentAPI.GetEnvironmentContentOverrides(context.Background(), environmentId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test EnvironmentAPIService PromoteContent", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -84,6 +112,20 @@ func Test_caliri_EnvironmentAPIService(t *testing.T) {
 		var envId string
 
 		resp, httpRes, err := apiClient.EnvironmentAPI.PromoteContent(context.Background(), envId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test EnvironmentAPIService PutEnvironmentContentOverrides", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var environmentId string
+
+		resp, httpRes, err := apiClient.EnvironmentAPI.PutEnvironmentContentOverrides(context.Background(), environmentId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

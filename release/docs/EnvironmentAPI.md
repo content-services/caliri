@@ -6,9 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateConsumerInEnvironment**](EnvironmentAPI.md#CreateConsumerInEnvironment) | **Post** /environments/{env_id}/consumers | 
 [**DeleteEnvironment**](EnvironmentAPI.md#DeleteEnvironment) | **Delete** /environments/{env_id} | 
+[**DeleteEnvironmentContentOverrides**](EnvironmentAPI.md#DeleteEnvironmentContentOverrides) | **Delete** /environments/{environment_id}/content_overrides | 
 [**DemoteContent**](EnvironmentAPI.md#DemoteContent) | **Delete** /environments/{env_id}/content | 
 [**GetEnvironment**](EnvironmentAPI.md#GetEnvironment) | **Get** /environments/{env_id} | 
+[**GetEnvironmentContentOverrides**](EnvironmentAPI.md#GetEnvironmentContentOverrides) | **Get** /environments/{environment_id}/content_overrides | 
 [**PromoteContent**](EnvironmentAPI.md#PromoteContent) | **Post** /environments/{env_id}/content | 
+[**PutEnvironmentContentOverrides**](EnvironmentAPI.md#PutEnvironmentContentOverrides) | **Put** /environments/{environment_id}/content_overrides | 
 
 
 
@@ -149,6 +152,78 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteEnvironmentContentOverrides
+
+> []ContentOverrideDTO DeleteEnvironmentContentOverrides(ctx, environmentId).ContentOverrideDTO(contentOverrideDTO).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/content-services/caliri/release/v4"
+)
+
+func main() {
+	environmentId := "environmentId_example" // string | The ID of the environment from which to remove content overrides 
+	contentOverrideDTO := []openapiclient.ContentOverrideDTO{*openapiclient.NewContentOverrideDTO()} // []ContentOverrideDTO | A list containing the content overrides to remove from the environment. The overrides need not be fully populated, as the value is ignored entirely during removal; and depending on the behavior desired, the name or label fields may not be needed, either. See the description for the operation itself for more details.  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EnvironmentAPI.DeleteEnvironmentContentOverrides(context.Background(), environmentId).ContentOverrideDTO(contentOverrideDTO).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentAPI.DeleteEnvironmentContentOverrides``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteEnvironmentContentOverrides`: []ContentOverrideDTO
+	fmt.Fprintf(os.Stdout, "Response from `EnvironmentAPI.DeleteEnvironmentContentOverrides`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentId** | **string** | The ID of the environment from which to remove content overrides  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteEnvironmentContentOverridesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contentOverrideDTO** | [**[]ContentOverrideDTO**](ContentOverrideDTO.md) | A list containing the content overrides to remove from the environment. The overrides need not be fully populated, as the value is ignored entirely during removal; and depending on the behavior desired, the name or label fields may not be needed, either. See the description for the operation itself for more details.  | 
+
+### Return type
+
+[**[]ContentOverrideDTO**](ContentOverrideDTO.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -300,6 +375,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetEnvironmentContentOverrides
+
+> []ContentOverrideDTO GetEnvironmentContentOverrides(ctx, environmentId).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/content-services/caliri/release/v4"
+)
+
+func main() {
+	environmentId := "environmentId_example" // string | The ID of the environment for which to fetch content overrides 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EnvironmentAPI.GetEnvironmentContentOverrides(context.Background(), environmentId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentAPI.GetEnvironmentContentOverrides``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEnvironmentContentOverrides`: []ContentOverrideDTO
+	fmt.Fprintf(os.Stdout, "Response from `EnvironmentAPI.GetEnvironmentContentOverrides`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentId** | **string** | The ID of the environment for which to fetch content overrides  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEnvironmentContentOverridesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**[]ContentOverrideDTO**](ContentOverrideDTO.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PromoteContent
 
 > AsyncJobStatusDTO PromoteContent(ctx, envId).ContentToPromoteDTO(contentToPromoteDTO).LazyRegen(lazyRegen).Execute()
@@ -359,6 +504,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AsyncJobStatusDTO**](AsyncJobStatusDTO.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutEnvironmentContentOverrides
+
+> []ContentOverrideDTO PutEnvironmentContentOverrides(ctx, environmentId).ContentOverrideDTO(contentOverrideDTO).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/content-services/caliri/release/v4"
+)
+
+func main() {
+	environmentId := "environmentId_example" // string | The ID of the environment in which to add or update content overrides 
+	contentOverrideDTO := []openapiclient.ContentOverrideDTO{*openapiclient.NewContentOverrideDTO()} // []ContentOverrideDTO | A list containing the content overrides to apply to the environment
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EnvironmentAPI.PutEnvironmentContentOverrides(context.Background(), environmentId).ContentOverrideDTO(contentOverrideDTO).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentAPI.PutEnvironmentContentOverrides``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutEnvironmentContentOverrides`: []ContentOverrideDTO
+	fmt.Fprintf(os.Stdout, "Response from `EnvironmentAPI.PutEnvironmentContentOverrides`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentId** | **string** | The ID of the environment in which to add or update content overrides  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutEnvironmentContentOverridesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contentOverrideDTO** | [**[]ContentOverrideDTO**](ContentOverrideDTO.md) | A list containing the content overrides to apply to the environment | 
+
+### Return type
+
+[**[]ContentOverrideDTO**](ContentOverrideDTO.md)
 
 ### Authorization
 

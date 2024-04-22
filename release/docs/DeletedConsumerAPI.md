@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListByDate
 
-> []DeletedConsumerDTO ListByDate(ctx).Date(date).Execute()
+> []DeletedConsumerDTO ListByDate(ctx).Date(date).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 
 
 
@@ -30,10 +30,14 @@ import (
 
 func main() {
 	date := "date_example" // string | Filter deleted consumers to those on or after this date (optional)
+	page := int32(2) // int32 | Page index to return (optional)
+	perPage := int32(10) // int32 | Number of items to return per page (optional)
+	order := "asc" // string | Direction of ordering (optional)
+	sortBy := "name" // string | Property to use for ordering (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeletedConsumerAPI.ListByDate(context.Background()).Date(date).Execute()
+	resp, r, err := apiClient.DeletedConsumerAPI.ListByDate(context.Background()).Date(date).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeletedConsumerAPI.ListByDate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -55,6 +59,10 @@ Other parameters are passed through a pointer to a apiListByDateRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **date** | **string** | Filter deleted consumers to those on or after this date | 
+ **page** | **int32** | Page index to return | 
+ **perPage** | **int32** | Number of items to return per page | 
+ **order** | **string** | Direction of ordering | 
+ **sortBy** | **string** | Property to use for ordering | 
 
 ### Return type
 
