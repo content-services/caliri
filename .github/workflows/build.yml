@@ -1,6 +1,7 @@
 name: Update candlepin binding if new release
 on:
   push:
+  workflow_dispatch:
 jobs:
   CheckLatestVersionAndRun:
     timeout-minutes: 10
