@@ -64,13 +64,13 @@ func Test_caliri_OwnerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test OwnerAPIService CreateEnv", func(t *testing.T) {
+	t.Run("Test OwnerAPIService CreateEnvironment", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var ownerKey string
 
-		resp, httpRes, err := apiClient.OwnerAPI.CreateEnv(context.Background(), ownerKey).Execute()
+		resp, httpRes, err := apiClient.OwnerAPI.CreateEnvironment(context.Background(), ownerKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**GetEnvironmentContentOverrides**](EnvironmentAPI.md#GetEnvironmentContentOverrides) | **Get** /environments/{environment_id}/content_overrides | 
 [**PromoteContent**](EnvironmentAPI.md#PromoteContent) | **Post** /environments/{env_id}/content | 
 [**PutEnvironmentContentOverrides**](EnvironmentAPI.md#PutEnvironmentContentOverrides) | **Put** /environments/{environment_id}/content_overrides | 
+[**UpdateEnvironment**](EnvironmentAPI.md#UpdateEnvironment) | **Put** /environments/{env_id} | 
 
 
 
@@ -93,7 +94,7 @@ Name | Type | Description  | Notes
 
 ## DeleteEnvironment
 
-> DeleteEnvironment(ctx, envId).Execute()
+> DeleteEnvironment(ctx, envId).RetainConsumers(retainConsumers).Execute()
 
 
 
@@ -113,10 +114,11 @@ import (
 
 func main() {
 	envId := "envId_example" // string | 
+	retainConsumers := true // bool | Whether or not to retain affected consumers with no remaining environments. If set to true, affected consumers will be moved to the organization's default content view.  (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EnvironmentAPI.DeleteEnvironment(context.Background(), envId).Execute()
+	r, err := apiClient.EnvironmentAPI.DeleteEnvironment(context.Background(), envId).RetainConsumers(retainConsumers).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentAPI.DeleteEnvironment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -140,6 +142,7 @@ Other parameters are passed through a pointer to a apiDeleteEnvironmentRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **retainConsumers** | **bool** | Whether or not to retain affected consumers with no remaining environments. If set to true, affected consumers will be moved to the organization&#39;s default content view.  | [default to false]
 
 ### Return type
 
@@ -576,6 +579,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]ContentOverrideDTO**](ContentOverrideDTO.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateEnvironment
+
+> EnvironmentDTO UpdateEnvironment(ctx, envId).EnvironmentDTO(environmentDTO).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/content-services/caliri/release/v4"
+)
+
+func main() {
+	envId := "envId_example" // string | 
+	environmentDTO := *openapiclient.NewEnvironmentDTO() // EnvironmentDTO | An EnvironmentDTO containing the data to use to update the target environment. The object need not be fully populated, as some fields cannot be changed by an update operation and will be ignored. Any field which is not intended to be updated should be left undefined or null. An empty, non-null value should be used to clear any existing value in a given field. 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EnvironmentAPI.UpdateEnvironment(context.Background(), envId).EnvironmentDTO(environmentDTO).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentAPI.UpdateEnvironment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateEnvironment`: EnvironmentDTO
+	fmt.Fprintf(os.Stdout, "Response from `EnvironmentAPI.UpdateEnvironment`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**envId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateEnvironmentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **environmentDTO** | [**EnvironmentDTO**](EnvironmentDTO.md) | An EnvironmentDTO containing the data to use to update the target environment. The object need not be fully populated, as some fields cannot be changed by an update operation and will be ignored. Any field which is not intended to be updated should be left undefined or null. An empty, non-null value should be used to clear any existing value in a given field.  | 
+
+### Return type
+
+[**EnvironmentDTO**](EnvironmentDTO.md)
 
 ### Authorization
 

@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**Claim**](OwnerAPI.md#Claim) | **Put** /owners/{anonymous_owner_key}/claim | 
 [**CountConsumers**](OwnerAPI.md#CountConsumers) | **Get** /owners/{owner_key}/consumers/count | 
 [**CreateActivationKey**](OwnerAPI.md#CreateActivationKey) | **Post** /owners/{owner_key}/activation_keys | 
-[**CreateEnv**](OwnerAPI.md#CreateEnv) | **Post** /owners/{owner_key}/environments | 
+[**CreateEnvironment**](OwnerAPI.md#CreateEnvironment) | **Post** /owners/{owner_key}/environments | 
 [**CreateOwner**](OwnerAPI.md#CreateOwner) | **Post** /owners | 
 [**CreatePool**](OwnerAPI.md#CreatePool) | **Post** /owners/{owner_key}/pools | 
 [**CreateUeberCertificate**](OwnerAPI.md#CreateUeberCertificate) | **Post** /owners/{owner_key}/uebercert | 
@@ -262,9 +262,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## CreateEnv
+## CreateEnvironment
 
-> EnvironmentDTO CreateEnv(ctx, ownerKey).EnvironmentDTO(environmentDTO).Execute()
+> EnvironmentDTO CreateEnvironment(ctx, ownerKey).EnvironmentDTO(environmentDTO).Execute()
 
 
 
@@ -288,13 +288,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OwnerAPI.CreateEnv(context.Background(), ownerKey).EnvironmentDTO(environmentDTO).Execute()
+	resp, r, err := apiClient.OwnerAPI.CreateEnvironment(context.Background(), ownerKey).EnvironmentDTO(environmentDTO).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `OwnerAPI.CreateEnv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `OwnerAPI.CreateEnvironment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateEnv`: EnvironmentDTO
-	fmt.Fprintf(os.Stdout, "Response from `OwnerAPI.CreateEnv`: %v\n", resp)
+	// response from `CreateEnvironment`: EnvironmentDTO
+	fmt.Fprintf(os.Stdout, "Response from `OwnerAPI.CreateEnvironment`: %v\n", resp)
 }
 ```
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateEnvRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateEnvironmentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

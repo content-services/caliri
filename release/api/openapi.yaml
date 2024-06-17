@@ -3,7 +3,7 @@ info:
   description: Candlepin is a subscription management server written in Java. It helps
     with management of software subscriptions.
   title: Candlepin
-  version: 4.4.6
+  version: 4.4.9
 servers:
 - url: /candlepin
 security:
@@ -3997,8 +3997,11 @@ paths:
       - distributor_versions
   /environments/{env_id}:
     delete:
-      description: "Deletes an environment. WARNING: this will delete all consumers\
-        \ in the environment and revoke their entitlement certificates."
+      description: |
+        Deletes the specified environment, unregistering and deleting any consumers registered to
+        the environment with no other remaining environments. If the retain_consumers flag is set to
+        true, no consumer deletion will occur, and any such consumers will be moved to the
+        organization's default content view.
       operationId: deleteEnvironment
       parameters:
       - explode: false
@@ -4008,6 +4011,17 @@ paths:
         schema:
           type: string
         style: simple
+      - description: |
+          Whether or not to retain affected consumers with no remaining environments. If set to
+          true, affected consumers will be moved to the organization's default content view.
+        explode: true
+        in: query
+        name: retain_consumers
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "204":
           description: Environment was successfully deleted.
@@ -4059,6 +4073,69 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExceptionMessage'
           description: "No such environment: test_env"
+        default:
+          content:
+            application/json:
+              example:
+                displayMessage: An unexpected exception has occurred
+                requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+          description: An unexpected exception has occurred
+      security: []
+      tags:
+      - environment
+    put:
+      description: |
+        Updates the specified using the non-null fields specified in the provided EnvironmentDTO.
+        Note that some fields of an environment cannot be changed without deleting and recreating
+        the environment -- such as its ID or organization (owner) -- and some other properties that
+        are mutable may not be changed by this operation, such as environment content overrides. In
+        the case of the created and updated timestamps, this operation may not directly update those
+        fields, but the updated field may be changed as a result of other fields changing.
+
+        Ignored EnvironmentDTO fields:
+        - id
+        - owner
+        - environmentContent
+        - created
+        - updated*
+      operationId: updateEnvironment
+      parameters:
+      - explode: false
+        in: path
+        name: env_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentDTO'
+        description: |
+          An EnvironmentDTO containing the data to use to update the target environment. The object
+          need not be fully populated, as some fields cannot be changed by an update operation and
+          will be ignored. Any field which is not intended to be updated should be left undefined or
+          null. An empty, non-null value should be used to clear any existing value in a given
+          field.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentDTO'
+          description: |
+            The updated environment
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionMessage'
+          description: |
+            An environment with the specified ID does not exist
         default:
           content:
             application/json:
@@ -4156,14 +4233,16 @@ paths:
       - environment
   /environments/{env_id}/content:
     delete:
-      description: "Demotes a Content from an Environment. Consumer's registered to\
-        \ this environment will not see this content in their entitlement certificates.\
-        \ (after they are regenerated and synced to clients) This call accepts multiple\
-        \ content IDs to demote at once, allowing us to mass demote, then trigger\
-        \ a cert regeneration. NOTE: This call expects the actual content IDs, *not*\
-        \ the ID created for each EnvironmentContent object created after a promotion.\
-        \ This is to help integrate with other management apps which should not have\
-        \ to track/lookup a specific ID for the content to demote."
+      description: |
+        Demotes a Content from an Environment. Consumer's registered to this environment will not
+        see this content in their entitlement certificates. (after they are regenerated and synced
+        to clients) This call accepts multiple content IDs to demote at once, allowing us to mass
+        demote, then trigger a cert regeneration.
+
+        NOTE: This call expects the actual content IDs, *not* the ID created for each
+        EnvironmentContent object created after a promotion. This is to help integrate with other
+        management apps which should not have to track/lookup a specific ID for the content to
+        demote.
       operationId: demoteContent
       parameters:
       - explode: false
@@ -4873,14 +4952,13 @@ paths:
         isContainer: false
   /hypervisors/{owner}:
     post:
-      description: "Creates or Updates the list of Hypervisor hosts Allows agents\
-        \ such as virt-who to update hosts' information . This is typically used when\
-        \ a host is unable to register to candlepin via subscription manager. In situations\
-        \ where consumers already exist it is probably best not to allow creation\
-        \ of new hypervisor consumers.  Most consumers do not have a hypervisorId\
-        \ attribute, so that should be added manually when necessary by the management\
-        \ environment. Default is true. If false is specified, hypervisorIds that\
-        \ are not found will result in a failed state of the job."
+      description: |
+        Creates or Updates the list of Hypervisor hosts Allows agents such as virt-who to update hosts'
+        information . This is typically used when a host is unable to register to candlepin via subscription
+        manager. In situations where consumers already exist it is probably best not to allow creation of new
+        hypervisor consumers.  Most consumers do not have a hypervisorId attribute, so that should be added
+        manually when necessary by the management environment. Default is true. If false is specified,
+        hypervisorIds that are not found will result in a failed state of the job.
       operationId: hypervisorUpdateAsync
       parameters:
       - description: Owner key
@@ -6838,7 +6916,7 @@ paths:
         isContainer: true
     post:
       description: Creates an environment for the owner
-      operationId: createEnv
+      operationId: createEnvironment
       parameters:
       - description: The key of the owner
         explode: false
@@ -15312,6 +15390,18 @@ components:
           href: href
           contentAccessMode: contentAccessMode
           key: key
+        serial:
+          serial: 1
+          created: 2020-04-23 03:23:50.927000
+          expiration: expiration
+          id: 6
+          revoked: true
+          updated: 2020-04-23 03:23:50.927000
+        created: 2020-04-23 03:23:50.927000
+        cert: cert
+        id: id
+        updated: 2020-04-23 03:23:50.927000
+        key: key
     UserDTO:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
