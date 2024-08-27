@@ -63,7 +63,7 @@ jobs:
       - uses: actions/setup-go@v2
         if: steps.getRelease.outputs.tag != steps.repoRelease.outputs.tag
         with:
-          go-version: "1.22"
+          go-version: "1.23"
 
       - name: Run Go Tests
         if: steps.getRelease.outputs.tag != steps.repoRelease.outputs.tag
