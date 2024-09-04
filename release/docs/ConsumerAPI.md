@@ -2054,7 +2054,7 @@ No authorization required
 
 ## SearchConsumers
 
-> []ConsumerDTOArrayElement SearchConsumers(ctx).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
+> []ConsumerDTOArrayElement SearchConsumers(ctx).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).EnvironmentId(environmentId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 
 
 
@@ -2080,6 +2080,7 @@ func main() {
 	hypervisorId := []string{"Inner_example"} // []string | Hypervisor IDs (optional)
 	registrationAuthenticationMethod := "registrationAuthenticationMethod_example" // string | Registration Authentication Method (optional)
 	fact := []string{"Inner_example"} // []string | The consumer facts (optional)
+	environmentId := "environmentId_example" // string | Environment identifier (optional)
 	page := int32(2) // int32 | Page index to return (optional)
 	perPage := int32(10) // int32 | Number of items to return per page (optional)
 	order := "asc" // string | Direction of ordering (optional)
@@ -2087,7 +2088,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConsumerAPI.SearchConsumers(context.Background()).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
+	resp, r, err := apiClient.ConsumerAPI.SearchConsumers(context.Background()).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).EnvironmentId(environmentId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConsumerAPI.SearchConsumers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2115,6 +2116,7 @@ Name | Type | Description  | Notes
  **hypervisorId** | **[]string** | Hypervisor IDs | 
  **registrationAuthenticationMethod** | **string** | Registration Authentication Method | 
  **fact** | **[]string** | The consumer facts | 
+ **environmentId** | **string** | Environment identifier | 
  **page** | **int32** | Page index to return | 
  **perPage** | **int32** | Number of items to return per page | 
  **order** | **string** | Direction of ordering | 

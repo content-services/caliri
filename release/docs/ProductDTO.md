@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **string** |  | [optional] 
 **Updated** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
 **Uuid** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Multiplier** | Pointer to **int64** |  | [optional] 
 **Attributes** | Pointer to [**[]AttributeDTO**](AttributeDTO.md) |  | [optional] 
@@ -87,31 +87,6 @@ SetUpdated sets Updated field to given value.
 
 HasUpdated returns a boolean if a field has been set.
 
-### GetId
-
-`func (o *ProductDTO) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *ProductDTO) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *ProductDTO) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *ProductDTO) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
 ### GetUuid
 
 `func (o *ProductDTO) GetUuid() string`
@@ -136,6 +111,31 @@ SetUuid sets Uuid field to given value.
 `func (o *ProductDTO) HasUuid() bool`
 
 HasUuid returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *ProductDTO) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ProductDTO) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ProductDTO) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ProductDTO) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 

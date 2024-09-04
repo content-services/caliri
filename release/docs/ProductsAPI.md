@@ -82,7 +82,7 @@ No authorization required
 
 ## GetProducts
 
-> []ProductDTO GetProducts(ctx).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
+> []ProductDTO GetProducts(ctx).Owner(owner).Product(product).Name(name).Active(active).Custom(custom).Execute()
 
 
 
@@ -101,14 +101,15 @@ import (
 )
 
 func main() {
-	page := int32(2) // int32 | Page index to return (optional)
-	perPage := int32(10) // int32 | Number of items to return per page (optional)
-	order := "asc" // string | Direction of ordering (optional)
-	sortBy := "name" // string | Property to use for ordering (optional)
+	owner := []string{"Inner_example"} // []string | The key of an owner to use to limit the product search. If defined, the list of products returned by this endpoint will only include those available to the given owner. May be specified multiple times to filter by multiple owners. If multiple owners are provided, products available to any of the provided owners will be returned.  (optional)
+	product := []string{"Inner_example"} // []string | The ID of a product to fetch. If defined, the list of products returned by this endpoint will only include those matching the given ID. May be specified multiple times to filter on multiple product IDs. If multiple IDs are provided, any products matching any of the provided IDs will be returned.  (optional)
+	name := []string{"Inner_example"} // []string | The names of products to fetch. If defined, the list of products returned by this endpoint will only include those matching the given names (case-insensitive). May be specified multiple times to filter on multiple names. If multiple names are provided, any products matching any of the provided names will be returned.  (optional)
+	active := "{"include":{"value":"include","description":"indicates the query should include matching active products, along with any inactive\nproducts\n"},"exclude":{"value":"exclude","description":"indicates the query should exclude, or omit, active products, returning only matching\ninactive products\n"},"exclusive":{"value":"exclusive","description":"indicates the query should only include matching active products, excluding any inactive\nproducts\n"}}" // string | A value indicating how 'active' products should be considered when fetching products, where 'active' is defined as a product that is currently in use by a subscription with a start time in the past and that has not yet expired, or in use by a product which itself is considered 'active.' Must be one of 'include', 'exclude', or 'exclusive' indicating that active products should be included along with inactive products, excluded (omitted) from the results, or exclusively selected as the only products to return. Defaults to 'exclusive'.  (optional) (default to "exclusive")
+	custom := "{"include":{"value":"include","description":"indicates the query should include matching custom products, along with any matching\nglobally defined products\n"},"exclude":{"value":"exclude","description":"indicates the query should exclude, or omit, custom products, returning only matching\nglobally defined products\n"},"exclusive":{"value":"exclusive","description":"indicates the query should only include matching custom products, excluding any globally\ndefined products\n"}}" // string | A value indicating how custom products are considered when fetching products, where 'custom' is defined as a product that did not originate from a refresh operation nor manifest import. Must be one of 'include', 'exclude', or 'exclusive' indicating that custom products should be passively included, excluded or omitted from the output, or exclusively selected as the only products to return.  (optional) (default to "include")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProductsAPI.GetProducts(context.Background()).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
+	resp, r, err := apiClient.ProductsAPI.GetProducts(context.Background()).Owner(owner).Product(product).Name(name).Active(active).Custom(custom).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProductsAPI.GetProducts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -129,10 +130,11 @@ Other parameters are passed through a pointer to a apiGetProductsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | Page index to return | 
- **perPage** | **int32** | Number of items to return per page | 
- **order** | **string** | Direction of ordering | 
- **sortBy** | **string** | Property to use for ordering | 
+ **owner** | **[]string** | The key of an owner to use to limit the product search. If defined, the list of products returned by this endpoint will only include those available to the given owner. May be specified multiple times to filter by multiple owners. If multiple owners are provided, products available to any of the provided owners will be returned.  | 
+ **product** | **[]string** | The ID of a product to fetch. If defined, the list of products returned by this endpoint will only include those matching the given ID. May be specified multiple times to filter on multiple product IDs. If multiple IDs are provided, any products matching any of the provided IDs will be returned.  | 
+ **name** | **[]string** | The names of products to fetch. If defined, the list of products returned by this endpoint will only include those matching the given names (case-insensitive). May be specified multiple times to filter on multiple names. If multiple names are provided, any products matching any of the provided names will be returned.  | 
+ **active** | **string** | A value indicating how &#39;active&#39; products should be considered when fetching products, where &#39;active&#39; is defined as a product that is currently in use by a subscription with a start time in the past and that has not yet expired, or in use by a product which itself is considered &#39;active.&#39; Must be one of &#39;include&#39;, &#39;exclude&#39;, or &#39;exclusive&#39; indicating that active products should be included along with inactive products, excluded (omitted) from the results, or exclusively selected as the only products to return. Defaults to &#39;exclusive&#39;.  | [default to &quot;exclusive&quot;]
+ **custom** | **string** | A value indicating how custom products are considered when fetching products, where &#39;custom&#39; is defined as a product that did not originate from a refresh operation nor manifest import. Must be one of &#39;include&#39;, &#39;exclude&#39;, or &#39;exclusive&#39; indicating that custom products should be passively included, excluded or omitted from the output, or exclusively selected as the only products to return.  | [default to &quot;include&quot;]
 
 ### Return type
 

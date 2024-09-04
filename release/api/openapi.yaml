@@ -3,7 +3,7 @@ info:
   description: Candlepin is a subscription management server written in Java. It helps
     with management of software subscriptions.
   title: Candlepin
-  version: 4.4.9
+  version: 4.4.15
 servers:
 - url: /candlepin
 security:
@@ -917,6 +917,14 @@ paths:
             format: key:value
             type: string
           type: array
+        style: form
+      - description: Environment identifier
+        explode: true
+        in: query
+        name: environment_id
+        required: false
+        schema:
+          type: string
         style: form
       - description: Page index to return
         explode: true
@@ -3609,40 +3617,98 @@ paths:
       description: Retrieves list of Content
       operationId: getContents
       parameters:
-      - description: Page index to return
+      - description: |
+          The key of an owner to use to limit the content search. If defined, the list of contents returned
+          by this endpoint will only include those available to the given owner. May be specified multiple
+          times to filter by multiple owners. If multiple owners are provided, contents available to
+          any of the provided owners will be returned.
         explode: true
         in: query
-        name: page
+        name: owner
         required: false
         schema:
-          example: 2
-          type: integer
+          items:
+            type: string
+          type: array
         style: form
-      - description: Number of items to return per page
+      - description: |
+          The ID of a content to fetch. If defined, the list of contents returned by this method
+          will only include those matching the given ID. May be specified multiple times to filter
+          on multiple content IDs.
         explode: true
         in: query
-        name: per_page
+        name: content
         required: false
         schema:
-          example: 10
-          type: integer
+          items:
+            type: string
+          type: array
         style: form
-      - description: Direction of ordering
+      - description: |
+          The labels of content to fetch. If defined, the list of content returned by this endpoint
+          will only include those matching the given labels (case-insensitive). May be specified multiple
+          times to filter on multiple labels. If multiple labels are provided, any content matching any
+          of the provided labels will be returned.
         explode: true
         in: query
-        name: order
+        name: label
         required: false
         schema:
-          example: asc
+          items:
+            type: string
+          type: array
+        style: form
+      - description: |
+          A value indicating how 'active' content should be considered when fetching content, where
+          'active' is defined as a content that is currently in use by a subscription with a start time
+          in the past and that has not yet expired, or in use by a product which itself is considered
+          'active.' Must be one of 'include', 'exclude', or 'exclusive' indicating that active content
+          should be included along with inactive content, excluded (omitted) from the results, or
+          exclusively selected as the only content to return.
+          Defaults to 'exclusive'.
+        explode: true
+        in: query
+        name: active
+        required: false
+        schema:
+          default: exclusive
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching active content, along with any inactive\\\
+            ncontent\\n\"},\"exclude\":{\"value\":\"exclude\",\"description\":\"indicates\
+            \ the query should exclude, or omit, active content, returning only matching\\\
+            ninactive content\\n\"},\"exclusive\":{\"value\":\"exclusive\",\"description\"\
+            :\"indicates the query should only include matching active content, excluding\
+            \ any inactive\\ncontent\\n\"}}"
           type: string
         style: form
-      - description: Property to use for ordering
+      - description: |
+          A value indicating how custom content are considered when fetching content, where 'custom'
+          is defined as content that did not originate from a refresh operation nor manifest import.
+          Must be one of 'include', 'exclude', or 'exclusive' indicating that custom content should
+          be passively included, excluded or omitted from the output, or exclusively selected
+          as the only content to return.
         explode: true
         in: query
-        name: sort_by
+        name: custom
         required: false
         schema:
-          example: name
+          default: include
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching custom content, along with any matching\\\
+            nglobally defined content\\n\"},\"exclude\":{\"value\":\"exclude\",\"\
+            description\":\"indicates the query should exclude, or omit, custom content,\
+            \ returning only matching\\nglobally defined content\\n\"},\"exclusive\"\
+            :{\"value\":\"exclusive\",\"description\":\"indicates the query should\
+            \ only include matching custom content, excluding any globally\\ndefined\
+            \ content\\n\"}}"
           type: string
         style: form
       responses:
@@ -6080,15 +6146,71 @@ paths:
           type: array
         style: form
       - description: |
-          whether or not to limit the lookup to only contents defined within the organization's
-          namespace, excluding any globally defined contents
+          The labels of content to fetch. If defined, the list of content returned by this endpoint
+          will only include those matching the given labels (case-insensitive). May be specified multiple
+          times to filter on multiple labels. If multiple labels are provided, any content matching any
+          of the provided labels will be returned.
         explode: true
         in: query
-        name: omit_global
+        name: label
         required: false
         schema:
-          default: false
-          type: boolean
+          items:
+            type: string
+          type: array
+        style: form
+      - description: |
+          A value indicating how 'active' content should be considered when fetching content, where
+          'active' is defined as a content that is currently in use by a subscription with a start time
+          in the past and that has not yet expired, or in use by a product which itself is considered
+          'active.' Must be one of 'include', 'exclude', or 'exclusive' indicating that active content
+          should be included along with inactive content, excluded (omitted) from the results, or
+          exclusively selected as the only content to return.
+          Defaults to 'exclusive'.
+        explode: true
+        in: query
+        name: active
+        required: false
+        schema:
+          default: exclusive
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching active content, along with any inactive\\\
+            ncontent\\n\"},\"exclude\":{\"value\":\"exclude\",\"description\":\"indicates\
+            \ the query should exclude, or omit, active content, returning only matching\\\
+            ninactive content\\n\"},\"exclusive\":{\"value\":\"exclusive\",\"description\"\
+            :\"indicates the query should only include matching active content, excluding\
+            \ any inactive\\ncontent\\n\"}}"
+          type: string
+        style: form
+      - description: |
+          A value indicating how custom content are considered when fetching content, where 'custom'
+          is defined as content that did not originate from a refresh operation nor manifest import.
+          Must be one of 'include', 'exclude', or 'exclusive' indicating that custom content should
+          be passively included, excluded or omitted from the output, or exclusively selected
+          as the only content to return.
+        explode: true
+        in: query
+        name: custom
+        required: false
+        schema:
+          default: include
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching custom content, along with any matching\\\
+            nglobally defined content\\n\"},\"exclude\":{\"value\":\"exclude\",\"\
+            description\":\"indicates the query should exclude, or omit, custom content,\
+            \ returning only matching\\nglobally defined content\\n\"},\"exclusive\"\
+            :{\"value\":\"exclusive\",\"description\":\"indicates the query should\
+            \ only include matching custom content, excluding any globally\\ndefined\
+            \ content\\n\"}}"
+          type: string
         style: form
       responses:
         "200":
@@ -7792,9 +7914,10 @@ paths:
           type: string
         style: simple
       - description: |
-          The ID of a product to fetch. If defined, the list of products returned by this method
-          will only include those matching the given ID. May be specified multiple times to filter
-          on multiple product IDs.
+          The ID of a product to fetch. If defined, the list of products returned by this endpoint will
+          only include those matching the given ID. May be specified multiple times to filter on multiple
+          product IDs. If multiple IDs are provided, any products matching any of the provided IDs will
+          be returned.
         explode: true
         in: query
         name: product
@@ -7805,15 +7928,71 @@ paths:
           type: array
         style: form
       - description: |
-          whether or not to limit the lookup to only products defined within the organization's
-          namespace, excluding any globally defined products
+          The names of products to fetch. If defined, the list of products returned by this endpoint
+          will only include those matching the given names (case-insensitive). May be specified multiple
+          times to filter on multiple names. If multiple names are provided, any products matching any
+          of the provided names will be returned.
         explode: true
         in: query
-        name: omit_global
+        name: name
         required: false
         schema:
-          default: false
-          type: boolean
+          items:
+            type: string
+          type: array
+        style: form
+      - description: |
+          A value indicating how 'active' products should be considered when fetching products, where
+          'active' is defined as a product that is currently in use by a subscription with a start time
+          in the past and that has not yet expired, or in use by a product which itself is considered
+          'active.' Must be one of 'include', 'exclude', or 'exclusive' indicating that active products
+          should be included along with inactive products, excluded (omitted) from the results, or
+          exclusively selected as the only products to return.
+          Defaults to 'exclusive'.
+        explode: true
+        in: query
+        name: active
+        required: false
+        schema:
+          default: exclusive
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching active products, along with any inactive\\\
+            nproducts\\n\"},\"exclude\":{\"value\":\"exclude\",\"description\":\"\
+            indicates the query should exclude, or omit, active products, returning\
+            \ only matching\\ninactive products\\n\"},\"exclusive\":{\"value\":\"\
+            exclusive\",\"description\":\"indicates the query should only include\
+            \ matching active products, excluding any inactive\\nproducts\\n\"}}"
+          type: string
+        style: form
+      - description: |
+          A value indicating how custom products are considered when fetching products, where 'custom'
+          is defined as a product that did not originate from a refresh operation nor manifest import.
+          Must be one of 'include', 'exclude', or 'exclusive' indicating that custom products should
+          be passively included, excluded or omitted from the output, or exclusively selected
+          as the only products to return.
+        explode: true
+        in: query
+        name: custom
+        required: false
+        schema:
+          default: include
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching custom products, along with any matching\\\
+            nglobally defined products\\n\"},\"exclude\":{\"value\":\"exclude\",\"\
+            description\":\"indicates the query should exclude, or omit, custom products,\
+            \ returning only matching\\nglobally defined products\\n\"},\"exclusive\"\
+            :{\"value\":\"exclusive\",\"description\":\"indicates the query should\
+            \ only include matching custom products, excluding any globally\\ndefined\
+            \ products\\n\"}}"
+          type: string
         style: form
       responses:
         "200":
@@ -8896,40 +9075,99 @@ paths:
       description: Retrieves list containing all known products
       operationId: getProducts
       parameters:
-      - description: Page index to return
+      - description: |
+          The key of an owner to use to limit the product search. If defined, the list of products returned
+          by this endpoint will only include those available to the given owner. May be specified multiple
+          times to filter by multiple owners. If multiple owners are provided, products available to
+          any of the provided owners will be returned.
         explode: true
         in: query
-        name: page
+        name: owner
         required: false
         schema:
-          example: 2
-          type: integer
+          items:
+            type: string
+          type: array
         style: form
-      - description: Number of items to return per page
+      - description: |
+          The ID of a product to fetch. If defined, the list of products returned by this endpoint will
+          only include those matching the given ID. May be specified multiple times to filter on multiple
+          product IDs. If multiple IDs are provided, any products matching any of the provided IDs will
+          be returned.
         explode: true
         in: query
-        name: per_page
+        name: product
         required: false
         schema:
-          example: 10
-          type: integer
+          items:
+            type: string
+          type: array
         style: form
-      - description: Direction of ordering
+      - description: |
+          The names of products to fetch. If defined, the list of products returned by this endpoint
+          will only include those matching the given names (case-insensitive). May be specified multiple
+          times to filter on multiple names. If multiple names are provided, any products matching any
+          of the provided names will be returned.
         explode: true
         in: query
-        name: order
+        name: name
         required: false
         schema:
-          example: asc
+          items:
+            type: string
+          type: array
+        style: form
+      - description: |
+          A value indicating how 'active' products should be considered when fetching products, where
+          'active' is defined as a product that is currently in use by a subscription with a start time
+          in the past and that has not yet expired, or in use by a product which itself is considered
+          'active.' Must be one of 'include', 'exclude', or 'exclusive' indicating that active products
+          should be included along with inactive products, excluded (omitted) from the results, or
+          exclusively selected as the only products to return.
+          Defaults to 'exclusive'.
+        explode: true
+        in: query
+        name: active
+        required: false
+        schema:
+          default: exclusive
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching active products, along with any inactive\\\
+            nproducts\\n\"},\"exclude\":{\"value\":\"exclude\",\"description\":\"\
+            indicates the query should exclude, or omit, active products, returning\
+            \ only matching\\ninactive products\\n\"},\"exclusive\":{\"value\":\"\
+            exclusive\",\"description\":\"indicates the query should only include\
+            \ matching active products, excluding any inactive\\nproducts\\n\"}}"
           type: string
         style: form
-      - description: Property to use for ordering
+      - description: |
+          A value indicating how custom products are considered when fetching products, where 'custom'
+          is defined as a product that did not originate from a refresh operation nor manifest import.
+          Must be one of 'include', 'exclude', or 'exclusive' indicating that custom products should
+          be passively included, excluded or omitted from the output, or exclusively selected
+          as the only products to return.
         explode: true
         in: query
-        name: sort_by
+        name: custom
         required: false
         schema:
-          example: name
+          default: include
+          enum:
+          - include
+          - exclude
+          - exclusive
+          example: "{\"include\":{\"value\":\"include\",\"description\":\"indicates\
+            \ the query should include matching custom products, along with any matching\\\
+            nglobally defined products\\n\"},\"exclude\":{\"value\":\"exclude\",\"\
+            description\":\"indicates the query should exclude, or omit, custom products,\
+            \ returning only matching\\nglobally defined products\\n\"},\"exclusive\"\
+            :{\"value\":\"exclusive\",\"description\":\"indicates the query should\
+            \ only include matching custom products, excluding any globally\\ndefined\
+            \ products\\n\"}}"
           type: string
         style: form
       responses:
@@ -11638,7 +11876,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -11752,7 +11989,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -11877,7 +12113,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -11991,7 +12226,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -12116,7 +12350,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -12230,7 +12463,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -12522,7 +12754,6 @@ components:
             id: id
             href: href
           activeSubscription: true
-          developmentPool: true
           owner:
             displayName: displayName
             id: id
@@ -13100,8 +13331,6 @@ components:
             type: boolean
           sourceStackId:
             type: string
-          developmentPool:
-            type: boolean
           href:
             type: string
           derivedProductAttributes:
@@ -13165,7 +13394,6 @@ components:
           id: id
           href: href
         activeSubscription: true
-        developmentPool: true
         owner:
           displayName: displayName
           id: id
@@ -13246,7 +13474,6 @@ components:
             id: id
             href: href
           activeSubscription: true
-          developmentPool: true
           owner:
             displayName: displayName
             id: id
@@ -13339,11 +13566,11 @@ components:
       allOf:
       - $ref: '#/components/schemas/TimestampedEntity'
       - properties:
-          id:
-            example: "5051"
-            type: string
           uuid:
             example: ff808081554a3e4101554a3e9033005d
+            type: string
+          id:
+            example: "5051"
             type: string
           name:
             example: Admin OS Developer Bits
@@ -14224,7 +14451,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -14338,7 +14564,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -14455,7 +14680,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -14569,7 +14793,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -14685,7 +14908,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -14799,7 +15021,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -14915,7 +15136,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -15029,7 +15249,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -15148,7 +15367,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id
@@ -15262,7 +15480,6 @@ components:
                 id: id
                 href: href
               activeSubscription: true
-              developmentPool: true
               owner:
                 displayName: displayName
                 id: id

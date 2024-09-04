@@ -32,7 +32,6 @@ Name | Type | Description | Notes
 **StackId** | Pointer to **string** |  | [optional] 
 **Stacked** | Pointer to **bool** |  | [optional] 
 **SourceStackId** | Pointer to **string** |  | [optional] 
-**DevelopmentPool** | Pointer to **bool** |  | [optional] 
 **Href** | Pointer to **string** |  | [optional] 
 **DerivedProductAttributes** | Pointer to [**[]AttributeDTO**](AttributeDTO.md) |  | [optional] 
 **DerivedProductId** | Pointer to **string** |  | [optional] 
@@ -761,31 +760,6 @@ SetSourceStackId sets SourceStackId field to given value.
 `func (o *PoolDTO) HasSourceStackId() bool`
 
 HasSourceStackId returns a boolean if a field has been set.
-
-### GetDevelopmentPool
-
-`func (o *PoolDTO) GetDevelopmentPool() bool`
-
-GetDevelopmentPool returns the DevelopmentPool field if non-nil, zero value otherwise.
-
-### GetDevelopmentPoolOk
-
-`func (o *PoolDTO) GetDevelopmentPoolOk() (*bool, bool)`
-
-GetDevelopmentPoolOk returns a tuple with the DevelopmentPool field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDevelopmentPool
-
-`func (o *PoolDTO) SetDevelopmentPool(v bool)`
-
-SetDevelopmentPool sets DevelopmentPool field to given value.
-
-### HasDevelopmentPool
-
-`func (o *PoolDTO) HasDevelopmentPool() bool`
-
-HasDevelopmentPool returns a boolean if a field has been set.
 
 ### GetHref
 

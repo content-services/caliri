@@ -232,7 +232,7 @@ No authorization required
 
 ## GetContentsByOwner
 
-> []ContentDTO GetContentsByOwner(ctx, ownerKey).Content(content).OmitGlobal(omitGlobal).Execute()
+> []ContentDTO GetContentsByOwner(ctx, ownerKey).Content(content).Label(label).Active(active).Custom(custom).Execute()
 
 
 
@@ -253,11 +253,13 @@ import (
 func main() {
 	ownerKey := "ownerKey_example" // string | Owner key
 	content := []string{"Inner_example"} // []string | The ID of a content to fetch. If defined, the list of contents returned by this method will only include those matching the given ID. May be specified multiple times to filter on multiple content IDs.  (optional)
-	omitGlobal := true // bool | whether or not to limit the lookup to only contents defined within the organization's namespace, excluding any globally defined contents  (optional) (default to false)
+	label := []string{"Inner_example"} // []string | The labels of content to fetch. If defined, the list of content returned by this endpoint will only include those matching the given labels (case-insensitive). May be specified multiple times to filter on multiple labels. If multiple labels are provided, any content matching any of the provided labels will be returned.  (optional)
+	active := "{"include":{"value":"include","description":"indicates the query should include matching active content, along with any inactive\ncontent\n"},"exclude":{"value":"exclude","description":"indicates the query should exclude, or omit, active content, returning only matching\ninactive content\n"},"exclusive":{"value":"exclusive","description":"indicates the query should only include matching active content, excluding any inactive\ncontent\n"}}" // string | A value indicating how 'active' content should be considered when fetching content, where 'active' is defined as a content that is currently in use by a subscription with a start time in the past and that has not yet expired, or in use by a product which itself is considered 'active.' Must be one of 'include', 'exclude', or 'exclusive' indicating that active content should be included along with inactive content, excluded (omitted) from the results, or exclusively selected as the only content to return. Defaults to 'exclusive'.  (optional) (default to "exclusive")
+	custom := "{"include":{"value":"include","description":"indicates the query should include matching custom content, along with any matching\nglobally defined content\n"},"exclude":{"value":"exclude","description":"indicates the query should exclude, or omit, custom content, returning only matching\nglobally defined content\n"},"exclusive":{"value":"exclusive","description":"indicates the query should only include matching custom content, excluding any globally\ndefined content\n"}}" // string | A value indicating how custom content are considered when fetching content, where 'custom' is defined as content that did not originate from a refresh operation nor manifest import. Must be one of 'include', 'exclude', or 'exclusive' indicating that custom content should be passively included, excluded or omitted from the output, or exclusively selected as the only content to return.  (optional) (default to "include")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OwnerContentAPI.GetContentsByOwner(context.Background(), ownerKey).Content(content).OmitGlobal(omitGlobal).Execute()
+	resp, r, err := apiClient.OwnerContentAPI.GetContentsByOwner(context.Background(), ownerKey).Content(content).Label(label).Active(active).Custom(custom).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OwnerContentAPI.GetContentsByOwner``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -284,7 +286,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **content** | **[]string** | The ID of a content to fetch. If defined, the list of contents returned by this method will only include those matching the given ID. May be specified multiple times to filter on multiple content IDs.  | 
- **omitGlobal** | **bool** | whether or not to limit the lookup to only contents defined within the organization&#39;s namespace, excluding any globally defined contents  | [default to false]
+ **label** | **[]string** | The labels of content to fetch. If defined, the list of content returned by this endpoint will only include those matching the given labels (case-insensitive). May be specified multiple times to filter on multiple labels. If multiple labels are provided, any content matching any of the provided labels will be returned.  | 
+ **active** | **string** | A value indicating how &#39;active&#39; content should be considered when fetching content, where &#39;active&#39; is defined as a content that is currently in use by a subscription with a start time in the past and that has not yet expired, or in use by a product which itself is considered &#39;active.&#39; Must be one of &#39;include&#39;, &#39;exclude&#39;, or &#39;exclusive&#39; indicating that active content should be included along with inactive content, excluded (omitted) from the results, or exclusively selected as the only content to return. Defaults to &#39;exclusive&#39;.  | [default to &quot;exclusive&quot;]
+ **custom** | **string** | A value indicating how custom content are considered when fetching content, where &#39;custom&#39; is defined as content that did not originate from a refresh operation nor manifest import. Must be one of &#39;include&#39;, &#39;exclude&#39;, or &#39;exclusive&#39; indicating that custom content should be passively included, excluded or omitted from the output, or exclusively selected as the only content to return.  | [default to &quot;include&quot;]
 
 ### Return type
 
