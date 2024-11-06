@@ -3,7 +3,7 @@ info:
   description: Candlepin is a subscription management server written in Java. It helps
     with management of software subscriptions.
   title: Candlepin
-  version: 4.4.17
+  version: 4.4.18
 servers:
 - url: /candlepin
 security:
