@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**GetComplianceStatus**](ConsumerAPI.md#GetComplianceStatus) | **Get** /consumers/{consumer_uuid}/compliance | 
 [**GetComplianceStatusList**](ConsumerAPI.md#GetComplianceStatusList) | **Get** /consumers/compliance | 
 [**GetConsumer**](ConsumerAPI.md#GetConsumer) | **Get** /consumers/{consumer_uuid} | 
+[**GetConsumerPackages**](ConsumerAPI.md#GetConsumerPackages) | **Put** /consumers/{consumer_uuid}/packages | 
 [**GetContentAccessBody**](ConsumerAPI.md#GetContentAccessBody) | **Get** /consumers/{consumer_uuid}/accessible_content | 
 [**GetContentAccessForConsumer**](ConsumerAPI.md#GetContentAccessForConsumer) | **Get** /consumers/{consumer_uuid}/content_access | 
 [**GetEntitlementCertificateSerials**](ConsumerAPI.md#GetEntitlementCertificateSerials) | **Get** /consumers/{consumer_uuid}/certificates/serials | 
@@ -31,7 +32,7 @@ Method | HTTP request | Description
 [**ListEntitlements**](ConsumerAPI.md#ListEntitlements) | **Get** /consumers/{consumer_uuid}/entitlements | 
 [**RegenerateEntitlementCertificates**](ConsumerAPI.md#RegenerateEntitlementCertificates) | **Put** /consumers/{consumer_uuid}/certificates | 
 [**RegenerateIdentityCertificates**](ConsumerAPI.md#RegenerateIdentityCertificates) | **Post** /consumers/{consumer_uuid} | 
-[**RemoveDeletionRecord**](ConsumerAPI.md#RemoveDeletionRecord) | **Delete** /consumers/{consumer_uuid}/deletionrecord | 
+[**RemoveDeletionRecords**](ConsumerAPI.md#RemoveDeletionRecords) | **Delete** /consumers/{consumer_uuid}/deletionrecord | 
 [**SearchConsumers**](ConsumerAPI.md#SearchConsumers) | **Get** /consumers | 
 [**UnbindAll**](ConsumerAPI.md#UnbindAll) | **Delete** /consumers/{consumer_uuid}/entitlements | 
 [**UnbindByEntitlementId**](ConsumerAPI.md#UnbindByEntitlementId) | **Delete** /consumers/{consumer_uuid}/entitlements/{dbid} | 
@@ -1122,6 +1123,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetConsumerPackages
+
+> ExceptionMessage GetConsumerPackages(ctx, consumerUuid).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/content-services/caliri/release/v4"
+)
+
+func main() {
+	consumerUuid := "consumerUuid_example" // string | The UUID of the consumer
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ConsumerAPI.GetConsumerPackages(context.Background(), consumerUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ConsumerAPI.GetConsumerPackages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetConsumerPackages`: ExceptionMessage
+	fmt.Fprintf(os.Stdout, "Response from `ConsumerAPI.GetConsumerPackages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**consumerUuid** | **string** | The UUID of the consumer | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetConsumerPackagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ExceptionMessage**](ExceptionMessage.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetContentAccessBody
 
 > string GetContentAccessBody(ctx, consumerUuid).IfModifiedSince(ifModifiedSince).Execute()
@@ -1984,9 +2055,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## RemoveDeletionRecord
+## RemoveDeletionRecords
 
-> RemoveDeletionRecord(ctx, consumerUuid).Execute()
+> RemoveDeletionRecords(ctx, consumerUuid).Execute()
 
 
 
@@ -2009,9 +2080,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ConsumerAPI.RemoveDeletionRecord(context.Background(), consumerUuid).Execute()
+	r, err := apiClient.ConsumerAPI.RemoveDeletionRecords(context.Background(), consumerUuid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConsumerAPI.RemoveDeletionRecord``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConsumerAPI.RemoveDeletionRecords``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2027,7 +2098,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiRemoveDeletionRecordRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiRemoveDeletionRecordsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2054,7 +2125,7 @@ No authorization required
 
 ## SearchConsumers
 
-> []ConsumerDTOArrayElement SearchConsumers(ctx).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).EnvironmentId(environmentId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
+> []ConsumerDTOArrayElement SearchConsumers(ctx).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).CheckedInSince(checkedInSince).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).EnvironmentId(environmentId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 
 
 
@@ -2078,6 +2149,7 @@ func main() {
 	owner := "owner_example" // string | Owner key (optional)
 	uuid := []string{"Inner_example"} // []string | The UUID of consumers (optional)
 	hypervisorId := []string{"Inner_example"} // []string | Hypervisor IDs (optional)
+	checkedInSince := "checkedInSince_example" // string |  (optional)
 	registrationAuthenticationMethod := "registrationAuthenticationMethod_example" // string | Registration Authentication Method (optional)
 	fact := []string{"Inner_example"} // []string | The consumer facts (optional)
 	environmentId := "environmentId_example" // string | Environment identifier (optional)
@@ -2088,7 +2160,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConsumerAPI.SearchConsumers(context.Background()).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).EnvironmentId(environmentId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
+	resp, r, err := apiClient.ConsumerAPI.SearchConsumers(context.Background()).Username(username).Type_(type_).Owner(owner).Uuid(uuid).HypervisorId(hypervisorId).CheckedInSince(checkedInSince).RegistrationAuthenticationMethod(registrationAuthenticationMethod).Fact(fact).EnvironmentId(environmentId).Page(page).PerPage(perPage).Order(order).SortBy(sortBy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConsumerAPI.SearchConsumers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2114,6 +2186,7 @@ Name | Type | Description  | Notes
  **owner** | **string** | Owner key | 
  **uuid** | **[]string** | The UUID of consumers | 
  **hypervisorId** | **[]string** | Hypervisor IDs | 
+ **checkedInSince** | **string** |  | 
  **registrationAuthenticationMethod** | **string** | Registration Authentication Method | 
  **fact** | **[]string** | The consumer facts | 
  **environmentId** | **string** | Environment identifier | 

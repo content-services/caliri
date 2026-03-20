@@ -224,6 +224,20 @@ func Test_caliri_ConsumerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ConsumerAPIService GetConsumerPackages", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var consumerUuid string
+
+		resp, httpRes, err := apiClient.ConsumerAPI.GetConsumerPackages(context.Background(), consumerUuid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ConsumerAPIService GetContentAccessBody", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -391,13 +405,13 @@ func Test_caliri_ConsumerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ConsumerAPIService RemoveDeletionRecord", func(t *testing.T) {
+	t.Run("Test ConsumerAPIService RemoveDeletionRecords", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var consumerUuid string
 
-		httpRes, err := apiClient.ConsumerAPI.RemoveDeletionRecord(context.Background(), consumerUuid).Execute()
+		httpRes, err := apiClient.ConsumerAPI.RemoveDeletionRecords(context.Background(), consumerUuid).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
