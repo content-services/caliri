@@ -81,6 +81,7 @@ docs/EnvironmentContentDTO.md
 docs/EnvironmentDTO.md
 docs/ExceptionMessage.md
 docs/ExportResultDTO.md
+docs/GetConsumer410Response.md
 docs/GuestIdDTO.md
 docs/GuestIdDTOArrayElement.md
 docs/GuestIdsAPI.md
@@ -116,6 +117,7 @@ docs/RolesAPI.md
 docs/RootAPI.md
 docs/RulesAPI.md
 docs/SchedulerStatusDTO.md
+docs/SetConsumerEnvironmentsDTO.md
 docs/StatusAPI.md
 docs/StatusDTO.md
 docs/SubscriptionAPI.md
@@ -167,6 +169,7 @@ model_environment_content_dto.go
 model_environment_dto.go
 model_exception_message.go
 model_export_result_dto.go
+model_get_consumer_410_response.go
 model_guest_id_dto.go
 model_guest_id_dto_array_element.go
 model_hypervisor_consumer_dto.go
@@ -191,6 +194,7 @@ model_queue_status.go
 model_release_ver_dto.go
 model_role_dto.go
 model_scheduler_status_dto.go
+model_set_consumer_environments_dto.go
 model_status_dto.go
 model_subscription_dto.go
 model_system_purpose_attributes_dto.go

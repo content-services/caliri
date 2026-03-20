@@ -422,6 +422,19 @@ func Test_caliri_OwnerAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test OwnerAPIService SetConsumersToEnvironments", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var ownerKey string
+
+		httpRes, err := apiClient.OwnerAPI.SetConsumersToEnvironments(context.Background(), ownerKey).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test OwnerAPIService SetLogLevel", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

@@ -33,6 +33,7 @@ Method | HTTP request | Description
 [**OwnerEntitlements**](OwnerAPI.md#OwnerEntitlements) | **Get** /owners/{owner_key}/entitlements | 
 [**OwnerServiceLevels**](OwnerAPI.md#OwnerServiceLevels) | **Get** /owners/{owner_key}/servicelevels | 
 [**RefreshPools**](OwnerAPI.md#RefreshPools) | **Put** /owners/{owner_key}/subscriptions | 
+[**SetConsumersToEnvironments**](OwnerAPI.md#SetConsumersToEnvironments) | **Put** /owners/{owner_key}/consumers/environments | 
 [**SetLogLevel**](OwnerAPI.md#SetLogLevel) | **Put** /owners/{owner_key}/log | 
 [**UndoImports**](OwnerAPI.md#UndoImports) | **Delete** /owners/{owner_key}/imports | 
 [**UpdateOwner**](OwnerAPI.md#UpdateOwner) | **Put** /owners/{owner_key} | 
@@ -2167,6 +2168,76 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetConsumersToEnvironments
+
+> SetConsumersToEnvironments(ctx, ownerKey).SetConsumerEnvironmentsDTO(setConsumerEnvironmentsDTO).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/content-services/caliri/release/v4"
+)
+
+func main() {
+	ownerKey := "ownerKey_example" // string | The key of the owner
+	setConsumerEnvironmentsDTO := *openapiclient.NewSetConsumerEnvironmentsDTO() // SetConsumerEnvironmentsDTO | Contains a list of consumer UUIDs and a list of environment IDs. The list of consumer UUIDs dictates the consumers that will have their environments set to the list of provided environemnt IDs. Any existing environment for a consumer that differs from the provided environments will be removed. The ordering of the environment IDs dictates the priority of the environments. For example, environment in index 0 will have priority 0 and environment in index 1 will have priority 1. If an empty list of environment IDs is provided, then the consumers will be removed from all of their current environments. 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.OwnerAPI.SetConsumersToEnvironments(context.Background(), ownerKey).SetConsumerEnvironmentsDTO(setConsumerEnvironmentsDTO).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OwnerAPI.SetConsumersToEnvironments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ownerKey** | **string** | The key of the owner | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetConsumersToEnvironmentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **setConsumerEnvironmentsDTO** | [**SetConsumerEnvironmentsDTO**](SetConsumerEnvironmentsDTO.md) | Contains a list of consumer UUIDs and a list of environment IDs. The list of consumer UUIDs dictates the consumers that will have their environments set to the list of provided environemnt IDs. Any existing environment for a consumer that differs from the provided environments will be removed. The ordering of the environment IDs dictates the priority of the environments. For example, environment in index 0 will have priority 0 and environment in index 1 will have priority 1. If an empty list of environment IDs is provided, then the consumers will be removed from all of their current environments.  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

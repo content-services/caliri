@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Href** | Pointer to **string** |  | [optional] 
 **ContentAccessMode** | Pointer to **string** |  | [optional] 
+**Anonymous** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetContentAccessMode sets ContentAccessMode field to given value.
 `func (o *NestedOwnerDTO) HasContentAccessMode() bool`
 
 HasContentAccessMode returns a boolean if a field has been set.
+
+### GetAnonymous
+
+`func (o *NestedOwnerDTO) GetAnonymous() bool`
+
+GetAnonymous returns the Anonymous field if non-nil, zero value otherwise.
+
+### GetAnonymousOk
+
+`func (o *NestedOwnerDTO) GetAnonymousOk() (*bool, bool)`
+
+GetAnonymousOk returns a tuple with the Anonymous field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnonymous
+
+`func (o *NestedOwnerDTO) SetAnonymous(v bool)`
+
+SetAnonymous sets Anonymous field to given value.
+
+### HasAnonymous
+
+`func (o *NestedOwnerDTO) HasAnonymous() bool`
+
+HasAnonymous returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
