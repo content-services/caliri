@@ -285,6 +285,7 @@ Class | Method | HTTP request | Description
  - [ContentDTO](docs/ContentDTO.md)
  - [ContentOverrideDTO](docs/ContentOverrideDTO.md)
  - [ContentToPromoteDTO](docs/ContentToPromoteDTO.md)
+ - [CryptographicCapabilitiesDTO](docs/CryptographicCapabilitiesDTO.md)
  - [DateRange](docs/DateRange.md)
  - [DeleteResult](docs/DeleteResult.md)
  - [DeletedConsumerDTO](docs/DeletedConsumerDTO.md)

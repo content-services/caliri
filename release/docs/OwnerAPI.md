@@ -475,7 +475,7 @@ No authorization required
 
 ## CreateUeberCertificate
 
-> UeberCertificateDTO CreateUeberCertificate(ctx, ownerKey).Execute()
+> UeberCertificateDTO CreateUeberCertificate(ctx, ownerKey).CryptographicCapabilitiesDTO(cryptographicCapabilitiesDTO).Execute()
 
 
 
@@ -495,10 +495,11 @@ import (
 
 func main() {
 	ownerKey := "ownerKey_example" // string | The key of the owner
+	cryptographicCapabilitiesDTO := *openapiclient.NewCryptographicCapabilitiesDTO() // CryptographicCapabilitiesDTO | The cryptographic capabilities of the system to receive and use the ueber certificate. If provided, the certificate will be generated using a cryptographic scheme matching the provided capabilities. If a scheme cannot be selected matching the given capabilities, this endpoint returns a 403 CONFLICT. If omitted, a default cryptographic scheme will be selected automatically.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OwnerAPI.CreateUeberCertificate(context.Background(), ownerKey).Execute()
+	resp, r, err := apiClient.OwnerAPI.CreateUeberCertificate(context.Background(), ownerKey).CryptographicCapabilitiesDTO(cryptographicCapabilitiesDTO).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OwnerAPI.CreateUeberCertificate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -524,6 +525,7 @@ Other parameters are passed through a pointer to a apiCreateUeberCertificateRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **cryptographicCapabilitiesDTO** | [**CryptographicCapabilitiesDTO**](CryptographicCapabilitiesDTO.md) | The cryptographic capabilities of the system to receive and use the ueber certificate. If provided, the certificate will be generated using a cryptographic scheme matching the provided capabilities. If a scheme cannot be selected matching the given capabilities, this endpoint returns a 403 CONFLICT. If omitted, a default cryptographic scheme will be selected automatically.  | 
 
 ### Return type
 
@@ -535,7 +537,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
