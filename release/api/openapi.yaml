@@ -9029,8 +9029,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExceptionMessage"
           description: |
-            An owner could not be found using the provided key
-            or Uber certificate for owner was not found. Please generate one.
+            An owner could not be found using the provided key or Uber certificate for owner was not found.
+            Please generate one.
         default:
           content:
             application/json:
@@ -9045,8 +9045,9 @@ paths:
       - owner
     post:
       description: |
-        Creates an Ueber Entitlement Certificate. If a certificate
-        already exists, it will be regenerated.
+        Generates a new ueber (debug) certificate, granting access to all known content for the specified
+        owner. If the owner has already generated an ueber certificate, the existing one will be revoked and
+        a new certificate will be generated.
       operationId: createUeberCertificate
       parameters:
       - description: The key of the owner
@@ -9057,6 +9058,17 @@ paths:
         schema:
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CryptographicCapabilitiesDTO"
+        description: |
+          The cryptographic capabilities of the system to receive and use the ueber certificate. If provided,
+          the certificate will be generated using a cryptographic scheme matching the provided capabilities.
+          If a scheme cannot be selected matching the given capabilities, this endpoint returns a 403
+          CONFLICT. If omitted, a default cryptographic scheme will be selected automatically.
+        required: false
       responses:
         "200":
           content:
@@ -9073,6 +9085,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExceptionMessage"
           description: Problem generating ueber cert for an owner
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExceptionMessage"
+          description: |
+            Unable to generate an ueber certificate compatible with the provided cryptographic capabilities
         "404":
           content:
             application/json:
@@ -11409,6 +11428,8 @@ components:
             items:
               $ref: "#/components/schemas/EnvironmentDTO"
             type: array
+          cryptographicCapabilities:
+            $ref: "#/components/schemas/CryptographicCapabilitiesDTO"
         type: object
       description: Represents a consumer
       example:
@@ -11572,6 +11593,13 @@ components:
           guestId: guestId
         name: name
         lastCheckin: lastCheckin
+        cryptographicCapabilities:
+          keyAlgorithms:
+          - keyAlgorithms
+          - keyAlgorithms
+          signatureAlgorithms:
+          - signatureAlgorithms
+          - signatureAlgorithms
         updated: 2020-04-23 03:23:50.927000
         username: username
         contentTags:
@@ -12743,6 +12771,25 @@ components:
         label: label
         updated: 2020-04-23 03:23:50.927000
         url: url
+    CryptographicCapabilitiesDTO:
+      description: Describes the cryptographic capabilities of a consumer or receiver
+        of cryptographic assets
+      example:
+        keyAlgorithms:
+        - keyAlgorithms
+        - keyAlgorithms
+        signatureAlgorithms:
+        - signatureAlgorithms
+        - signatureAlgorithms
+      properties:
+        keyAlgorithms:
+          items:
+            type: string
+          type: array
+        signatureAlgorithms:
+          items:
+            type: string
+          type: array
     DeletedConsumerDTO:
       allOf:
       - $ref: "#/components/schemas/TimestampedEntity"

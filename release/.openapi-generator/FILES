@@ -67,6 +67,7 @@ docs/ContentAccessDTO.md
 docs/ContentDTO.md
 docs/ContentOverrideDTO.md
 docs/ContentToPromoteDTO.md
+docs/CryptographicCapabilitiesDTO.md
 docs/DateRange.md
 docs/DeleteResult.md
 docs/DeletedConsumerAPI.md
@@ -159,6 +160,7 @@ model_content_access_dto.go
 model_content_dto.go
 model_content_override_dto.go
 model_content_to_promote_dto.go
+model_cryptographic_capabilities_dto.go
 model_date_range.go
 model_delete_result.go
 model_deleted_consumer_dto.go

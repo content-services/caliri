@@ -928,6 +928,13 @@ type ApiCreateUeberCertificateRequest struct {
 	ctx context.Context
 	ApiService *OwnerAPIService
 	ownerKey string
+	cryptographicCapabilitiesDTO *CryptographicCapabilitiesDTO
+}
+
+// The cryptographic capabilities of the system to receive and use the ueber certificate. If provided, the certificate will be generated using a cryptographic scheme matching the provided capabilities. If a scheme cannot be selected matching the given capabilities, this endpoint returns a 403 CONFLICT. If omitted, a default cryptographic scheme will be selected automatically. 
+func (r ApiCreateUeberCertificateRequest) CryptographicCapabilitiesDTO(cryptographicCapabilitiesDTO CryptographicCapabilitiesDTO) ApiCreateUeberCertificateRequest {
+	r.cryptographicCapabilitiesDTO = &cryptographicCapabilitiesDTO
+	return r
 }
 
 func (r ApiCreateUeberCertificateRequest) Execute() (*UeberCertificateDTO, *http.Response, error) {
@@ -937,8 +944,9 @@ func (r ApiCreateUeberCertificateRequest) Execute() (*UeberCertificateDTO, *http
 /*
 CreateUeberCertificate Method for CreateUeberCertificate
 
-Creates an Ueber Entitlement Certificate. If a certificate
-already exists, it will be regenerated.
+Generates a new ueber (debug) certificate, granting access to all known content for the specified
+owner. If the owner has already generated an ueber certificate, the existing one will be revoked and
+a new certificate will be generated.
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -976,7 +984,7 @@ func (a *OwnerAPIService) CreateUeberCertificateExecute(r ApiCreateUeberCertific
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -992,6 +1000,8 @@ func (a *OwnerAPIService) CreateUeberCertificateExecute(r ApiCreateUeberCertific
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.cryptographicCapabilitiesDTO
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1015,6 +1025,17 @@ func (a *OwnerAPIService) CreateUeberCertificateExecute(r ApiCreateUeberCertific
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
+			var v ExceptionMessage
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ExceptionMessage
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

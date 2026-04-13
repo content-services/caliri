@@ -53,6 +53,7 @@ type ConsumerDTO struct {
 	ActivationKeys []ConsumerActivationKeyDTO `json:"activationKeys,omitempty"`
 	ServiceType *string `json:"serviceType,omitempty"`
 	Environments []EnvironmentDTO `json:"environments,omitempty"`
+	CryptographicCapabilities *CryptographicCapabilitiesDTO `json:"cryptographicCapabilities,omitempty"`
 }
 
 // NewConsumerDTO instantiates a new ConsumerDTO object
@@ -1160,6 +1161,38 @@ func (o *ConsumerDTO) SetEnvironments(v []EnvironmentDTO) {
 	o.Environments = v
 }
 
+// GetCryptographicCapabilities returns the CryptographicCapabilities field value if set, zero value otherwise.
+func (o *ConsumerDTO) GetCryptographicCapabilities() CryptographicCapabilitiesDTO {
+	if o == nil || IsNil(o.CryptographicCapabilities) {
+		var ret CryptographicCapabilitiesDTO
+		return ret
+	}
+	return *o.CryptographicCapabilities
+}
+
+// GetCryptographicCapabilitiesOk returns a tuple with the CryptographicCapabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConsumerDTO) GetCryptographicCapabilitiesOk() (*CryptographicCapabilitiesDTO, bool) {
+	if o == nil || IsNil(o.CryptographicCapabilities) {
+		return nil, false
+	}
+	return o.CryptographicCapabilities, true
+}
+
+// HasCryptographicCapabilities returns a boolean if a field has been set.
+func (o *ConsumerDTO) HasCryptographicCapabilities() bool {
+	if o != nil && !IsNil(o.CryptographicCapabilities) {
+		return true
+	}
+
+	return false
+}
+
+// SetCryptographicCapabilities gets a reference to the given CryptographicCapabilitiesDTO and assigns it to the CryptographicCapabilities field.
+func (o *ConsumerDTO) SetCryptographicCapabilities(v CryptographicCapabilitiesDTO) {
+	o.CryptographicCapabilities = &v
+}
+
 func (o ConsumerDTO) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1271,6 +1304,9 @@ func (o ConsumerDTO) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Environments) {
 		toSerialize["environments"] = o.Environments
+	}
+	if !IsNil(o.CryptographicCapabilities) {
+		toSerialize["cryptographicCapabilities"] = o.CryptographicCapabilities
 	}
 	return toSerialize, nil
 }
