@@ -24,6 +24,7 @@ type CloudRegistrationDTO struct {
 	Type string `json:"type"`
 	Metadata string `json:"metadata"`
 	Signature string `json:"signature"`
+	CryptographicCapabilities *CryptographicCapabilitiesDTO `json:"cryptographicCapabilities,omitempty"`
 }
 
 type _CloudRegistrationDTO CloudRegistrationDTO
@@ -120,6 +121,38 @@ func (o *CloudRegistrationDTO) SetSignature(v string) {
 	o.Signature = v
 }
 
+// GetCryptographicCapabilities returns the CryptographicCapabilities field value if set, zero value otherwise.
+func (o *CloudRegistrationDTO) GetCryptographicCapabilities() CryptographicCapabilitiesDTO {
+	if o == nil || IsNil(o.CryptographicCapabilities) {
+		var ret CryptographicCapabilitiesDTO
+		return ret
+	}
+	return *o.CryptographicCapabilities
+}
+
+// GetCryptographicCapabilitiesOk returns a tuple with the CryptographicCapabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CloudRegistrationDTO) GetCryptographicCapabilitiesOk() (*CryptographicCapabilitiesDTO, bool) {
+	if o == nil || IsNil(o.CryptographicCapabilities) {
+		return nil, false
+	}
+	return o.CryptographicCapabilities, true
+}
+
+// HasCryptographicCapabilities returns a boolean if a field has been set.
+func (o *CloudRegistrationDTO) HasCryptographicCapabilities() bool {
+	if o != nil && !IsNil(o.CryptographicCapabilities) {
+		return true
+	}
+
+	return false
+}
+
+// SetCryptographicCapabilities gets a reference to the given CryptographicCapabilitiesDTO and assigns it to the CryptographicCapabilities field.
+func (o *CloudRegistrationDTO) SetCryptographicCapabilities(v CryptographicCapabilitiesDTO) {
+	o.CryptographicCapabilities = &v
+}
+
 func (o CloudRegistrationDTO) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -133,6 +166,9 @@ func (o CloudRegistrationDTO) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	toSerialize["metadata"] = o.Metadata
 	toSerialize["signature"] = o.Signature
+	if !IsNil(o.CryptographicCapabilities) {
+		toSerialize["cryptographicCapabilities"] = o.CryptographicCapabilities
+	}
 	return toSerialize, nil
 }
 
