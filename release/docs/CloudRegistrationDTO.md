@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** |  | 
 **Metadata** | **string** |  | 
 **Signature** | **string** |  | 
+**CryptographicCapabilities** | Pointer to [**CryptographicCapabilitiesDTO**](CryptographicCapabilitiesDTO.md) |  | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetSignature sets Signature field to given value.
 
+
+### GetCryptographicCapabilities
+
+`func (o *CloudRegistrationDTO) GetCryptographicCapabilities() CryptographicCapabilitiesDTO`
+
+GetCryptographicCapabilities returns the CryptographicCapabilities field if non-nil, zero value otherwise.
+
+### GetCryptographicCapabilitiesOk
+
+`func (o *CloudRegistrationDTO) GetCryptographicCapabilitiesOk() (*CryptographicCapabilitiesDTO, bool)`
+
+GetCryptographicCapabilitiesOk returns a tuple with the CryptographicCapabilities field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCryptographicCapabilities
+
+`func (o *CloudRegistrationDTO) SetCryptographicCapabilities(v CryptographicCapabilitiesDTO)`
+
+SetCryptographicCapabilities sets CryptographicCapabilities field to given value.
+
+### HasCryptographicCapabilities
+
+`func (o *CloudRegistrationDTO) HasCryptographicCapabilities() bool`
+
+HasCryptographicCapabilities returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

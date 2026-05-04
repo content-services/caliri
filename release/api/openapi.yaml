@@ -11307,6 +11307,13 @@ components:
       example:
         metadata: metadata
         signature: signature
+        cryptographicCapabilities:
+          keyAlgorithms:
+          - keyAlgorithms
+          - keyAlgorithms
+          signatureAlgorithms:
+          - signatureAlgorithms
+          - signatureAlgorithms
         type: type
       properties:
         type:
@@ -11317,6 +11324,8 @@ components:
           type: string
         signature:
           type: string
+        cryptographicCapabilities:
+          $ref: "#/components/schemas/CryptographicCapabilitiesDTO"
       required:
       - metadata
       - signature
