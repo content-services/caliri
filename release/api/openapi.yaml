@@ -761,7 +761,7 @@ paths:
       tags:
       - cloud_registration
       x-java-response:
-        type: javax.ws.rs.core.Response
+        type: jakarta.ws.rs.core.Response
         isContainer: false
   /cloud/consumers/anonymous:
     delete:
@@ -1202,7 +1202,7 @@ paths:
       tags:
       - consumer
       x-java-response:
-        type: javax.ws.rs.core.Response
+        type: jakarta.ws.rs.core.Response
         isContainer: false
   /consumers/{consumer_uuid}:
     delete:
@@ -1488,7 +1488,7 @@ paths:
       tags:
       - consumer
       x-java-response:
-        type: javax.ws.rs.core.Response
+        type: jakarta.ws.rs.core.Response
         isContainer: false
   /consumers/{consumer_uuid}/certificates:
     get:
@@ -1567,7 +1567,7 @@ paths:
       tags:
       - consumer
       x-java-response:
-        type: javax.ws.rs.core.Response
+        type: jakarta.ws.rs.core.Response
         isContainer: false
     put:
       description: Regenerates the Entitlement Certificates for a Consumer
@@ -2263,7 +2263,7 @@ paths:
       tags:
       - consumer
       x-java-response:
-        type: javax.ws.rs.core.Response
+        type: jakarta.ws.rs.core.Response
         isContainer: false
   /consumers/{consumer_uuid}/exists:
     head:
@@ -5090,7 +5090,7 @@ paths:
       tags:
       - entitlements
       x-java-response:
-        type: javax.ws.rs.core.Response
+        type: jakarta.ws.rs.core.Response
         isContainer: false
   /hypervisors/{owner}:
     post:
@@ -10522,7 +10522,7 @@ paths:
       tags:
       - subscription
       x-java-response:
-        type: javax.ws.rs.core.Response
+        type: jakarta.ws.rs.core.Response
   /subscriptions/{id}:
     delete:
       description: Removes a Subscription
