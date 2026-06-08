@@ -936,8 +936,8 @@ import (
 )
 
 func main() {
-	consumerUuid := "consumerUuid_example" // string | Consumer UUID
-	onDate := "onDate_example" // string | Date to get compliance information for, default is now. (optional)
+	consumerUuid := "consumerUuid_example" // string | The consumer_uuid path parameter is silently ignored due to the deprecated state of this endpoint. This deprecated path parameter will not affect the response. 
+	onDate := "onDate_example" // string | Date to get compliance information for, default is now. This deprecated query parameter will not affect the response.  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -957,7 +957,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**consumerUuid** | **string** | Consumer UUID | 
+**consumerUuid** | **string** | The consumer_uuid path parameter is silently ignored due to the deprecated state of this endpoint. This deprecated path parameter will not affect the response.  | 
 
 ### Other Parameters
 
@@ -967,7 +967,7 @@ Other parameters are passed through a pointer to a apiGetComplianceStatusRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **onDate** | **string** | Date to get compliance information for, default is now. | 
+ **onDate** | **string** | Date to get compliance information for, default is now. This deprecated query parameter will not affect the response.  | 
 
 ### Return type
 
