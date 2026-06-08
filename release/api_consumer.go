@@ -1904,7 +1904,8 @@ type ApiGetComplianceStatusRequest struct {
 	onDate *string
 }
 
-// Date to get compliance information for, default is now.
+// Date to get compliance information for, default is now. This deprecated query parameter will not affect the response. 
+// Deprecated
 func (r ApiGetComplianceStatusRequest) OnDate(onDate string) ApiGetComplianceStatusRequest {
 	r.onDate = &onDate
 	return r
@@ -1917,11 +1918,15 @@ func (r ApiGetComplianceStatusRequest) Execute() (*ComplianceStatusDTO, *http.Re
 /*
 GetComplianceStatus Method for GetComplianceStatus
 
-Retrieves the Compliance Status of a Consumer.
+Retrieves the Compliance Status of a Consumer. This endpoint is deprecated and returns a static
+response with a disabled status.
+
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param consumerUuid Consumer UUID
+ @param consumerUuid The consumer_uuid path parameter is silently ignored due to the deprecated state of this endpoint. This deprecated path parameter will not affect the response. 
  @return ApiGetComplianceStatusRequest
+
+Deprecated
 */
 func (a *ConsumerAPIService) GetComplianceStatus(ctx context.Context, consumerUuid string) ApiGetComplianceStatusRequest {
 	return ApiGetComplianceStatusRequest{
@@ -1933,6 +1938,7 @@ func (a *ConsumerAPIService) GetComplianceStatus(ctx context.Context, consumerUu
 
 // Execute executes the request
 //  @return ComplianceStatusDTO
+// Deprecated
 func (a *ConsumerAPIService) GetComplianceStatusExecute(r ApiGetComplianceStatusRequest) (*ComplianceStatusDTO, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet

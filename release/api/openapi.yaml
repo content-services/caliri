@@ -1648,10 +1648,16 @@ paths:
       - consumer
   /consumers/{consumer_uuid}/compliance:
     get:
-      description: Retrieves the Compliance Status of a Consumer.
+      deprecated: true
+      description: |
+        Retrieves the Compliance Status of a Consumer. This endpoint is deprecated and returns a static
+        response with a disabled status.
       operationId: getComplianceStatus
       parameters:
-      - description: Consumer UUID
+      - deprecated: true
+        description: |
+          The consumer_uuid path parameter is silently ignored due to the deprecated state of this endpoint.
+          This deprecated path parameter will not affect the response.
         explode: false
         in: path
         name: consumer_uuid
@@ -1659,7 +1665,10 @@ paths:
         schema:
           type: string
         style: simple
-      - description: "Date to get compliance information for, default is now."
+      - deprecated: true
+        description: |
+          Date to get compliance information for, default is now. This deprecated query parameter will not
+          affect the response.
         explode: true
         in: query
         name: on_date
