@@ -27,7 +27,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/content-services/caliri/release/v4"
+	openapiclient "github.com/content-services/caliri/release/v5"
 )
 
 func main() {
@@ -97,7 +97,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/content-services/caliri/release/v4"
+	openapiclient "github.com/content-services/caliri/release/v5"
 )
 
 func main() {
@@ -171,7 +171,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/content-services/caliri/release/v4"
+	openapiclient "github.com/content-services/caliri/release/v5"
 )
 
 func main() {

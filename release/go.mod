@@ -1,4 +1,4 @@
-module github.com/content-services/caliri/release/v4
+module github.com/content-services/caliri/release/v5
 
 go 1.23
 
