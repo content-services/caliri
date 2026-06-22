@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/content-services/caliri/release/v4"
+	openapiclient "github.com/content-services/caliri/release/v5"
 )
 
 func Test_caliri_GuestIdsAPIService(t *testing.T) {
