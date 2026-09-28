@@ -10506,27 +10506,18 @@ paths:
           type: string
         style: form
       responses:
-        "202":
-          description: A Subscription is being activated
-        "400":
+        "501":
           content:
             application/json:
               example:
-                displayMessage: The consumer with the given uuid was not found
+                displayMessage: "Subscription activation through 'subscription-manager\
+                  \ redeem' is no longer supported, please visit https://access.redhat.com/subscriptions/activate/dell\
+                  \ to redeem your service tag."
                 requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
               schema:
                 $ref: "#/components/schemas/ExceptionMessage"
-          description: Invalid request such as missing email/locale or when the consumer
-            with the given uuid was not found
-        default:
-          content:
-            application/json:
-              example:
-                displayMessage: An unexpected exception has occurred
-                requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
-              schema:
-                $ref: "#/components/schemas/ExceptionMessage"
-          description: An unexpected exception has occurred
+          description: Subscription activation through this endpoint is no longer
+            supported
       security: []
       tags:
       - subscription
@@ -11405,8 +11396,6 @@ components:
               $ref: "#/components/schemas/ConsumerInstalledProductDTO"
             type: array
             uniqueItems: true
-          canActivate:
-            type: boolean
           capabilities:
             items:
               $ref: "#/components/schemas/CapabilityDTO"
@@ -11520,7 +11509,6 @@ components:
           status: status
           startDate: startDate
           endDate: endDate
-        canActivate: true
         capabilities:
         - id: id
           name: name
@@ -11674,8 +11662,6 @@ components:
               $ref: "#/components/schemas/ConsumerInstalledProductDTO"
             type: array
             uniqueItems: true
-          canActivate:
-            type: boolean
           capabilities:
             items:
               $ref: "#/components/schemas/CapabilityDTO"
@@ -11754,7 +11740,6 @@ components:
           status: status
           startDate: startDate
           endDate: endDate
-        canActivate: true
         capabilities:
         - id: id
           name: name

@@ -21,7 +21,6 @@ Name | Type | Description | Notes
 **EntitlementCount** | Pointer to **int64** |  | [optional] 
 **LastCheckin** | Pointer to **string** |  | [optional] 
 **InstalledProducts** | Pointer to [**[]ConsumerInstalledProductDTO**](ConsumerInstalledProductDTO.md) |  | [optional] 
-**CanActivate** | Pointer to **bool** |  | [optional] 
 **Capabilities** | Pointer to [**[]CapabilityDTO**](CapabilityDTO.md) |  | [optional] 
 **HypervisorId** | Pointer to [**HypervisorIdDTO**](HypervisorIdDTO.md) |  | [optional] 
 **ContentTags** | Pointer to **[]string** |  | [optional] 
@@ -476,31 +475,6 @@ SetInstalledProducts sets InstalledProducts field to given value.
 `func (o *ConsumerDTOArrayElement) HasInstalledProducts() bool`
 
 HasInstalledProducts returns a boolean if a field has been set.
-
-### GetCanActivate
-
-`func (o *ConsumerDTOArrayElement) GetCanActivate() bool`
-
-GetCanActivate returns the CanActivate field if non-nil, zero value otherwise.
-
-### GetCanActivateOk
-
-`func (o *ConsumerDTOArrayElement) GetCanActivateOk() (*bool, bool)`
-
-GetCanActivateOk returns a tuple with the CanActivate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCanActivate
-
-`func (o *ConsumerDTOArrayElement) SetCanActivate(v bool)`
-
-SetCanActivate sets CanActivate field to given value.
-
-### HasCanActivate
-
-`func (o *ConsumerDTOArrayElement) HasCanActivate() bool`
-
-HasCanActivate returns a boolean if a field has been set.
 
 ### GetCapabilities
 
