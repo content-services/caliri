@@ -36,7 +36,6 @@ type ConsumerDTOArrayElement struct {
 	EntitlementCount *int64 `json:"entitlementCount,omitempty"`
 	LastCheckin *string `json:"lastCheckin,omitempty"`
 	InstalledProducts []ConsumerInstalledProductDTO `json:"installedProducts,omitempty"`
-	CanActivate *bool `json:"canActivate,omitempty"`
 	Capabilities []CapabilityDTO `json:"capabilities,omitempty"`
 	HypervisorId *HypervisorIdDTO `json:"hypervisorId,omitempty"`
 	ContentTags []string `json:"contentTags,omitempty"`
@@ -610,38 +609,6 @@ func (o *ConsumerDTOArrayElement) SetInstalledProducts(v []ConsumerInstalledProd
 	o.InstalledProducts = v
 }
 
-// GetCanActivate returns the CanActivate field value if set, zero value otherwise.
-func (o *ConsumerDTOArrayElement) GetCanActivate() bool {
-	if o == nil || IsNil(o.CanActivate) {
-		var ret bool
-		return ret
-	}
-	return *o.CanActivate
-}
-
-// GetCanActivateOk returns a tuple with the CanActivate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ConsumerDTOArrayElement) GetCanActivateOk() (*bool, bool) {
-	if o == nil || IsNil(o.CanActivate) {
-		return nil, false
-	}
-	return o.CanActivate, true
-}
-
-// HasCanActivate returns a boolean if a field has been set.
-func (o *ConsumerDTOArrayElement) HasCanActivate() bool {
-	if o != nil && !IsNil(o.CanActivate) {
-		return true
-	}
-
-	return false
-}
-
-// SetCanActivate gets a reference to the given bool and assigns it to the CanActivate field.
-func (o *ConsumerDTOArrayElement) SetCanActivate(v bool) {
-	o.CanActivate = &v
-}
-
 // GetCapabilities returns the Capabilities field value if set, zero value otherwise.
 func (o *ConsumerDTOArrayElement) GetCapabilities() []CapabilityDTO {
 	if o == nil || IsNil(o.Capabilities) {
@@ -1022,9 +989,6 @@ func (o ConsumerDTOArrayElement) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.InstalledProducts) {
 		toSerialize["installedProducts"] = o.InstalledProducts
-	}
-	if !IsNil(o.CanActivate) {
-		toSerialize["canActivate"] = o.CanActivate
 	}
 	if !IsNil(o.Capabilities) {
 		toSerialize["capabilities"] = o.Capabilities
