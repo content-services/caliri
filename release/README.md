@@ -84,7 +84,6 @@ Class | Method | HTTP request | Description
 *ActivationKeyAPI* | [**RemoveProductIdFromKey**](docs/ActivationKeyAPI.md#removeproductidfromkey) | **Delete** /activation_keys/{activation_key_id}/product/{product_id} | 
 *ActivationKeyAPI* | [**UpdateActivationKey**](docs/ActivationKeyAPI.md#updateactivationkey) | **Put** /activation_keys/{activation_key_id} | 
 *AdminAPI* | [**GetQueueStats**](docs/AdminAPI.md#getqueuestats) | **Get** /admin/queues | 
-*AdminAPI* | [**Initialize**](docs/AdminAPI.md#initialize) | **Get** /admin/init | 
 *CdnAPI* | [**CreateCdn**](docs/CdnAPI.md#createcdn) | **Post** /cdn | 
 *CdnAPI* | [**DeleteCdn**](docs/CdnAPI.md#deletecdn) | **Delete** /cdn/{label} | 
 *CdnAPI* | [**GetContentDeliveryNetworks**](docs/CdnAPI.md#getcontentdeliverynetworks) | **Get** /cdn | 

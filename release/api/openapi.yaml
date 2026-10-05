@@ -37,32 +37,6 @@ paths:
       x-java-response:
         type: Iterable
         isContainer: true
-  /admin/init:
-    get:
-      deprecated: true
-      description: |
-        Deprecated. Formerly used to finish deployment by creating a default admin user in select
-        environments, but no longer performs any action. Will be removed entirely in a future release.
-      operationId: initialize
-      responses:
-        "200":
-          content:
-            text/plain:
-              schema:
-                type: string
-          description: always returns a 200
-        default:
-          content:
-            application/json:
-              example:
-                displayMessage: An unexpected exception has occurred
-                requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
-              schema:
-                $ref: "#/components/schemas/ExceptionMessage"
-          description: An unexpected exception has occurred
-      security: []
-      tags:
-      - admin
   /admin/queues:
     get:
       description: Basic information on the ActiveMQ queues and how many messages
@@ -2242,14 +2216,14 @@ paths:
                 displayMessage: "Invalid date, must use ISO 8601 format | Cannot bind\
                   \ by multiple parameters | Cannot specify a quantity when auto-binding.\
                   \ | Ignoring request to auto-attach. It is disabled for org because\
-                  \ of the content access mode setting or hypervisor autobind setting."
+                  \ of the content access mode setting or hypervisor auto-attach setting."
                 requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
               schema:
                 $ref: "#/components/schemas/ExceptionMessage"
           description: "Invalid date, must use ISO 8601 format | Cannot bind by multiple\
             \ parameters | Cannot specify a quantity when auto-binding. | Ignoring\
             \ request to auto-attach. It is disabled for org because of the content\
-            \ access mode setting or hypervisor autobind setting."
+            \ access mode setting or hypervisor auto-attach setting."
         "404":
           content:
             application/json:
@@ -3094,11 +3068,11 @@ paths:
           content:
             application/json:
               example:
-                displayMessage: Could not validate export against specifed consumer
+                displayMessage: Could not validate export against specified consumer
                 requestUuid: c4347004-8792-41fe-a4d8-fccaa0d3898a
               schema:
                 $ref: "#/components/schemas/ExceptionMessage"
-          description: Could not validate export against specifed consumer
+          description: Could not validate export against specified consumer
         "404":
           content:
             application/json:
